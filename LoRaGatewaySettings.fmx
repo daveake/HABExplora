@@ -1,0 +1,104 @@
+inherited frmLoRaGatewaySettings: TfrmLoRaGatewaySettings
+  Caption = 'frmSettingsBase1'
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    inherited Panel1: TPanel
+      Size.Height = 237.000000000000000000
+      inherited Rectangle3: TRectangle
+        Size.Height = 229.000000000000000000
+        inherited Memo1: TMemo
+          Lines.Strings = (
+            
+              '"Network Address" is the hostname or IP address of the Raspberry' +
+              ' Pi running the LoRa Gateway program.'#11
+            '"Port" is the TCP/IP port used by the gateway.'#11
+            
+              'To configure the gateway, use a line such as the following in ga' +
+              'teway.txt, ensuring that the port number matches that used here.' +
+              #11
+            'ServerPort=6004')
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Size.Height = 223.000000000000000000
+          Viewport.Width = 675.000000000000000000
+          Viewport.Height = 223.000000000000000000
+        end
+      end
+    end
+    inherited Panel3: TPanel
+      Size.Height = 113.000000000000000000
+      inherited Rectangle1: TRectangle
+        Size.Height = 105.000000000000000000
+      end
+      object Label1: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, FontColor, Other]
+        Position.X = 40.000000000000000000
+        Position.Y = 8.000000000000000000
+        Size.Width = 225.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSLabelStyle'
+        TextSettings.Font.Size = 18.000000000000000000
+        Text = 'Network Address:'
+        TabOrder = 4
+      end
+      object edtHost: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        TabOrder = 0
+        TextSettings.Font.Size = 32.000000000000000000
+        TextSettings.FontColor = claWhite
+        Position.X = 288.000000000000000000
+        Position.Y = 8.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        OnChangeTracking = edtHostChangeTracking
+        Size.Width = 385.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        Version = '1.4.4.2'
+        Lookup.Separator = ';'
+      end
+      object Label3: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, FontColor, Other]
+        Position.X = 144.000000000000000000
+        Position.Y = 56.000000000000000000
+        Size.Width = 121.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSLabelStyle'
+        TextSettings.Font.Size = 18.000000000000000000
+        Text = 'Port:'
+        TabOrder = 5
+      end
+      object edtPort: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        TabOrder = 1
+        TextSettings.Font.Size = 32.000000000000000000
+        TextSettings.FontColor = claWhite
+        Position.X = 288.000000000000000000
+        Position.Y = 56.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        OnChangeTracking = edtHostChangeTracking
+        Size.Width = 113.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        Version = '1.4.4.2'
+        Lookup.Separator = ';'
+      end
+    end
+    inherited Panel2: TPanel
+      Position.Y = 113.000000000000000000
+    end
+  end
+end

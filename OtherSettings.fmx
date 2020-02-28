@@ -1,0 +1,126 @@
+inherited frmOtherSettings: TfrmOtherSettings
+  Caption = 'frmSettingsBase1'
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    inherited Panel1: TPanel
+      Size.Height = 563.000000000000000000
+      inherited Rectangle3: TRectangle
+        Size.Height = 555.000000000000000000
+        inherited Memo1: TMemo
+          Lines.Strings = (
+            
+              '"UDP Tx Port" is the port to transmit local telemetry (from USB ' +
+              'or Bluetooth) on to the local network.'
+            ''
+            
+              '"White List" adds these payload IDs (comma-separated if more tha' +
+              'n one) to the Habitat download, so you can chase payloads that y' +
+              'ou aren'#39't receiving from directly.'
+            ''
+            
+              '"Download From Habitat" enables download of telemetry from Habit' +
+              'at.  Only already-received payloads are downloaded.')
+          StyledSettings = [Family, FontColor]
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Size.Height = 519.000000000000000000
+          Viewport.Width = 484.000000000000000000
+          Viewport.Height = 519.000000000000000000
+        end
+      end
+    end
+    inherited Panel3: TPanel
+      Size.Height = 167.000000000000000000
+      inherited Rectangle1: TRectangle
+        Size.Height = 159.000000000000000000
+      end
+      object ChkEnable: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, Other]
+        HitTest = True
+        Position.X = 148.000000000000000000
+        Position.Y = 108.000000000000000000
+        Size.Width = 265.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'lCARSCheckButton'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        Text = 'Download From Habitat'
+        TabOrder = 4
+        OnClick = ChkEnableClick
+      end
+      object Label2: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, FontColor, Other]
+        Position.X = 50.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 87.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSLabelStyle'
+        TextSettings.Font.Size = 11.899999618530270000
+        Text = 'UDP Tx Port:'
+        TabOrder = 3
+      end
+      object edtUDPTxPort: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        TabOrder = 1
+        KeyboardType = DecimalNumberPad
+        Text = '0'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        Position.X = 146.000000000000000000
+        Position.Y = 12.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        OnChangeTracking = edtUDPTxPortChangeTracking
+        Size.Width = 79.000000000000000000
+        Size.Height = 37.000000000000000000
+        Size.PlatformDefault = False
+        Version = '1.4.4.5'
+        Lookup.Separator = ';'
+      end
+      object edtWhiteList: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        TabOrder = 0
+        Text = '0'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        Position.X = 146.000000000000000000
+        Position.Y = 56.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        OnChangeTracking = edtUDPTxPortChangeTracking
+        Size.Width = 355.000000000000000000
+        Size.Height = 37.000000000000000000
+        Size.PlatformDefault = False
+        Version = '1.4.4.5'
+        Lookup.Separator = ';'
+      end
+      object Label1: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, FontColor, Other]
+        Position.X = 46.000000000000000000
+        Position.Y = 60.000000000000000000
+        Size.Width = 91.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSLabelStyle'
+        TextSettings.Font.Size = 11.899999618530270000
+        Text = 'White List:'
+        TabOrder = 2
+      end
+    end
+    inherited Panel2: TPanel
+      Position.Y = 167.000000000000000000
+    end
+  end
+end

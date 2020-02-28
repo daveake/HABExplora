@@ -1,0 +1,113 @@
+inherited frmSettingsBase: TfrmSettingsBase
+  Caption = 'frmBase1'
+  ClientHeight = 775
+  ClientWidth = 524
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    Size.Width = 524.000000000000000000
+    Size.Height = 775.000000000000000000
+    object Panel1: TPanel
+      Align = Client
+      Size.Width = 524.000000000000000000
+      Size.Height = 430.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'BasePanelStyle'
+      TabOrder = 0
+      object Rectangle3: TRectangle
+        Align = Client
+        Fill.Kind = None
+        Margins.Bottom = 8.000000000000000000
+        Size.Width = 524.000000000000000000
+        Size.Height = 422.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+        object Memo1: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          DataDetectorTypes = []
+          StyledSettings = [Family, Style, FontColor]
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claWhite
+          TextSettings.WordWrap = True
+          Align = Client
+          Margins.Left = 12.000000000000000000
+          Margins.Top = 24.000000000000000000
+          Margins.Right = 12.000000000000000000
+          Margins.Bottom = 12.000000000000000000
+          Size.Width = 500.000000000000000000
+          Size.Height = 386.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSMemoStyle'
+          TabOrder = 0
+          Viewport.Width = 500.000000000000000000
+          Viewport.Height = 386.000000000000000000
+        end
+      end
+    end
+    object Panel3: TPanel
+      Align = Top
+      Size.Width = 524.000000000000000000
+      Size.Height = 300.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'BasePanelStyle'
+      TabOrder = 2
+      object Rectangle1: TRectangle
+        Align = Client
+        Fill.Kind = None
+        Margins.Bottom = 8.000000000000000000
+        Size.Width = 524.000000000000000000
+        Size.Height = 292.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+      end
+    end
+    object Panel2: TPanel
+      Align = Top
+      Position.Y = 300.000000000000000000
+      Size.Width = 524.000000000000000000
+      Size.Height = 45.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'BasePanelStyle'
+      TabOrder = 1
+      object btnApply: TLabel
+        Align = Scale
+        Enabled = False
+        StyledSettings = [Family, Size, Style, Other]
+        HitTest = True
+        Position.X = 144.000000000000000000
+        Position.Y = 2.109375000000000000
+        Size.Width = 113.000000000000000000
+        Size.Height = 36.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'lCARSPushButton'
+        TextSettings.FontColor = claWhite
+        Text = 'Apply'
+        TabOrder = 1
+        OnClick = btnApplyClick
+      end
+      object btnCancel: TLabel
+        Align = Scale
+        Enabled = False
+        StyledSettings = [Family, Size, Style, Other]
+        HitTest = True
+        Position.X = 272.000000000000000000
+        Position.Y = 2.109375000000000000
+        Size.Width = 113.000000000000000000
+        Size.Height = 36.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'lCARSPushButton'
+        TextSettings.FontColor = claWhite
+        Text = 'Cancel'
+        TabOrder = 0
+        OnClick = btnCancelClick
+      end
+    end
+  end
+  object tmrLoadSettings: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = tmrLoadSettingsTimer
+    Left = 144
+    Top = 500
+  end
+end

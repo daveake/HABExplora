@@ -1,0 +1,133 @@
+inherited frmSettings: TfrmSettings
+  Caption = 'frmBase1'
+  ClientHeight = 823
+  StyleBook = frmMain.StyleBook1
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    Size.Height = 823.000000000000000000
+    object pnlTop: TPanel
+      Align = Scale
+      Size.Width = 540.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'BasePanelStyle'
+      TabOrder = 6
+      object btnGPS: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 53.000000000000000000
+        Size.Width = 105.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 0
+        Text = 'GPS'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnGPSClick
+      end
+      object btnOther: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 380.000000000000000000
+        Size.Width = 105.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 1
+        Text = 'Other'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnOtherClick
+      end
+      object btnLoRaSerial: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 162.000000000000000000
+        Size.Width = 105.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 3
+        Text = 'USB'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnLoRaSerialClick
+      end
+      object Circle1: TCircle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Position.X = -3.000000000000000000
+        Position.Y = 15.000000000000000000
+        Size.Width = 49.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object Circle2: TCircle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Position.X = 494.000000000000000000
+        Position.Y = 15.000000953674320000
+        Size.Width = 49.000000000000000000
+        Size.Height = 49.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object Rectangle1: TRectangle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Position.X = 489.000000000000000000
+        Size.Width = 31.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object Rectangle5: TRectangle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Position.X = 21.000000000000000000
+        Size.Width = 28.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object Rectangle2: TRectangle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Size.Width = 27.000000000000000000
+        Size.Height = 43.000003814697270000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object Rectangle3: TRectangle
+        Align = Scale
+        Fill.Color = xFFF1DF6F
+        Position.X = 513.000000000000000000
+        Size.Width = 27.000000000000000000
+        Size.Height = 43.000003814697270000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+      end
+      object btnLoRaBluetooth: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 271.000000000000000000
+        Size.Width = 105.000000000000000000
+        Size.Height = 64.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 2
+        Text = 'BT'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnLoRaBluetoothClick
+      end
+    end
+    object pnlCentre: TPanel
+      Align = Scale
+      Position.Y = 69.877357482910160000
+      Size.Width = 540.000000000000000000
+      Size.Height = 752.152160644531300000
+      Size.PlatformDefault = False
+      StyleLookup = 'BasePanelStyle'
+      TabOrder = 0
+    end
+  end
+end

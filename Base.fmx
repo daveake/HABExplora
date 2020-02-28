@@ -1,0 +1,23 @@
+object frmBase: TfrmBase
+  Left = 0
+  Top = 0
+  BorderStyle = None
+  ClientHeight = 848
+  ClientWidth = 540
+  Fill.Color = claBlack
+  Fill.Kind = Solid
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object pnlMain: TPanel
+    Align = Client
+    Size.Width = 540.000000000000000000
+    Size.Height = 848.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'BasePanelStyle'
+    TabOrder = 0
+    OnResize = pnlMainResize
+  end
+end

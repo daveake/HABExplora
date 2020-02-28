@@ -1,0 +1,18 @@
+inherited frmUplink: TfrmUplink
+  Caption = 'frmBase1'
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    object Label1: TLabel
+      Align = Client
+      StyledSettings = [Family, Style]
+      Size.Width = 700.000000000000000000
+      Size.Height = 424.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 24.000000000000000000
+      TextSettings.FontColor = claYellow
+      TextSettings.HorzAlign = Center
+      Text = 'Uplink - Not Yet Implemented'
+      TabOrder = 0
+    end
+  end
+end

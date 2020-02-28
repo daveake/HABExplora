@@ -1,0 +1,304 @@
+inherited frmSources: TfrmSources
+  Caption = 'frmSource1'
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    object Rectangle2: TRectangle
+      Align = Scale
+      Fill.Color = claBlack
+      Margins.Left = 3.000000000000000000
+      Margins.Top = 3.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Margins.Bottom = 3.000000000000000000
+      Position.Y = 672.000000000000000000
+      Size.Width = 540.000000000000000000
+      Size.Height = 172.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object lblGPS: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 123.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Align = Top
+        StyledSettings = [Style]
+        Margins.Left = 6.000000000000000000
+        Margins.Top = 3.000000000000000000
+        Margins.Right = 6.000000000000000000
+        Margins.Bottom = 3.000000000000000000
+        Position.X = 6.000000000000000000
+        Position.Y = 3.000000000000000000
+        Size.Width = 528.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claYellow
+        Text = 'Phone GPS:'
+        TabOrder = 1
+      end
+      object lblDirection: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Margins.Bottom = 3.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 2
+      end
+    end
+    object Rectangle3: TRectangle
+      Align = Scale
+      Fill.Color = claBlack
+      Margins.Left = 3.000000000000000000
+      Margins.Top = 3.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Margins.Bottom = 3.000000000000000000
+      Position.Y = 482.000000000000000000
+      Size.Width = 540.000000000000000000
+      Size.Height = 185.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object lblHabitat: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 155.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 0
+      end
+      object Label1: TLabel
+        Align = Top
+        StyledSettings = [Style]
+        Margins.Left = 6.000000000000000000
+        Margins.Top = 3.000000000000000000
+        Margins.Right = 6.000000000000000000
+        Margins.Bottom = 3.000000000000000000
+        Position.X = 6.000000000000000000
+        Position.Y = 3.000000000000000000
+        Size.Width = 528.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claYellow
+        Text = 'Habitat Telemetry:'
+        TabOrder = 1
+      end
+    end
+    object Rectangle6: TRectangle
+      Align = Scale
+      Fill.Color = claBlack
+      Margins.Left = 3.000000000000000000
+      Margins.Top = 3.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Margins.Bottom = 3.000000000000000000
+      Position.Y = 2.000000000000000000
+      Size.Width = 540.000000000000000000
+      Size.Height = 234.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object lblSerial: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 153.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 0
+      end
+      object Label11: TLabel
+        Align = Top
+        StyledSettings = [Style]
+        Margins.Left = 6.000000000000000000
+        Margins.Top = 3.000000000000000000
+        Margins.Right = 6.000000000000000000
+        Margins.Bottom = 3.000000000000000000
+        Position.X = 6.000000000000000000
+        Position.Y = 3.000000000000000000
+        Size.Width = 528.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claYellow
+        Text = 'USB LoRa Telemetry:'
+        TabOrder = 1
+      end
+      object lblSerialRSSI: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Margins.Bottom = 3.000000000000000000
+        Position.Y = 215.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 2
+      end
+      object lblPacketInfo: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 183.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 3
+      end
+      object lblFrequencyError: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 199.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 4
+      end
+    end
+    object Rectangle1: TRectangle
+      Align = Scale
+      Fill.Color = claBlack
+      Margins.Left = 3.000000000000000000
+      Margins.Top = 3.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Margins.Bottom = 3.000000000000000000
+      Position.Y = 242.000000000000000000
+      Size.Width = 540.000000000000000000
+      Size.Height = 234.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object lblBluetooth: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 153.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 0
+      end
+      object Label4: TLabel
+        Align = Top
+        StyledSettings = [Style]
+        Margins.Left = 6.000000000000000000
+        Margins.Top = 3.000000000000000000
+        Margins.Right = 6.000000000000000000
+        Margins.Bottom = 3.000000000000000000
+        Position.X = 6.000000000000000000
+        Position.Y = 3.000000000000000000
+        Size.Width = 528.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claYellow
+        Text = 'BT LoRa Telemetry:'
+        TabOrder = 1
+      end
+      object lblBluetoothRSSI: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Margins.Bottom = 3.000000000000000000
+        Position.Y = 215.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 2
+      end
+      object lblBTPacketInfo: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 183.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 3
+      end
+      object lblBTFrequencyError: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 199.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 4
+      end
+    end
+  end
+  object tmrGPS: TTimer
+    Enabled = False
+    OnTimer = tmrGPSTimer
+    Left = 126
+    Top = 78
+  end
+  object LocationSensor: TLocationSensor
+    Optimize = False
+    Left = 90
+    Top = 122
+  end
+  object UDPClient: TIdUDPClient
+    Port = 0
+    Left = 358
+    Top = 70
+  end
+  object MotionSensor1: TMotionSensor
+    Left = 136
+    Top = 127
+  end
+  object OrientationSensor1: TOrientationSensor
+    OnSensorChoosing = OrientationSensor1SensorChoosing
+    Left = 206
+    Top = 122
+  end
+end

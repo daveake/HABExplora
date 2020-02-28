@@ -1,0 +1,145 @@
+inherited frmNavigate: TfrmNavigate
+  Caption = ''
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    object Button1: TButton
+      Tag = 1
+      Align = Scale
+      CanFocus = False
+      StyledSettings = [Family, Style, Other]
+      Margins.Right = 4.000000000000000000
+      Position.X = 520.000000000000000000
+      Position.Y = 48.000000000000000000
+      Size.Width = 146.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSTabButtonStyle'
+      TabOrder = 11
+      Text = 'Navigate'
+      TextSettings.Font.Size = 32.000000000000000000
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Tag = 1
+      Align = Scale
+      CanFocus = False
+      StyledSettings = [Family, Style, Other]
+      Margins.Right = 4.000000000000000000
+      Position.X = 520.000000000000000000
+      Position.Y = 184.000000000000000000
+      Size.Width = 146.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSTabButtonStyle'
+      TabOrder = 10
+      Text = 'Show Route'
+      TextSettings.Font.Size = 32.000000000000000000
+      OnClick = Button2Click
+    end
+    object Button3: TButton
+      Tag = 1
+      Align = Scale
+      CanFocus = False
+      StyledSettings = [Family, Style, Other]
+      Margins.Right = 4.000000000000000000
+      Position.X = 520.000000000000000000
+      Position.Y = 320.000000000000000000
+      Size.Width = 146.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSTabButtonStyle'
+      TabOrder = 9
+      Text = 'Off Road'
+      TextSettings.Font.Size = 32.000000000000000000
+      OnClick = Button3Click
+    end
+    object chkPayload1: TLabel
+      Tag = 1
+      Align = Scale
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 32.000000000000000000
+      Position.Y = 56.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 4
+      OnClick = chkPayload1Click
+    end
+    object chkPayload2: TLabel
+      Tag = 2
+      Align = Scale
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 32.000000000000000000
+      Position.Y = 184.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 3
+      OnClick = chkPayload1Click
+    end
+    object chkPayload3: TLabel
+      Tag = 3
+      Align = Scale
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 32.000000000000000000
+      Position.Y = 312.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 2
+      OnClick = chkPayload1Click
+    end
+    object chkPrediction: TLabel
+      Align = Scale
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 264.000000000000000000
+      Position.Y = 256.000000000000000000
+      Size.Width = 193.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      Text = 'Use Prediction'
+      TabOrder = 1
+      OnClick = chkCurrentClick
+    end
+    object chkCurrent: TLabel
+      Align = Scale
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 264.000000000000000000
+      Position.Y = 120.000000000000000000
+      Size.Width = 193.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      Text = 'Current Position'
+      TabOrder = 12
+      OnClick = chkCurrentClick
+    end
+  end
+  object tmrInit: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = tmrInitTimer
+    Left = 152
+    Top = 384
+  end
+end

@@ -1,0 +1,133 @@
+inherited frmDirection: TfrmDirection
+  Caption = ''
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    object lblPosition: TLabel
+      Align = Scale
+      StyledSettings = [Family, Style, FontColor, Other]
+      Position.X = 2.000000000000000000
+      Position.Y = 550.000000000000000000
+      Size.Width = 534.000000000000000000
+      Size.Height = 83.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'YellowLabelRectangleStyle'
+      TextSettings.Font.Size = 24.000000000000000000
+      TextSettings.HorzAlign = Center
+      TabOrder = 0
+    end
+    object btnNavigate: TButton
+      Align = Scale
+      Position.Y = 768.000000000000000000
+      Size.Width = 176.000000000000000000
+      Size.Height = 77.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSButtonStyle'
+      TabOrder = 3
+      Text = 'Navigation'
+      OnClick = btnNavigateClick
+    end
+    object btnRoute: TButton
+      Align = Scale
+      Position.X = 364.000000000000000000
+      Position.Y = 768.000000000000000000
+      Size.Width = 176.000000000000000000
+      Size.Height = 77.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSButtonStyle'
+      TabOrder = 1
+      Text = 'Show Route'
+      OnClick = btnRouteClick
+    end
+    object crcCompass: TCircle
+      Align = Scale
+      Fill.Kind = None
+      Position.X = 3.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 535.000000000000000000
+      Size.Height = 513.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFFF1DF6F
+      Stroke.Thickness = 40.000000000000000000
+      object crcDot: TCircle
+        Align = Scale
+        Fill.Color = claRed
+        Position.X = 247.900970458984400000
+        Position.Y = 2.000000000000000000
+        Size.Width = 45.554443359375000000
+        Size.Height = 43.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 2.000000000000000000
+      end
+      object Label1: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Margins.Top = 64.000000000000000000
+        Size.Width = 535.000000000000000000
+        Size.Height = 449.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Swiss911 UCm BT'
+        TextSettings.Font.Size = 36.000000000000000000
+        TextSettings.FontColor = xFFF1DF6F
+        TextSettings.HorzAlign = Center
+        TextSettings.VertAlign = Leading
+        Text = 'Distance'
+        TabOrder = 1
+      end
+      object lblDistance: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 535.000000000000000000
+        Size.Height = 513.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Swiss911 XCm BT'
+        TextSettings.Font.Size = 128.000000000000000000
+        TextSettings.FontColor = claYellow
+        TextSettings.HorzAlign = Center
+        Text = '-'
+        TabOrder = 2
+      end
+      object lblRelativeAltitude: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Margins.Bottom = 64.000000000000000000
+        Size.Width = 535.000000000000000000
+        Size.Height = 449.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Swiss911 UCm BT'
+        TextSettings.Font.Size = 24.000000000000000000
+        TextSettings.FontColor = claYellow
+        TextSettings.HorzAlign = Center
+        TextSettings.VertAlign = Trailing
+        Text = '-'
+        TabOrder = 3
+      end
+    end
+    object btnOffRoad: TButton
+      Align = Scale
+      Position.X = 180.000000000000000000
+      Position.Y = 768.000000000000000000
+      Size.Width = 180.000000000000000000
+      Size.Height = 77.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSButtonStyle'
+      TabOrder = 2
+      Text = 'Off Road'
+      OnClick = btnOffRoadClick
+    end
+    object chkUsePrediction: TLabel
+      Align = Scale
+      StyledSettings = [Family, Size, Style, Other]
+      HitTest = True
+      Position.X = 2.000000000000000000
+      Position.Y = 652.000000000000000000
+      Size.Width = 534.000000000000000000
+      Size.Height = 95.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.FontColor = claWhite
+      Text = 'Use Prediction for Navigation'
+      TabOrder = 4
+      OnClick = chkUsePredictionClick
+    end
+  end
+end
