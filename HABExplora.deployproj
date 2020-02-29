@@ -5,21 +5,12 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">ZY224D6SF4</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'">ZY224D6SF4</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSDevice32'"/>
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
-        <DeployFile Include="AndroidManifest.template.xml" Condition="'$(Config)'=='Release'">
-            <RemoteDir>HABExplora.app\StartUp\Documents\</RemoteDir>
-            <RemoteName>AndroidManifest.template.xml</RemoteName>
-            <DeployClass>ProjectFile</DeployClass>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="AndroidManifest.template.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>HABExplora.app\StartUp\Documents\</RemoteDir>
             <RemoteName>AndroidManifest.template.xml</RemoteName>
@@ -1489,6 +1480,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="AndroidManifest.template.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>HABExplora.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>AndroidManifest.template.xml</RemoteName>
+            <DeployClass>ProjectFile</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Win64'"/>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice32'">
@@ -1537,20 +1537,20 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_76x76.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>HABExplora.app\</RemoteDir>
-            <RemoteName>FM_ApplicationIcon_76x76.png</RemoteName>
-            <DeployClass>iPad_AppIcon76</DeployClass>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_750x1334.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>HABExplora.app\</RemoteDir>
             <RemoteName>Default-750w-1334h@2x.png</RemoteName>
             <DeployClass>iPhone_Launch750</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_76x76.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>HABExplora.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_76x76.png</RemoteName>
+            <DeployClass>iPad_AppIcon76</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -2034,6 +2034,15 @@
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
+        <DeployFile Include="Images\balloon-invisible.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>HABExplora\assets\internal\</RemoteDir>
+            <RemoteName>balloon-invisible.png</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Images\car-red-w.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>HABExplora\assets\internal\</RemoteDir>
             <RemoteName>car-red-w.png</RemoteName>
@@ -2957,15 +2966,6 @@
         <DeployFile Include="Images\target.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>HABExplora\assets\internal\</RemoteDir>
             <RemoteName>target.png</RemoteName>
-            <DeployClass>File</DeployClass>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="Images\balloon-invisible.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>HABExplora\assets\internal\</RemoteDir>
-            <RemoteName>balloon-invisible.png</RemoteName>
             <DeployClass>File</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>

@@ -13,6 +13,7 @@ object frmMain: TfrmMain
   FormFactor.Devices = [Desktop]
   OnActivate = FormActivate
   OnCreate = FormCreate
+  OnResize = FormResize
   DesignerMasterStyle = 0
   object StyleBook1: TStyleBook
     Styles = <
@@ -771,276 +772,315 @@ object frmMain: TfrmMain
     Align = Client
     Fill.Color = claBlack
     Size.Width = 540.000000000000000000
-    Size.Height = 960.000000000000000000
+    Size.Height = 834.000000000000000000
     Size.PlatformDefault = False
-    object btnDirection: TButton
-      Align = Scale
-      StyledSettings = [Family, Other]
-      Position.X = 161.000000000000000000
-      Size.Width = 104.000000000000000000
-      Size.Height = 66.206893920898440000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSButtonStyle'
-      TabOrder = 0
-      Text = 'Direction'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnDirectionClick
-    end
-    object btnGPS: TButton
-      Tag = 2
-      Align = Scale
-      StyledSettings = [Family]
-      Opacity = 0.699999988079071000
-      Position.X = 289.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 76.000000000000000000
-      Size.Height = 66.206909179687500000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSSmallButtonStyle'
-      TabOrder = 1
-      Text = 'GPS'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnSourcesClick
-      object crcGPS: TCircle
-        Align = Scale
-        Position.X = 60.000000000000000000
-        Position.Y = 1.034482955932617000
-        Size.Width = 15.000000000000000000
-        Size.Height = 15.517244338989260000
-        Size.PlatformDefault = False
-      end
-    end
-    object btnHabHub: TButton
-      Tag = 2
-      Align = Scale
-      StyledSettings = [Family]
-      Opacity = 0.699999988079071000
-      Position.X = 210.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 76.000000000000000000
-      Size.Height = 66.206909179687500000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSSmallButtonStyle'
-      TabOrder = 2
-      Text = 'Habitat'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnSourcesClick
-    end
-    object btnLoRaBluetooth: TButton
-      Tag = 2
-      Align = Scale
-      StyledSettings = [Family]
-      Opacity = 0.699999988079071000
-      Position.X = 131.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 76.000000000000000000
-      Size.Height = 66.206909179687500000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSSmallButtonStyle'
-      TabOrder = 3
-      Text = 'BT'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnSourcesClick
-      object crcLoRaBluetooth: TCircle
-        Align = Scale
-        Position.X = 60.000000000000000000
-        Position.Y = 1.034482955932617000
-        Size.Width = 15.000000000000000000
-        Size.Height = 15.517244338989260000
-        Size.PlatformDefault = False
-      end
-    end
-    object btnLoRaSerial: TButton
-      Tag = 2
-      Align = Scale
-      StyledSettings = [Family]
-      Opacity = 0.699999988079071000
-      Position.X = 52.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 76.000000000000000000
-      Size.Height = 66.206909179687500000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSSmallButtonStyle'
-      TabOrder = 4
-      Text = 'USB'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnSourcesClick
-      object crcLoRaSerial: TCircle
-        Align = Scale
-        Position.X = 60.000000000000000000
-        Position.Y = 1.034482955932617000
-        Size.Width = 15.000000000000000000
-        Size.Height = 15.517244338989260000
-        Size.PlatformDefault = False
-      end
-    end
-    object btnMap: TButton
-      Align = Scale
-      StyledSettings = [Family, Other]
-      Position.X = 269.000000000000000000
-      Size.Width = 104.000000000000000000
-      Size.Height = 66.206893920898440000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSButtonStyle'
-      TabOrder = 5
-      Text = 'Map'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnMapClick
-    end
-    object btnPayloads: TButton
-      Align = Scale
-      StyledSettings = [Family, Other]
-      Position.X = 53.000000000000000000
-      Size.Width = 104.000000000000000000
-      Size.Height = 66.206893920898440000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSButtonStyle'
-      TabOrder = 6
-      Text = 'Payloads'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnPayloadsClick
-    end
-    object btnSettings: TButton
-      Align = Scale
-      StyledSettings = [Family, Other]
-      Position.X = 377.000000000000000000
-      Size.Width = 104.000000000000000000
-      Size.Height = 66.206893920898440000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSButtonStyle'
-      TabOrder = 7
-      Text = 'Settings'
-      TextSettings.Font.Size = 24.000000000000000000
-      OnClick = btnSettingsClick
-    end
-    object btnTablet: TButton
-      Tag = 2
-      Align = Scale
-      StyledSettings = [Family]
-      Opacity = 0.699999988079071000
-      Position.X = 314.000000000000000000
-      Position.Y = 878.000000000000000000
-      Size.Width = 52.000000000000000000
-      Size.Height = 50.000000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'LCARSSmallButtonStyle'
-      TabOrder = 8
-      Text = 'TAB'
-      TextSettings.Font.Size = 24.000000000000000000
-      Visible = False
-      OnClick = btnSourcesClick
-    end
-    object Circle1: TCircle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Size.Width = 49.000000000000000000
-      Size.Height = 50.689655303955080000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-      OnClick = Circle1Click
-    end
-    object Circle2: TCircle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = 491.000000000000000000
-      Size.Width = 49.000000000000000000
-      Size.Height = 50.689655303955080000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-    end
-    object Circle3: TCircle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = 491.000000000000000000
-      Position.Y = 909.310302734375000000
-      Size.Width = 49.000000000000000000
-      Size.Height = 50.689697265625000000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-    end
-    object Circle4: TCircle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.Y = 910.169494628906300000
-      Size.Width = 49.000000000000000000
-      Size.Height = 50.689697265625000000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-      OnClick = Circle1Click
-    end
     object pnlCentre: TRectangle
-      Align = Scale
+      Align = Client
       Fill.Color = claBlack
-      Position.Y = 70.169494628906250000
+      Margins.Top = 2.000000000000000000
+      Margins.Bottom = 2.000000000000000000
       Size.Width = 540.000000000000000000
-      Size.Height = 819.661010742187500000
+      Size.Height = 830.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claWhite
       OnResize = pnlCentreResize
     end
-    object Rectangle1: TRectangle
-      Align = Scale
+  end
+  object rectTopBar: TRectangle
+    Align = Top
+    Fill.Color = xFFF1DF6F
+    Margins.Left = 33.000000000000000000
+    Margins.Right = 33.000000000000000000
+    Position.X = 33.000000000000000000
+    Size.Width = 474.000000000000000000
+    Size.Height = 66.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Thickness = 0.000000000000000000
+    OnResize = rectTopBarResize
+    object crcTopRight: TCircle
+      Align = Right
       Fill.Color = xFFF1DF6F
-      Position.X = 485.000000000000000000
-      Size.Width = 31.000000000000000000
-      Size.Height = 65.172409057617190000
+      Margins.Right = -33.000000000000000000
+      Position.X = 441.000000000000000000
+      Size.Width = 66.000000000000000000
+      Size.Height = 66.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Stroke.Thickness = 0.000000000000000000
+      object rctTopRight: TRectangle
+        Align = Client
+        Fill.Color = xFFF1DF6F
+        Margins.Top = 33.000000000000000000
+        Size.Width = 66.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Stroke.Thickness = 0.000000000000000000
+      end
+    end
+    object crcTopLeft: TCircle
+      Align = Left
+      Fill.Color = xFFF1DF6F
+      Margins.Left = -33.000000000000000000
+      Position.X = -33.000000000000000000
+      Size.Width = 66.000000000000000000
+      Size.Height = 66.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Stroke.Thickness = 0.000000000000000000
+      object rectTopLeft: TRectangle
+        Align = Client
+        Fill.Color = xFFF1DF6F
+        Margins.Top = 33.000000000000000000
+        Size.Width = 66.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Stroke.Thickness = 0.000000000000000000
+      end
+    end
+    object recButtons: TRectangle
+      Align = Client
+      Fill.Color = claBlack
+      Margins.Left = -10.000000000000000000
+      Margins.Right = -10.000000000000000000
+      Size.Width = 428.000000000000000000
+      Size.Height = 66.000000000000000000
       Size.PlatformDefault = False
       Stroke.Thickness = 0.000000000000000000
+      object btnDirection: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 110.000000000000000000
+        Size.Width = 102.000000000000000000
+        Size.Height = 66.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 0
+        Text = 'Direction'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnDirectionClick
+      end
+      object btnMap: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 216.000000000000000000
+        Size.Width = 102.000000000000000000
+        Size.Height = 66.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 1
+        Text = 'Map'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnMapClick
+      end
+      object btnPayloads: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 4.000000000000000000
+        Size.Width = 102.000000000000000000
+        Size.Height = 66.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 2
+        Text = 'Payloads'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnPayloadsClick
+      end
+      object btnSettings: TButton
+        Align = Scale
+        StyledSettings = [Family, Other]
+        Position.X = 322.000000000000000000
+        Size.Width = 101.762237548828100000
+        Size.Height = 66.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSButtonStyle'
+        TabOrder = 3
+        Text = 'Settings'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSettingsClick
+      end
     end
-    object Rectangle2: TRectangle
-      Align = Scale
+  end
+  object rectBottomBar: TRectangle
+    Align = Bottom
+    Fill.Color = xFFF1DF6F
+    Margins.Left = 30.000000000000000000
+    Margins.Right = 30.000000000000000000
+    Position.X = 30.000000000000000000
+    Position.Y = 900.000000000000000000
+    Size.Width = 480.000000000000000000
+    Size.Height = 60.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Thickness = 0.000000000000000000
+    OnClick = btnSourcesClick
+    OnResize = rectBottomBarResize
+    object crcBottomRight: TCircle
+      Align = Right
       Fill.Color = xFFF1DF6F
-      Position.X = 30.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 19.000000000000000000
-      Size.Height = 66.206909179687500000
+      Margins.Right = -30.000000000000000000
+      Position.X = 450.000000000000000000
+      Size.Width = 60.000000000000000000
+      Size.Height = 60.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Stroke.Thickness = 0.000000000000000000
+      object rectBottomRight: TRectangle
+        Align = Client
+        Fill.Color = xFFF1DF6F
+        Margins.Bottom = 30.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Stroke.Thickness = 0.000000000000000000
+      end
+    end
+    object crcBottomLeft: TCircle
+      Align = Left
+      Fill.Color = xFFF1DF6F
+      Margins.Left = -30.000000000000000000
+      Position.X = -30.000000000000000000
+      Size.Width = 60.000000000000000000
+      Size.Height = 60.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Stroke.Thickness = 0.000000000000000000
+      object rectBottomLeft: TRectangle
+        Align = Client
+        Fill.Color = xFFF1DF6F
+        Margins.Bottom = 30.000000000000000000
+        Size.Width = 60.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Stroke.Thickness = 0.000000000000000000
+      end
+    end
+    object rectSources: TRectangle
+      Align = Client
+      Fill.Color = claBlack
+      Margins.Left = -30.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 60.000000000000000000
       Size.PlatformDefault = False
       Stroke.Thickness = 0.000000000000000000
-      OnClick = Circle1Click
+      object btnGPS: TButton
+        Tag = 2
+        Align = Scale
+        StyledSettings = [Family]
+        Opacity = 0.699999988079071000
+        Position.X = 288.000000000000000000
+        Size.Width = 69.230773925781250000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSSmallButtonStyle'
+        TabOrder = 0
+        Text = 'GPS'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSourcesClick
+        object crcGPS: TCircle
+          Align = Scale
+          Position.X = 55.384620666503910000
+          Position.Y = 0.898707389831543000
+          Size.Width = 13.846153259277340000
+          Size.Height = 13.480610847473140000
+          Size.PlatformDefault = False
+        end
+      end
+      object btnHabHub: TButton
+        Tag = 2
+        Align = Scale
+        StyledSettings = [Family]
+        Opacity = 0.699999988079071000
+        Position.X = 144.000000000000000000
+        Size.Width = 69.230773925781250000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSSmallButtonStyle'
+        TabOrder = 1
+        Text = 'Habitat'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSourcesClick
+      end
+      object btnLoRaBluetooth: TButton
+        Tag = 2
+        Align = Scale
+        StyledSettings = [Family]
+        Opacity = 0.699999988079071000
+        Position.X = 72.923080444335940000
+        Size.Width = 69.230758666992190000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSSmallButtonStyle'
+        TabOrder = 2
+        Text = 'BT'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSourcesClick
+        object crcLoRaBluetooth: TCircle
+          Align = Scale
+          Position.X = 55.384609222412110000
+          Position.Y = 0.898707389831543000
+          Size.Width = 13.846149444580080000
+          Size.Height = 13.480610847473140000
+          Size.PlatformDefault = False
+        end
+      end
+      object btnLoRaSerial: TButton
+        Tag = 2
+        Align = Scale
+        StyledSettings = [Family]
+        Opacity = 0.699999988079071000
+        Position.X = 1.846153855323792000
+        Size.Width = 69.230766296386720000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSSmallButtonStyle'
+        TabOrder = 3
+        Text = 'USB'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSourcesClick
+        object crcLoRaSerial: TCircle
+          Align = Scale
+          Position.X = 55.384613037109380000
+          Position.Y = 0.898707389831543000
+          Size.Width = 13.846153259277340000
+          Size.Height = 13.480610847473140000
+          Size.PlatformDefault = False
+        end
+      end
+      object btnUDP: TButton
+        Tag = 2
+        Align = Scale
+        StyledSettings = [Family]
+        Opacity = 0.699999988079071000
+        Position.X = 216.000000000000000000
+        Size.Width = 69.230773925781250000
+        Size.Height = 60.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSSmallButtonStyle'
+        TabOrder = 4
+        Text = 'UDP'
+        TextSettings.Font.Size = 24.000000000000000000
+        OnClick = btnSourcesClick
+      end
     end
-    object Rectangle3: TRectangle
-      Align = Scale
+    object rectStatus: TRectangle
+      Align = Right
       Fill.Color = xFFF1DF6F
-      Position.X = 485.000000000000000000
-      Position.Y = 24.827585220336910000
-      Size.Width = 55.000000000000000000
-      Size.Height = 41.379310607910160000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-    end
-    object Rectangle4: TRectangle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.Y = 24.827585220336910000
-      Size.Width = 27.000000000000000000
-      Size.Height = 41.379310607910160000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-    end
-    object Rectangle5: TRectangle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = 23.000000000000000000
-      Size.Width = 26.000000000000000000
-      Size.Height = 66.206893920898440000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-      OnClick = Circle1Click
-    end
-    object Rectangle6: TRectangle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = 368.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 153.000000000000000000
-      Size.Height = 66.206909179687500000
+      Margins.Right = -30.000000000000000000
+      Position.X = 360.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 60.000000000000000000
       Size.PlatformDefault = False
       Stroke.Thickness = 0.000000000000000000
       object lblGPS: TLabel
         Align = Client
         StyledSettings = []
-        Size.Width = 153.000000000000000000
-        Size.Height = 66.206909179687500000
+        Size.Width = 120.000000000000000000
+        Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Family = 'Swiss911 UCm BT'
         TextSettings.Font.Size = 24.000000000000000000
@@ -1049,36 +1089,6 @@ object frmMain: TfrmMain
         Text = 'Loading ...'
         TabOrder = 0
       end
-    end
-    object Rectangle7: TRectangle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = -2.000000000000000000
-      Position.Y = 893.898315429687500000
-      Size.Width = 46.000000000000000000
-      Size.Height = 40.677978515625000000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
-      object lblDebug: TLabel
-        Align = Client
-        StyledSettings = [Family, Style, FontColor]
-        Size.Width = 46.000000000000000000
-        Size.Height = 40.677978515625000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Size = 18.000000000000000000
-        TextSettings.HorzAlign = Center
-        TabOrder = 0
-      end
-    end
-    object Rectangle8: TRectangle
-      Align = Scale
-      Fill.Color = xFFF1DF6F
-      Position.X = 501.000000000000000000
-      Position.Y = 893.793090820312500000
-      Size.Width = 39.000000000000000000
-      Size.Height = 41.379333496093750000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 0.000000000000000000
     end
   end
 end

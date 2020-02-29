@@ -36,36 +36,36 @@ type
   TfrmMain = class(TForm)
     pnlCentre: TRectangle;
     StyleBook1: TStyleBook;
-    btnDirection: TButton;
-    btnSettings: TButton;
-    Rectangle1: TRectangle;
-    Rectangle5: TRectangle;
-    Circle1: TCircle;
-    Rectangle2: TRectangle;
-    Circle4: TCircle;
-    Rectangle6: TRectangle;
+    rectStatus: TRectangle;
     lblGPS: TLabel;
-    Circle3: TCircle;
-    Circle2: TCircle;
-    btnTablet: TButton;
     btnLoRaSerial: TButton;
     btnHabHub: TButton;
     btnGPS: TButton;
     tmrUpdates: TTimer;
     tmrResize: TTimer;
-    btnMap: TButton;
-    btnPayloads: TButton;
-    Rectangle3: TRectangle;
-    Rectangle4: TRectangle;
-    Rectangle7: TRectangle;
-    Rectangle8: TRectangle;
     crcLoRaSerial: TCircle;
     crcGPS: TCircle;
     btnLoRaBluetooth: TButton;
     crcLoRaBluetooth: TCircle;
     tmrLoad: TTimer;
     rectMain: TRectangle;
-    lblDebug: TLabel;
+    btnSettings: TButton;
+    btnMap: TButton;
+    btnDirection: TButton;
+    btnPayloads: TButton;
+    rectTopBar: TRectangle;
+    crcTopRight: TCircle;
+    rctTopRight: TRectangle;
+    crcTopLeft: TCircle;
+    rectTopLeft: TRectangle;
+    recButtons: TRectangle;
+    rectBottomBar: TRectangle;
+    crcBottomRight: TCircle;
+    rectBottomRight: TRectangle;
+    crcBottomLeft: TCircle;
+    rectBottomLeft: TRectangle;
+    rectSources: TRectangle;
+    btnUDP: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure btnMapClick(Sender: TObject);
@@ -78,6 +78,9 @@ type
     procedure Circle1Click(Sender: TObject);
     procedure tmrLoadTimer(Sender: TObject);
     procedure pnlCentreResize(Sender: TObject);
+    procedure rectTopBarResize(Sender: TObject);
+    procedure rectBottomBarResize(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
     DesignHeight: Single;
@@ -228,6 +231,15 @@ begin
 
     Sources[HABITAT_SOURCE].Button := btnHabHub;
     Sources[HABITAT_SOURCE].Circle := nil;
+
+    Sources[UDP_SOURCE].Button := btnUDP;
+    Sources[UDP_SOURCE].Circle := nil;
+end;
+
+procedure TfrmMain.FormResize(Sender: TObject);
+begin
+    rectTopBar.Height := frmMain.Height / 15;
+    rectBottomBar.Height := frmMain.Height / 15;
 end;
 
 function TfrmMain.LoadForm(Button: TButton; NewForm: TfrmBase): Boolean;
@@ -293,6 +305,40 @@ begin
     tmrResize.Enabled := True;
 end;
 
+procedure TfrmMain.rectBottomBarResize(Sender: TObject);
+begin
+    rectBottomBar.Margins.Left := rectBottomBar.Height / 2;
+    rectBottomBar.Margins.Right := rectBottomBar.Height / 2;
+
+    crcBottomLeft.Width := crcBottomLeft.Height;
+    crcBottomLeft.Margins.Left := -crcBottomLeft.Height/2;
+    crcBottomRight.Width := crcBottomRight.Height;
+    crcBottomRight.Margins.Right := -crcBottomRight.Height/2;
+
+    rectBottomLeft.Margins.Bottom := crcBottomLeft.Height / 2;
+    rectBottomRight.Margins.Bottom := crcTopLeft.Height / 2;
+
+    rectStatus.Width := rectBottomBar.Width / 4;
+    rectStatus.Margins.Right := - rectStatus.Height / 2;
+end;
+
+procedure TfrmMain.rectTopBarResize(Sender: TObject);
+begin
+    rectTopBar.Margins.Left := rectTopBar.Height / 2;
+    rectTopBar.Margins.Right := rectTopBar.Height / 2;
+
+    crcTopLeft.Width := crcTopLeft.Height;
+    crcTopLeft.Margins.Left := -crcTopLeft.Height/2;
+    crcTopRight.Width := crcTopRight.Height;
+    crcTopRight.Margins.Right := -crcTopRight.Height/2;
+
+    rectTopLeft.Margins.Top := crcTopRight.Height / 2;
+    rctTopRight.Margins.Top := crcTopRight.Height / 2;
+
+    recButtons.Margins.Left := -crcTopRight.Height / 6;
+    recButtons.Margins.Right := recButtons.Margins.Left;
+end;
+
 procedure TfrmMain.UploadStatus(SourceID: Integer; Active, OK: Boolean);
 begin
     // Show status on screen
@@ -334,7 +380,7 @@ begin
                 try
                     frmPayloads.NewPosition(Index, Position);
                 except
-                    lblDebug.Text := 'P';
+                    //
                 end;
             end;
         end;
@@ -344,7 +390,7 @@ begin
             try
                 frmDirection.NewPosition(Index, Position);
             except
-                lblDebug.Text := 'D';
+                //
             end;
         end;
 
@@ -352,7 +398,7 @@ begin
             try
                 frmMap.NewPosition(Index, Position);
             except
-                lblDebug.Text := 'M';
+                //
             end;
         end;
     end;

@@ -33,8 +33,7 @@ uses
   LoRaSerialSettings in 'LoRaSerialSettings.pas' {frmLoRaSerialSettings},
   Androidapi.JNI.Interfaces.JGeomagneticField in '..\HABRx\Androidapi.JNI.Interfaces.JGeomagneticField.pas',
   BLESource in '..\HABRx\BLESource.pas',
-  SocketSource in '..\HABRx\SocketSource.pas',
-  keys in 'keys.pas';
+  SocketSource in '..\HABRx\SocketSource.pas';
 
 {$R *.res}
 

@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, Math,
   GPSSource, Source, Base, CarUpload, Miscellaneous, Habitat,
-  HabitatSource, SerialSource, BluetoothSource, BLESource,
+  HabitatSource, SerialSource, BluetoothSource, BLESource, UDPSource,
   System.DateUtils, System.TimeSpan, System.Sensors, System.Sensors.Components,
   IdUDPServer, IdGlobal, IdSocketHandle, IdBaseComponent, IdComponent, IdUDPBase,
   IdUDPClient;
@@ -53,6 +53,9 @@ type
     UDPClient: TIdUDPClient;
     MotionSensor1: TMotionSensor;
     OrientationSensor1: TOrientationSensor;
+    Rectangle4: TRectangle;
+    lblUDP: TLabel;
+    Label5: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure tmrGPSTimer(Sender: TObject);
     procedure UDPServerUDPRead(AThread: TIdUDPListenerThread;
@@ -140,6 +143,10 @@ begin
         Sources[BLUETOOTH_SOURCE].Source := TBLESource.Create(BLUETOOTH_SOURCE, 'LoRaBluetooth', HABCallback);
         Label4.Text := 'BLE LoRa Telemetry:';
     {$ENDIF}
+
+    Sources[UDP_SOURCE].ValueLabel := lblUDP;
+    Sources[UDP_SOURCE].Source := TUDPSource.Create(UDP_SOURCE, 'UDP', HABCallback);
+    Sources[UDP_SOURCE].RSSILabel := nil;
 
     Sources[HABITAT_SOURCE].ValueLabel := lblHabitat;
     Sources[HABITAT_SOURCE].RSSILabel := nil;

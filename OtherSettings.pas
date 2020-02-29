@@ -15,6 +15,8 @@ type
     edtUDPTxPort: TTMSFMXEdit;
     edtWhiteList: TTMSFMXEdit;
     Label1: TLabel;
+    Label3: TLabel;
+    edtUDPRxPort: TTMSFMXEdit;
     procedure FormCreate(Sender: TObject);
     procedure ChkEnableClick(Sender: TObject);
     procedure edtUDPTxPortChangeTracking(Sender: TObject);
@@ -37,8 +39,11 @@ implementation
 procedure TfrmOtherSettings.ApplyChanges;
 begin
     SetSettingInteger(Group, 'UDPTxPort', StrToIntDef(edtUDPTxPort.Text, 0));
+
     SetSettingBoolean('Habitat', 'Enable', LCARSLabelIsChecked(chkEnable));
     SetSettingString('Habitat', 'WhiteList', edtWhiteList.Text);
+
+    SetSettingString('UDP', 'Port', edtUDPRxPort.Text);
 
     inherited;
 end;
@@ -48,8 +53,11 @@ begin
     inherited;
 
     edtUDPTxPort.Text := IntToStr(GetSettingInteger(Group, 'UDPTxPort', 0));
+
     edtWhiteList.Text := GetSettingString('Habitat', 'WhiteList', '');
     CheckLCARSLabel(chkEnable, GetSettingBoolean('Habitat', 'Enable', False));
+
+    edtUDPRxPort.Text := GetSettingString('UDP', 'Port', '');
 end;
 
 procedure TfrmOtherSettings.ChkEnableClick(Sender: TObject);

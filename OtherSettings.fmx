@@ -13,17 +13,22 @@ inherited frmOtherSettings: TfrmOtherSettings
               'or Bluetooth) on to the local network.'
             ''
             
+              '"UDP Rx Port" is the port to receivel telemetry on over local ne' +
+              'twork'
+            ''
+            
               '"White List" adds these payload IDs (comma-separated if more tha' +
               'n one) to the Habitat download, so you can chase payloads that y' +
               'ou aren'#39't receiving from directly.'
             ''
             
               '"Download From Habitat" enables download of telemetry from Habit' +
-              'at.  Only already-received payloads are downloaded.')
+              'at.  Only already-received payloads, or those in the white list,' +
+              ' are downloaded.')
           StyledSettings = [Family, FontColor]
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           Size.Height = 519.000000000000000000
-          Viewport.Width = 484.000000000000000000
+          Viewport.Width = 500.000000000000000000
           Viewport.Height = 519.000000000000000000
         end
       end
@@ -46,7 +51,7 @@ inherited frmOtherSettings: TfrmOtherSettings
         TextSettings.Font.Size = 11.899999618530270000
         TextSettings.FontColor = claWhite
         Text = 'Download From Habitat'
-        TabOrder = 4
+        TabOrder = 6
         OnClick = ChkEnableClick
       end
       object Label2: TLabel
@@ -60,13 +65,13 @@ inherited frmOtherSettings: TfrmOtherSettings
         StyleLookup = 'LCARSLabelStyle'
         TextSettings.Font.Size = 11.899999618530270000
         Text = 'UDP Tx Port:'
-        TabOrder = 3
+        TabOrder = 5
       end
       object edtUDPTxPort: TTMSFMXEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Scale
         StyleLookup = 'LCARSTMSFMXEdit1Style'
-        TabOrder = 1
+        TabOrder = 2
         KeyboardType = DecimalNumberPad
         Text = '0'
         TextSettings.Font.Size = 11.899999618530270000
@@ -99,7 +104,7 @@ inherited frmOtherSettings: TfrmOtherSettings
         Margins.Bottom = 8.000000000000000000
         StyledSettings = [Family, Style]
         OnChangeTracking = edtUDPTxPortChangeTracking
-        Size.Width = 355.000000000000000000
+        Size.Width = 351.000000000000000000
         Size.Height = 37.000000000000000000
         Size.PlatformDefault = False
         Version = '1.4.4.5'
@@ -116,7 +121,42 @@ inherited frmOtherSettings: TfrmOtherSettings
         StyleLookup = 'LCARSLabelStyle'
         TextSettings.Font.Size = 11.899999618530270000
         Text = 'White List:'
-        TabOrder = 2
+        TabOrder = 3
+      end
+      object Label3: TLabel
+        Align = Scale
+        StyledSettings = [Family, Style, FontColor, Other]
+        Position.X = 322.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 87.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'LCARSLabelStyle'
+        TextSettings.Font.Size = 11.899999618530270000
+        Text = 'UDP Rx Port:'
+        TabOrder = 4
+      end
+      object edtUDPRxPort: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        TabOrder = 1
+        KeyboardType = DecimalNumberPad
+        Text = '0'
+        TextSettings.Font.Size = 11.899999618530270000
+        TextSettings.FontColor = claWhite
+        Position.X = 418.000000000000000000
+        Position.Y = 12.000000000000000000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        OnChangeTracking = edtUDPTxPortChangeTracking
+        Size.Width = 79.000000000000000000
+        Size.Height = 37.000000000000000000
+        Size.PlatformDefault = False
+        Version = '1.4.4.5'
+        Lookup.Separator = ';'
       end
     end
     inherited Panel2: TPanel
