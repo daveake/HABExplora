@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  TargetForm, FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, Source,
+  TargetForm, FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox, Miscellaneous, Source,
   FMX.Colors, FMX.Objects;
 
 type
@@ -29,7 +29,7 @@ type
     procedure LoadForm; override;
     procedure NewPosition(Index: Integer; HABPosition: THABPosition); override;
     procedure NewSelection(Index: Integer); override;
-    procedure ShowTimeSinceUpdate(Index: Integer; TimeSinceUpdate: TDateTime);
+    procedure ShowTimeSinceUpdate(Index: Integer; TimeSinceUpdate: TDateTime; Repeated: Boolean);
   end;
 
 var
@@ -39,7 +39,7 @@ implementation
 
 {$R *.fmx}
 
-uses Main, Miscellaneous;
+uses Main;
 
 procedure TfrmPayloads.FormCreate(Sender: TObject);
 var
@@ -63,12 +63,21 @@ begin
     end;
 end;
 
+function RepeatString(Repeated: Boolean): String;
+begin
+    if Repeated then begin
+        Result := ' (R)';
+    end else begin
+        Result := '';
+    end;
+end;
+
 procedure TfrmPayloads.NewPosition(Index: Integer; HABPosition: THABPosition);
 begin
     if (Index >= Low(ListBoxes)) and (Index <= High(ListBoxes)) then begin
         with ListBoxes[Index] do begin
             Items[0] := HABPosition.PayloadID;
-            Items[1] := '00:00';
+            Items[1] := '00:00' + RepeatString(HABPosition.Repeated);
             Items[2] := FormatDateTime('hh:mm:ss', HABPosition.TimeStamp);
             Items[3] := MyFormatFloat('0.00000', HABPosition.Latitude) + ', ' + MyFormatFloat('0.00000', HABPosition.Longitude);
             if HABPosition.ContainsPrediction then begin
@@ -93,10 +102,10 @@ begin
     end;
 end;
 
-procedure TfrmPayloads.ShowTimeSinceUpdate(Index: Integer; TimeSinceUpdate: TDateTime);
+procedure TfrmPayloads.ShowTimeSinceUpdate(Index: Integer; TimeSinceUpdate: TDateTime; Repeated: Boolean);
 begin
     if (Index >= Low(ListBoxes)) and (Index <= High(ListBoxes)) then begin
-        ListBoxes[Index].Items[1] := FormatDateTime('nn:ss', TimeSinceUpdate);
+        ListBoxes[Index].Items[1] := FormatDateTime('nn:ss', TimeSinceUpdate) + RepeatString(Repeated);
     end;
 end;
 

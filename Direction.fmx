@@ -125,7 +125,7 @@ inherited frmDirection: TfrmDirection
       Size.PlatformDefault = False
       StyleLookup = 'lCARSCheckButton'
       TextSettings.FontColor = claWhite
-      Text = 'Use Prediction for Navigation'
+      Text = 'Use Prediction'
       TabOrder = 4
       OnClick = chkUsePredictionClick
     end

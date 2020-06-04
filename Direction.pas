@@ -157,18 +157,17 @@ end;
 
 procedure TfrmDirection.ProcessNewDirection(Index: Integer);
 var
-    Distance, VerticalDistance, Direction, TargetLatitude, TargetLongitude, Radius: Double;
+    Distance, VerticalDistance, Direction, Radius: Double;
 begin
     inherited;
 
-    TargetLatitude := Positions[SelectedIndex].Position.Latitude;
-    TargetLongitude := Positions[SelectedIndex].Position.Longitude;
-
-    // Horizontal distance to payload
-    Distance := CalculateDistance(TargetLatitude,
-                                  TargetLongitude,
-                                  Positions[0].Position.Latitude,
-                                  Positions[0].Position.Longitude);
+    if LCARSLabelIsChecked(chkUsePrediction) and Positions[SelectedIndex].Position.ContainsPrediction then begin
+        Distance := Positions[SelectedIndex].Position.PredictionDistance;
+        Direction := Positions[SelectedIndex].Position.PredictionDirection;
+    end else begin
+        Distance := Positions[SelectedIndex].Position.Distance;
+        Direction := Positions[SelectedIndex].Position.Direction;
+    end;
 
     if Distance >= 1000 then begin
         lblDistance.Text := MyFormatFloat('0.0', Distance/1000) + ' km';
@@ -177,6 +176,7 @@ begin
     end;
 
     VerticalDistance := Positions[SelectedIndex].Position.Altitude - Positions[0].Position.Altitude;
+
     if VerticalDistance <= -1 then begin
         lblRelativeAltitude.Text := MyFormatFloat('0', -VerticalDistance) + 'm below';
     end else if (VerticalDistance >= 1) and (VerticalDistance < 1000) then begin
@@ -185,14 +185,6 @@ begin
         lblRelativeAltitude.Text := '';
     end;
 
-    // Direction to payload
-    Direction := CalculateDirection(TargetLatitude,
-                                    TargetLongitude,
-                                    Positions[0].Position.Latitude,
-                                    Positions[0].Position.Longitude);
-
-    // Relative to GPS direction
-    Direction := Direction - Positions[SelectedIndex].Position.Direction * Pi / 180;
 
     Radius := Min(crcCompass.Width, crcCompass.Height) / 2;
     Radius := Radius * (1 - crcCompass.Stroke.Thickness * 0.5 / Radius);
@@ -222,7 +214,7 @@ begin
         end else begin
             Temp := Temp + MyFormatFloat('0', Positions[SelectedIndex].Position.Altitude) + ' m';
         end;
-        lblPosition.Text := Temp;
+        lblPosition.Text := Temp + ', ' + FormatFloat('0.0', Positions[SelectedIndex].Position.Elevation) + '°';
     end;
 end;
 

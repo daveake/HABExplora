@@ -972,7 +972,7 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 288.000000000000000000
+        Position.X = 288.000183105468800000
         Size.Width = 69.230773925781250000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
@@ -983,7 +983,7 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcGPS: TCircle
           Align = Scale
-          Position.X = 55.384620666503910000
+          Position.X = 54.000000000000000000
           Position.Y = 0.898707389831543000
           Size.Width = 13.846153259277340000
           Size.Height = 13.480610847473140000
@@ -995,8 +995,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 144.000000000000000000
-        Size.Width = 69.230773925781250000
+        Position.X = 144.000091552734400000
+        Size.Width = 69.230789184570310000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1011,7 +1011,7 @@ object frmMain: TfrmMain
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
         Position.X = 72.923080444335940000
-        Size.Width = 69.230758666992190000
+        Size.Width = 69.230819702148440000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1021,9 +1021,9 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcLoRaBluetooth: TCircle
           Align = Scale
-          Position.X = 55.384609222412110000
+          Position.X = 54.000000000000000000
           Position.Y = 0.898707389831543000
-          Size.Width = 13.846149444580080000
+          Size.Width = 13.846160888671880000
           Size.Height = 13.480610847473140000
           Size.PlatformDefault = False
         end
@@ -1033,8 +1033,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 1.846153855323792000
-        Size.Width = 69.230766296386720000
+        Position.X = 1.846154570579529000
+        Size.Width = 69.230804443359380000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1044,9 +1044,9 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcLoRaSerial: TCircle
           Align = Scale
-          Position.X = 55.384613037109380000
+          Position.X = 54.000003814697270000
           Position.Y = 0.898707389831543000
-          Size.Width = 13.846153259277340000
+          Size.Width = 13.846157073974610000
           Size.Height = 13.480610847473140000
           Size.PlatformDefault = False
         end
@@ -1056,8 +1056,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 216.000000000000000000
-        Size.Width = 69.230773925781250000
+        Position.X = 216.000106811523400000
+        Size.Width = 69.230789184570310000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'

@@ -100,6 +100,8 @@ type
     procedure Navigate(TargetLatitude, TargetLongitude, CurrentLatitude, CurrentLongitude: Double; OffRoad: Boolean = False);
     procedure ShowRouteOnMap(TargetLatitude, TargetLongitude, CurrentLatitude, CurrentLongitude: Double);
     procedure ResizeFonts;
+    procedure WhereIsBalloon(PayloadIndex: Integer);
+    procedure WhereAreBalloons;
 {$IF Defined(IOS) or Defined(ANDROID)}
     procedure PlaySound(Flag: Integer);
 {$ENDIF}
@@ -310,6 +312,11 @@ begin
     rectBottomBar.Margins.Left := rectBottomBar.Height / 2;
     rectBottomBar.Margins.Right := rectBottomBar.Height / 2;
 
+    rectSources.Margins.Left := - rectBottomBar.Height / 2;
+
+    rectStatus.Width := rectBottomBar.Width / 5;
+    rectStatus.Margins.Right := -rectStatus.Height * 0.67;
+
     crcBottomLeft.Width := crcBottomLeft.Height;
     crcBottomLeft.Margins.Left := -crcBottomLeft.Height/2;
     crcBottomRight.Width := crcBottomRight.Height;
@@ -317,9 +324,6 @@ begin
 
     rectBottomLeft.Margins.Bottom := crcBottomLeft.Height / 2;
     rectBottomRight.Margins.Bottom := crcTopLeft.Height / 2;
-
-    rectStatus.Width := rectBottomBar.Width / 4;
-    rectStatus.Margins.Right := - rectStatus.Height / 2;
 end;
 
 procedure TfrmMain.rectTopBarResize(Sender: TObject);
@@ -360,6 +364,48 @@ begin
     end;
 end;
 
+procedure TfrmMain.WhereIsBalloon(PayloadIndex: Integer);
+begin
+    if (ChasePosition.Latitude <> 0) or (ChasePosition.Longitude <> 0) then begin
+        Payloads[PayloadIndex].Position.DirectionValid := True;
+        // Horizontal distance to payload
+        Payloads[PayloadIndex].Position.Distance := CalculateDistance(ChasePosition.Latitude, ChasePosition.Longitude,
+                                                                      Payloads[PayloadIndex].Position.Latitude,
+                                                                      Payloads[PayloadIndex].Position.Longitude);
+        // Direction to payload
+        Payloads[PayloadIndex].Position.Direction := CalculateDirection(Payloads[PayloadIndex].Position.Latitude,
+                                                                       Payloads[PayloadIndex].Position.Longitude,
+                                                                       ChasePosition.Latitude, ChasePosition.Longitude) -
+                                                                       ChasePosition.Direction;
+
+        Payloads[PayloadIndex].Position.Elevation := CalculateElevation(ChasePosition.Latitude, ChasePosition.Longitude, ChasePosition.Altitude,
+                                                                        Payloads[PayloadIndex].Position.Latitude, Payloads[PayloadIndex].Position.Longitude, Payloads[PayloadIndex].Position.Altitude);
+
+
+        if Payloads[PayloadIndex].Position.ContainsPrediction then begin
+            // Horizontal distance to payload
+            Payloads[PayloadIndex].Position.PredictionDistance := CalculateDistance(ChasePosition.Latitude, ChasePosition.Longitude,
+                                                                                      Payloads[PayloadIndex].Position.PredictedLatitude,
+                                                                                      Payloads[PayloadIndex].Position.PredictedLongitude);
+            // Direction to payload
+            Payloads[PayloadIndex].Position.PredictionDirection := CalculateDirection(Payloads[PayloadIndex].Position.PredictedLatitude,
+                                                                                       Payloads[PayloadIndex].Position.PredictedLongitude,
+                                                                                       ChasePosition.Latitude, ChasePosition.Longitude) -
+                                                                                       ChasePosition.Direction;
+        end;
+    end else begin
+        Payloads[PayloadIndex].Position.DirectionValid := False;
+    end;
+end;
+procedure TfrmMain.WhereAreBalloons;
+var
+    PayloadIndex: Integer;
+begin
+    for PayloadIndex := Low(Payloads) to High(Payloads) do begin
+        WhereIsBalloon(PayloadIndex);
+    end;
+end;
+
 procedure TfrmMain.NewPosition(SourceID: Integer; Position: THABPosition);
 var
     Index: Integer;
@@ -372,13 +418,16 @@ begin
         if Position.IsChase then begin
             // Chase car only
             ChasePosition := Position;
+            WhereAreBalloons;
             lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
         end else begin
             // Payloads only
 
+            WhereIsBalloon(Index);
+
             if frmPayloads <> nil then begin
                 try
-                    frmPayloads.NewPosition(Index, Position);
+                    frmPayloads.NewPosition(Index, Payloads[Index].Position);
                 except
                     //
                 end;
@@ -388,7 +437,7 @@ begin
         // Payloads and Chase Car
         if frmDirection <> nil then begin
             try
-                frmDirection.NewPosition(Index, Position);
+                frmDirection.NewPosition(Index, Payloads[Index].Position);
             except
                 //
             end;
@@ -534,7 +583,7 @@ begin
     if frmPayloads <> nil then begin
         for Index := Low(Payloads) to High(Payloads) do begin
             if Payloads[Index].Position.InUse and (Payloads[Index].Position.ReceivedAt > 0) then begin
-                frmPayloads.ShowTimeSinceUpdate(Index, Now - Payloads[Index].Position.ReceivedAt);
+                frmPayloads.ShowTimeSinceUpdate(Index, Now - Payloads[Index].Position.ReceivedAt, Payloads[Index].Position.Repeated);
             end;
         end;
     end;

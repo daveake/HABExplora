@@ -25,7 +25,6 @@ uses
   GPSSource in '..\HABRx\GPSSource.pas',
   Habitat in '..\HABRx\Habitat.pas',
   HabitatSource in '..\HABRx\HabitatSource.pas',
-  HABTypes in '..\HABRx\HABTypes.pas',
   Miscellaneous in '..\HABRx\Miscellaneous.pas',
   SerialSource in '..\HABRx\SerialSource.pas',
   Source in '..\HABRx\Source.pas',

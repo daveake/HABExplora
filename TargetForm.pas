@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  Base, FMX.Controls.Presentation, Source;
+  Base, FMX.Controls.Presentation, Miscellaneous, Source;
 
 type
   TPositions = record

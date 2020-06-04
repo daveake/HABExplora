@@ -6,7 +6,7 @@
         <MainSource>HABExplora.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>37983</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -531,7 +531,7 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_RunParams>d:\dropbox\dev\hab\HABExplora</Debugger_RunParams>
+        <Debugger_RunParams>d:\dropbox\dev\hab\apps\HABExplora</Debugger_RunParams>
         <AppDPIAwarenessMode>PerMonitor</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
@@ -594,7 +594,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
-        <Debugger_RunParams>\dropbox\dev\hab\phoneapp</Debugger_RunParams>
+        <Debugger_RunParams>\dropbox\dev\hab\apps\habexplora</Debugger_RunParams>
         <AppDPIAwarenessMode>PerMonitor</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
@@ -669,7 +669,6 @@
         <DCCReference Include="..\HABRx\GPSSource.pas"/>
         <DCCReference Include="..\HABRx\Habitat.pas"/>
         <DCCReference Include="..\HABRx\HabitatSource.pas"/>
-        <DCCReference Include="..\HABRx\HABTypes.pas"/>
         <DCCReference Include="..\HABRx\Miscellaneous.pas"/>
         <DCCReference Include="..\HABRx\SerialSource.pas"/>
         <DCCReference Include="..\HABRx\Source.pas"/>
@@ -978,9 +977,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_750x1334.png" Configuration="Release" Class="iPhone_Launch750">
-                    <Platform Name="iOSDevice32">
-                        <RemoteName>Default-750w-1334h@2x.png</RemoteName>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_1242x2208.png" Configuration="Release" Class="iPhone_Launch1242">
+                    <Platform Name="iOSDevice64">
+                        <RemoteName>Default-1242w-2208h@3x.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -989,9 +988,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_1242x2208.png" Configuration="Release" Class="iPhone_Launch1242">
-                    <Platform Name="iOSDevice64">
-                        <RemoteName>Default-1242w-2208h@3x.png</RemoteName>
+                <DeployFile LocalName="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_750x1334.png" Configuration="Release" Class="iPhone_Launch750">
+                    <Platform Name="iOSDevice32">
+                        <RemoteName>Default-750w-1334h@2x.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
