@@ -422,12 +422,13 @@ begin
             lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
         end else begin
             // Payloads only
+            Position := Payloads[Index].Position;       // Get updated position back
 
             WhereIsBalloon(Index);
 
             if frmPayloads <> nil then begin
                 try
-                    frmPayloads.NewPosition(Index, Payloads[Index].Position);
+                    frmPayloads.NewPosition(Index, Position);
                 except
                     //
                 end;
@@ -437,7 +438,7 @@ begin
         // Payloads and Chase Car
         if frmDirection <> nil then begin
             try
-                frmDirection.NewPosition(Index, Payloads[Index].Position);
+                frmDirection.NewPosition(Index, Position);
             except
                 //
             end;
