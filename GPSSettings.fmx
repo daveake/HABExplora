@@ -12,9 +12,15 @@ inherited frmGPSSettings: TfrmGPSSettings
               '"Chase Car ID" is the label used for that icon.  "_chase" is aut' +
               'omatically appended so you don'#39't need to include that yourself.'#11
             ''
+            ''
             
               '"Period" is the time, in seconds, between position updates to Ha' +
               'bitat.'
+            ''
+            
+              'The Offset is required for some phones which report altitude rel' +
+              'ative to sea level, rather than WGS84 which is used by HAB track' +
+              'ers.'
             ''
             
               '"Enable Upload" enables uploading of your position to Habitat, w' +
@@ -40,7 +46,7 @@ inherited frmGPSSettings: TfrmGPSSettings
           Text = '0'
           TextSettings.Font.Size = 11.899999618530270000
           TextSettings.FontColor = claWhite
-          Position.X = 140.000000000000000000
+          Position.X = 186.000000000000000000
           Position.Y = 64.000000000000000000
           Margins.Left = 8.000000000000000000
           Margins.Right = 8.000000000000000000
@@ -61,14 +67,14 @@ inherited frmGPSSettings: TfrmGPSSettings
           TabOrder = 1
           TextSettings.Font.Size = 11.899999618530270000
           TextSettings.FontColor = claWhite
-          Position.X = 140.000000000000000000
+          Position.X = 186.000000000000000000
           Position.Y = 12.000000000000000000
           Margins.Left = 8.000000000000000000
           Margins.Right = 8.000000000000000000
           Margins.Bottom = 8.000000000000000000
           StyledSettings = [Family, Style]
           OnChangeTracking = edtPortChangeTracking
-          Size.Width = 241.000000000000000000
+          Size.Width = 127.000000000000000000
           Size.Height = 31.000000000000000000
           Size.PlatformDefault = False
           Version = '1.4.4.5'
@@ -78,9 +84,9 @@ inherited frmGPSSettings: TfrmGPSSettings
         object Label2: TLabel
           Align = Scale
           StyledSettings = [Family, Style, FontColor, Other]
-          Position.X = 52.000000000000000000
+          Position.X = 8.000000000000000000
           Position.Y = 66.000000000000000000
-          Size.Width = 77.000000000000000000
+          Size.Width = 169.000000000000000000
           Size.Height = 23.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'LCARSLabelStyle'
@@ -91,9 +97,9 @@ inherited frmGPSSettings: TfrmGPSSettings
         object Label3: TLabel
           Align = Scale
           StyledSettings = [Family, Style, FontColor, Other]
-          Position.X = 28.000000000000000000
+          Position.X = 8.000000000000000000
           Position.Y = 17.000000000000000000
-          Size.Width = 103.000000000000000000
+          Size.Width = 169.000000000000000000
           Size.Height = 19.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'LCARSLabelStyle'
@@ -101,33 +107,50 @@ inherited frmGPSSettings: TfrmGPSSettings
           Text = 'Chase Car ID:'
           TabOrder = 3
         end
-        object chkUpload: TLabel
+        object chkSondehubUpload: TLabel
           Align = Scale
-          StyledSettings = [Family, Size, Style, Other]
+          StyledSettings = [Family, Style, Other]
           HitTest = True
-          Position.X = 240.000000000000000000
-          Position.Y = 53.000000000000000000
-          Size.Width = 269.000000000000000000
-          Size.Height = 49.000000000000000000
+          Position.X = 303.000000000000000000
+          Position.Y = 117.000000000000000000
+          Size.Width = 213.000000000000000000
+          Size.Height = 36.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
           TextSettings.FontColor = claWhite
-          Text = 'Enable Upload'
+          Text = 'Enable SONDEHUB Upload'
           TabOrder = 4
+          OnClick = chkSettingsClick
+        end
+        object chkHABHUBUpload: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 303.000000000000000000
+          Position.Y = 64.000000000000000000
+          Size.Width = 213.000000000000000000
+          Size.Height = 36.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'Enable HABHUB Upload'
+          TabOrder = 5
           OnClick = chkSettingsClick
         end
       end
       object Label1: TLabel
         Align = Scale
         StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 52.000000000000000000
+        Position.X = 8.000000000000000000
         Position.Y = 122.000000000000000000
-        Size.Width = 77.000000000000000000
+        Size.Width = 169.000000000000000000
         Size.Height = 27.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSLabelStyle'
         TextSettings.Font.Size = 11.899999618530270000
-        Text = 'GPS Alt Offset'
+        Text = 'GPS Alt Offset:'
         TabOrder = 2
       end
       object edtOffset: TTMSFMXEdit
@@ -139,7 +162,7 @@ inherited frmGPSSettings: TfrmGPSSettings
         Text = '0'
         TextSettings.Font.Size = 11.899999618530270000
         TextSettings.FontColor = claWhite
-        Position.X = 138.000000000000000000
+        Position.X = 186.000000000000000000
         Position.Y = 122.000000000000000000
         Margins.Left = 8.000000000000000000
         Margins.Right = 8.000000000000000000

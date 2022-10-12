@@ -3,9 +3,9 @@ inherited frmLoRaSerialSettings: TfrmLoRaSerialSettings
   DesignerMasterStyle = 0
   inherited pnlMain: TPanel
     inherited Panel1: TPanel
-      Size.Height = 577.000000000000000000
+      Size.Height = 545.000000000000000000
       inherited Rectangle3: TRectangle
-        Size.Height = 569.000000000000000000
+        Size.Height = 537.000000000000000000
         inherited Memo1: TMemo
           Lines.Strings = (
             'Set the frequency and mode to match that of your payload.'
@@ -26,188 +26,280 @@ inherited frmLoRaSerialSettings: TfrmLoRaSerialSettings
           Margins.Right = 6.000000000000000000
           Margins.Bottom = 6.000000000000000000
           Size.Width = 512.000000000000000000
-          Size.Height = 551.000000000000000000
+          Size.Height = 519.000000000000000000
           Viewport.Width = 512.000000000000000000
-          Viewport.Height = 551.000000000000000000
+          Viewport.Height = 519.000000000000000000
         end
       end
     end
     inherited Panel3: TPanel
-      Size.Height = 153.000000000000000000
+      Size.Height = 185.000000000000000000
       inherited Rectangle1: TRectangle
-        Size.Height = 145.000000000000000000
+        Size.Height = 177.000000000000000000
+        object btnModeDown: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 24.000000000000000000
+          Position.Y = 37.000000000000000000
+          Size.Width = 64.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSPushButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = '<'
+          OnClick = btnModeDownClick
+        end
+        object btnModeUp: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 168.000000000000000000
+          Position.Y = 37.000000000000000000
+          Size.Width = 64.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSPushButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = '>'
+          OnClick = btnModeUpClick
+        end
+        object chkSSDV: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 22.000000000000000000
+          Position.Y = 135.000000000000000000
+          Size.Width = 127.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'Upload SSDV'
+          OnClick = chkSondehubClick
+        end
+        object edtCallsign: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Position.X = 361.000000000000000000
+          Position.Y = 48.000000000000000000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          OnChangeTracking = edtPortChangeTracking
+          Size.Width = 152.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object edtFrequency: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          KeyboardType = DecimalNumberPad
+          Text = '434.27'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Position.X = 361.000000000000000000
+          Position.Y = 6.000000000000000000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          OnChangeTracking = edtPortChangeTracking
+          OnExit = edtFrequencyExit
+          Size.Width = 152.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+          Precision = 2
+        end
+        object edtMode: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          ReadOnly = True
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 96.000000000000000000
+          Position.Y = 37.000000000000000000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          OnChangeTracking = edtPortChangeTracking
+          Size.Width = 65.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object Label1: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 240.000000000000000000
+          Position.Y = 50.000000000000000000
+          Size.Width = 110.000000000000000000
+          Size.Height = 31.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 11.899999618530270000
+          Text = 'Receiver Callsign:'
+        end
+        object Label2: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 248.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 102.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 11.899999618530270000
+          Text = 'Frequency:'
+        end
+        object Label3: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor]
+          Position.X = 32.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 193.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.HorzAlign = Center
+          Text = 'LoRa Mode'
+        end
+        object btnSearch: TButton
+          StaysPressed = True
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          IsPressed = True
+          Margins.Right = 4.000000000000000000
+          Margins.Bottom = 4.000000000000000000
+          Position.X = 296.000000000000000000
+          Position.Y = 140.000000000000000000
+          Size.Width = 217.000000000000000000
+          Size.Height = 28.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSTabButtonStyle'
+          Text = 'Search +/- 10kHz'
+          TextSettings.Font.Size = 22.000000000000000000
+          OnClick = btnSearchClick
+        end
+        object chkAFC: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 165.000000000000000000
+          Position.Y = 135.000000000000000000
+          Size.Width = 77.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'AFC'
+          OnClick = chkSondehubClick
+        end
+        object chkSondehub: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 22.000000000000000000
+          Position.Y = 89.000000000000000000
+          Size.Width = 220.000000000000000000
+          Size.Height = 36.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'Upload To Sondehub'
+          TabOrder = 0
+          OnClick = chkSondehubClick
+        end
+        object chkHabitat: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 303.000000000000000000
+          Position.Y = 89.000000000000000000
+          Size.Width = 210.000000000000000000
+          Size.Height = 36.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'Upload To HABHUB'
+          TabOrder = 1
+          OnClick = chkSondehubClick
+        end
       end
-      object chkHabitat: TLabel
+      object rectProgressHolder: TRectangle
         Align = Scale
-        StyledSettings = [Family, Size, Style, Other]
-        HitTest = True
-        Position.X = 23.000000000000000000
+        Fill.Kind = None
+        Position.X = 360.000000000000000000
         Position.Y = 96.000000000000000000
-        Size.Width = 241.000000000000000000
-        Size.Height = 45.000000000000000000
+        Size.Width = 153.000000000000000000
+        Size.Height = 28.000000000000000000
         Size.PlatformDefault = False
-        StyleLookup = 'lCARSCheckButton'
-        TextSettings.FontColor = claWhite
-        Text = 'Upload Telemetry'
-        TabOrder = 6
-        OnClick = chkHabitatClick
+        Stroke.Color = claWhite
+        Visible = False
+        object rectProgressBar: TRectangle
+          Align = Left
+          Fill.Color = xFFF1DF6F
+          Size.Width = 40.000000000000000000
+          Size.Height = 28.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = claWhite
+        end
       end
-      object chkSSDV: TLabel
-        Align = Scale
-        StyledSettings = [Family, Size, Style, Other]
-        HitTest = True
-        Position.X = 278.000000000000000000
-        Position.Y = 95.000000000000000000
-        Size.Width = 230.000000000000000000
-        Size.Height = 44.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'lCARSCheckButton'
-        TextSettings.FontColor = claWhite
-        Text = 'Upload SSDV'
-        TabOrder = 3
-        OnClick = chkHabitatClick
+      object tmrReceive: TTimer
+        OnTimer = tmrReceiveTimer
+        Left = 256
+        Top = 151
       end
-      object Label2: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 256.000000000000000000
-        Position.Y = 8.000000000000000000
-        Size.Width = 145.000000000000000000
-        Size.Height = 33.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSLabelStyle'
-        TextSettings.Font.Size = 11.899999618530270000
-        Text = 'Frequency:'
-        TabOrder = 9
-      end
-      object edtFrequency: TTMSFMXEdit
-        Touch.InteractiveGestures = [LongTap, DoubleTap]
-        Align = Scale
-        StyleLookup = 'LCARSTMSFMXEdit1Style'
-        TabOrder = 2
-        KeyboardType = DecimalNumberPad
-        Text = '0.00'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        Position.X = 412.000000000000000000
-        Position.Y = 6.000000000000000000
-        Margins.Left = 8.000000000000000000
-        Margins.Right = 8.000000000000000000
-        Margins.Bottom = 8.000000000000000000
-        StyledSettings = [Family, Style]
-        OnChangeTracking = edtPortChangeTracking
-        OnExit = edtFrequencyExit
-        Size.Width = 101.000000000000000000
-        Size.Height = 35.000000000000000000
-        Size.PlatformDefault = False
-        Version = '1.4.4.5'
-        Lookup.Separator = ';'
-        Precision = 2
-      end
-      object btnModeDown: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style, Other]
-        HitTest = True
-        Position.X = 32.000000000000000000
-        Position.Y = 49.000000000000000000
-        Size.Width = 63.000000000000000000
-        Size.Height = 32.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'lCARSPushButton'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        Text = '<'
-        TabOrder = 5
-        OnClick = btnModeDownClick
-      end
-      object Label3: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style, FontColor]
-        Position.X = 80.000000000000000000
-        Position.Y = 16.000000000000000000
-        Size.Width = 89.000000000000000000
-        Size.Height = 33.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSLabelStyle'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.HorzAlign = Center
-        Text = 'Mode'
-        TabOrder = 7
-      end
-      object edtMode: TTMSFMXEdit
-        Touch.InteractiveGestures = [LongTap, DoubleTap]
-        Align = Scale
-        StyleLookup = 'LCARSTMSFMXEdit1Style'
-        TabOrder = 0
-        ReadOnly = True
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        Position.X = 103.000000000000000000
-        Position.Y = 49.000000000000000000
-        Margins.Left = 8.000000000000000000
-        Margins.Right = 8.000000000000000000
-        Margins.Bottom = 8.000000000000000000
-        StyledSettings = [Family, Style]
-        OnChangeTracking = edtPortChangeTracking
-        Size.Width = 42.000000000000000000
-        Size.Height = 32.000000000000000000
-        Size.PlatformDefault = False
-        Version = '1.4.4.5'
-        Lookup.Separator = ';'
-      end
-      object btnModeUp: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style, Other]
-        HitTest = True
-        Position.X = 152.000000000000000000
-        Position.Y = 49.000000000000000000
-        Size.Width = 59.000000000000000000
-        Size.Height = 32.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'lCARSPushButton'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        Text = '>'
-        TabOrder = 4
-        OnClick = btnModeUpClick
-      end
-      object Label1: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 256.000000000000000000
-        Position.Y = 50.000000000000000000
-        Size.Width = 94.000000000000000000
-        Size.Height = 31.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSLabelStyle'
-        TextSettings.Font.Size = 11.899999618530270000
-        Text = 'Receiver Callsign:'
-        TabOrder = 8
-      end
-      object edtCallsign: TTMSFMXEdit
-        Touch.InteractiveGestures = [LongTap, DoubleTap]
-        Align = Scale
-        StyleLookup = 'LCARSTMSFMXEdit1Style'
-        TabOrder = 1
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        Position.X = 361.000000000000000000
-        Position.Y = 48.000000000000000000
-        Margins.Left = 8.000000000000000000
-        Margins.Right = 8.000000000000000000
-        Margins.Bottom = 8.000000000000000000
-        StyledSettings = [Family, Style]
-        OnChangeTracking = edtPortChangeTracking
-        Size.Width = 152.000000000000000000
-        Size.Height = 33.000000000000000000
-        Size.PlatformDefault = False
-        Version = '1.4.4.5'
-        Lookup.Separator = ';'
+      object tmrSearch: TTimer
+        Enabled = False
+        Interval = 5000
+        OnTimer = tmrSearchTimer
+        Left = 320
+        Top = 167
       end
     end
     inherited Panel2: TPanel
-      Position.Y = 153.000000000000000000
+      Position.Y = 185.000000000000000000
+      object rectRx: TRectangle
+        Align = Scale
+        Fill.Color = claLime
+        Position.X = 400.000000000000000000
+        Position.Y = 3.000000000000000000
+        Size.Width = 113.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        Visible = False
+        object lblRx: TLabel
+          Align = Client
+          StyledSettings = [Family, Style, FontColor]
+          Size.Width = 113.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.HorzAlign = Center
+          Text = 'Rx'
+        end
+      end
     end
   end
 end

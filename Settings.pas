@@ -16,20 +16,20 @@ type
     btnGPS: TButton;
     btnOther: TButton;
     btnLoRaSerial: TButton;
-    Circle1: TCircle;
-    Circle2: TCircle;
-    Rectangle1: TRectangle;
-    Rectangle5: TRectangle;
-    pnlTop: TPanel;
     pnlCentre: TPanel;
-    Rectangle2: TRectangle;
-    Rectangle3: TRectangle;
     btnLoRaBluetooth: TButton;
+    pnlTop: TRectangle;
+    crcBottomRight: TCircle;
+    rectBottomRight: TRectangle;
+    crcBottomLeft: TCircle;
+    rectSources: TRectangle;
+    rectBottomLeft: TRectangle;
     procedure FormCreate(Sender: TObject);
     procedure btnGPSClick(Sender: TObject);
     procedure btnLoRaSerialClick(Sender: TObject);
     procedure btnOtherClick(Sender: TObject);
     procedure btnLoRaBluetoothClick(Sender: TObject);
+    procedure pnlMainResize(Sender: TObject);
   private
     { Private declarations }
     CurrentForm: TfrmSettingsBase;
@@ -38,6 +38,7 @@ type
   public
     { Public declarations }
     procedure LoadForm; override;
+    procedure LoadPage(PageIndex: Integer);
   end;
 
 var
@@ -56,45 +57,69 @@ begin
     if CurrentForm <> nil then begin
         CurrentForm.pnlMain.Parent := CurrentForm;
         CurrentForm.HideForm;
+        CurrentForm.Free;
     end;
 
     NewForm.pnlMain.Parent := pnlCentre;
+
     CurrentForm := NewForm;
+
     NewForm.LoadForm;
+
+    frmMain.ResizeFonts(NewForm);
+end;
+
+procedure TfrmSettings.pnlMainResize(Sender: TObject);
+begin
+    pnlTop.Height := frmMain.rectTopBar.Height;
+
+    pnlTop.Margins.Left := pnlTop.Height / 2;
+    pnlTop.Margins.Right := pnlTop.Height / 2;
+
+    rectSources.Margins.Left := - pnlTop.Height / 2;
+
+    crcBottomLeft.Width := crcBottomLeft.Height;
+    crcBottomLeft.Margins.Left := -crcBottomLeft.Height/2;
+    crcBottomRight.Width := crcBottomRight.Height;
+    crcBottomRight.Margins.Right := -crcBottomRight.Height/2;
+
+    rectBottomLeft.Margins.Bottom := crcBottomLeft.Height / 2;
+    rectBottomRight.Margins.Bottom := crcBottomLeft.Height / 2;
 end;
 
 procedure TfrmSettings.btnGPSClick(Sender: TObject);
 begin
-    LoadSettingsForm(TButton(Sender), frmGPSSettings);
+    frmGPSSettings := TfrmGPSSettings.Create(nil);
+
+    LoadSettingsForm(btnGPS, frmGPSSettings);
 end;
 
 procedure TfrmSettings.btnOtherClick(Sender: TObject);
 begin
-    LoadSettingsForm(TButton(Sender), frmOtherSettings);
+    frmOtherSettings := TfrmOtherSettings.Create(nil);
+
+    LoadSettingsForm(btnOther, frmOtherSettings);
 end;
 
 procedure TfrmSettings.btnLoRaBluetoothClick(Sender: TObject);
 begin
-    LoadSettingsForm(TButton(Sender), frmBluetoothSettings);
+    frmBluetoothSettings := TfrmBluetoothSettings.Create(nil);
+
+    LoadSettingsForm(btnLoRaBluetooth, frmBluetoothSettings);
 end;
 
 procedure TfrmSettings.btnLoRaSerialClick(Sender: TObject);
 begin
-    if frmLoRaSerialSettings <> nil then begin
-        LoadSettingsForm(TButton(Sender), frmLoRaSerialSettings);
-    end;
+    frmLoRaSerialSettings := TfrmLoRaSerialSettings.Create(nil);
+
+    LoadSettingsForm(btnLoRaSerial, frmLoRaSerialSettings);
 end;
 
 procedure TfrmSettings.FormCreate(Sender: TObject);
 begin
     inherited;
 
-    frmGPSSettings := TfrmGPSSettings.Create(nil);
-    frmOtherSettings := TfrmOtherSettings.Create(nil);
-    frmBluetoothSettings := TfrmBluetoothSettings.Create(nil);
-
     {$IF Defined(MSWINDOWS) or Defined(ANDROID)}
-        frmLoRaSerialSettings := TfrmLoRaSerialSettings.Create(nil);
     {$ELSE}
         btnLoRaSerial.Text := '';
         btnLoRaBluetooth.Text := 'BLE';
@@ -105,12 +130,13 @@ procedure TfrmSettings.LoadForm;
 begin
     inherited;
 
+    frmGPSSettings := TfrmGPSSettings.Create(nil);
+
     LoadSettingsForm(btnGPS, frmGPSSettings);
 
 //    btnGPS.Font.Size := btnGPS.Size.Height * 36/64;
 //    btnLoRaSerial.Font.Size := btnGPS.Font.Size;
 //    btnLoRaBluetooth.Font.Size := btnGPS.Font.Size;
-//    btnHabitat.Font.Size := btnGPS.Font.Size;
 end;
 
 procedure TfrmSettings.ShowSelectedButton(Button: TButton);
@@ -121,6 +147,15 @@ begin
     btnOther.TextSettings.Font.Style := btnOther.TextSettings.Font.Style - [TFontStyle.fsUnderline];
 
     Button.TextSettings.Font.Style := Button.TextSettings.Font.Style + [TFontStyle.fsUnderline];
+end;
+
+procedure TfrmSettings.LoadPage(PageIndex: Integer);
+begin
+    case PageIndex of
+        0:  btnGPSClick(nil);
+        1:  btnLoRaSerialClick(nil);
+        2:  btnLoRaBluetoothClick(nil);
+    end;
 end;
 
 end.

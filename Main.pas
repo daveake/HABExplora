@@ -7,22 +7,29 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.ScrollBox, FMX.Memo, System.IOUtils,
   Math, Source, Miscellaneous, SourcesForm, Debug,
-  Base, Splash, Map, Direction, Payloads,
+  Base, Splash, Map, Direction, Payloads, Uplink,
 {$IFDEF ANDROID}
   Androidapi.JNIBridge, AndroidApi.JNI.Media,
   Androidapi.JNI.JavaTypes, Androidapi.JNI.GraphicsContentViewText, Androidapi.Helpers, Androidapi.JNI.Net,
   FMX.Helpers.Android, FMX.Platform.Android, AndroidApi.Jni.App,
-  AndroidAPI.jni.OS, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSBaseGroup,
+  AndroidAPI.jni.OS, FMX.TMSBaseGroup,
   System.Permissions,
 {$ENDIF}
-  Settings;
+  Settings, Tawhiri, FMX.TMSFNCTypes, FMX.TMSFNCUtils, FMX.TMSFNCGraphics,
+  FMX.TMSFNCGraphicsTypes, FMX.TMSFNCHTMLImageContainer, FMX.TMSFNCRadioButton,
+  FMX.TMSFNCPageControl, FMX.TMSFNCCustomControl, FMX.TMSFNCTabSet,
+  FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSFNCMapsCommonTypes,
+  FMX.TMSFNCWebBrowser, FMX.TMSFNCMaps, FMX.TMSFNCGoogleMaps;
 
 type
   TPayload = record
-      Previous:     THABPosition;
-      Position:     THABPosition;
-      Colour:       TAlphaColor;
-      ColourName:   String;
+      Previous:         THABPosition;
+      Position:         THABPosition;
+      Colour:           TAlphaColor;
+      ColourName:       String;
+      SourceMask:       Integer;
+      SSDVCount:        Integer;
+      PredictionIndex:  Integer;
   end;
 
 type
@@ -39,7 +46,7 @@ type
     rectStatus: TRectangle;
     lblGPS: TLabel;
     btnLoRaSerial: TButton;
-    btnHabHub: TButton;
+    btnSondehub: TButton;
     btnGPS: TButton;
     tmrUpdates: TTimer;
     tmrResize: TTimer;
@@ -66,6 +73,10 @@ type
     rectBottomLeft: TRectangle;
     rectSources: TRectangle;
     btnUDP: TButton;
+    btnUplink: TButton;
+    pnlMap: TRectangle;
+    FNCMap: TTMSFNCGoogleMaps;
+    btnHABHUB: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure btnMapClick(Sender: TObject);
@@ -75,33 +86,42 @@ type
     procedure tmrUpdatesTimer(Sender: TObject);
     procedure btnSourcesClick(Sender: TObject);
     procedure tmrResizeTimer(Sender: TObject);
-    procedure Circle1Click(Sender: TObject);
     procedure tmrLoadTimer(Sender: TObject);
     procedure pnlCentreResize(Sender: TObject);
     procedure rectTopBarResize(Sender: TObject);
     procedure rectBottomBarResize(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure btnUplinkClick(Sender: TObject);
+    procedure rectTopLeftClick(Sender: TObject);
+    procedure FNCMapMapInitialized(Sender: TObject);
+    procedure FNCMapElementContainers0Actions0Execute(Sender: TObject;
+      AEventData: TTMSFNCMapsEventData);
+    procedure FNCMapElementContainers0Actions2Execute(Sender: TObject;
+      AEventData: TTMSFNCMapsEventData);
+    procedure FNCMapElementContainers0Actions1Execute(Sender: TObject;
+      AEventData: TTMSFNCMapsEventData);
   private
     { Private declarations }
-    DesignHeight: Single;
-    Resized: Boolean;
+    DesignWidth: Double;
     CurrentForm: TfrmBase;
     Payloads: Array[1..3] of TPayload;
     SelectedPayload: Integer;
-    Sources: Array[0..5] of TSource;
+    Sources: Array[0..8] of TSource;
+    PayloadIndex: Array[1..8] of Integer;
     ChasePosition: THABPosition;
-//    SelectedPayload: Integer;
+    Predictor: TTawhiri;
+    ScalingFactor: Double;
     procedure LoadMapIfNotLoaded;
     procedure ShowSelectedButton(Button: TButton);
-    function PlacePayloadInList(var Position: THABPosition): Integer;
+    function PlacePayloadInList(SourceID: Integer; var Position: THABPosition): Integer;
     function FindOrAddPayload(Position: THABPosition): Integer;
     procedure DoPayloadCalcs(Previous: THabPosition; var Position: THABPosition);
     procedure UpdatePayloadList;
     procedure Navigate(TargetLatitude, TargetLongitude, CurrentLatitude, CurrentLongitude: Double; OffRoad: Boolean = False);
     procedure ShowRouteOnMap(TargetLatitude, TargetLongitude, CurrentLatitude, CurrentLongitude: Double);
-    procedure ResizeFonts;
     procedure WhereIsBalloon(PayloadIndex: Integer);
     procedure WhereAreBalloons;
+    procedure ShowSelectedMapButton(ElementID: String);
 {$IF Defined(IOS) or Defined(ANDROID)}
     procedure PlaySound(Flag: Integer);
 {$ENDIF}
@@ -110,12 +130,17 @@ type
     function LoadForm(Button: TButton; NewForm: TfrmBase): Boolean;
     procedure UploadStatus(SourceID: Integer; Active, OK: Boolean);
     procedure NewPosition(SourceID: Integer; Position: THABPosition);
+    function BalloonColour(PayloadIndex: Integer): TAlphaColor;
     function BalloonIconName(PayloadIndex: Integer; Target: Boolean=False): String;
     procedure NavigateToPayload(PayloadIndex: Integer; UsePrediction: Boolean; OffRoad: Boolean = False);
     procedure ShowRouteToPayload(PayloadIndex: Integer; UsePrediction: Boolean);
     procedure ShowSourceStatus(SourceID: Integer; Active, Recent: Boolean);
     procedure SelectPayload(PayloadIndex: Integer);
     function GetChasePosition(var Latitude: Double; var Longitude: Double; var Altitude: Double): Boolean;
+    function GetSourceMask(PayloadIndex: Integer): Integer;
+    procedure ResizeFonts(AForm: TForm);
+    procedure LoadSettingsPage(PageIndex: Integer);
+    procedure UpdateCarUploadSettings;
   end;
 
 var
@@ -125,6 +150,49 @@ implementation
 
 {$R *.fmx}
 
+function FontScale: Single;
+{$IFDEF ANDROID}
+var
+  Resources: JResources;
+
+  Configuration: JConfiguration;
+{$ENDIF ANDROID}
+{$IFDEF IOS}
+var
+  f: UIFontDescriptor;
+
+{$ENDIF IOS}
+begin
+
+  Result := 1.0;
+
+  {$IFDEF ANDROID}
+
+  if TAndroidHelper.Context <> nil then
+
+  begin
+
+    Resources := TAndroidHelper.Context.getResources;
+    if Resources <> nil then
+
+    begin
+      Configuration := Resources.getConfiguration;
+      if Configuration <> nil then
+        Result := Configuration.fontScale;
+
+    end;
+
+  end;
+
+  {$ENDIF ANDROID}
+  {$IFDEF IOS}
+  f := TUIFontDescriptor.OCClass.preferredFontDescriptorWithTextStyle(
+          UIFontTextStyleBody);
+  Result := f.pointSize / 17.0;
+
+  {$ENDIF IOS}
+end;
+
 procedure TfrmMain.btnDirectionClick(Sender: TObject);
 begin
     LoadForm(TButton(Sender), frmDirection);
@@ -132,9 +200,7 @@ end;
 
 procedure TfrmMain.btnMapClick(Sender: TObject);
 begin
-    LoadMapIfNotLoaded;
-
-    LoadForm(TButton(Sender), frmMap);
+    LoadForm(TButton(Sender), nil);
 end;
 
 procedure TfrmMain.btnPayloadsClick(Sender: TObject);
@@ -146,21 +212,19 @@ end;
 
 procedure TfrmMain.btnSettingsClick(Sender: TObject);
 begin
-    if frmSettings = nil then begin
-        frmSettings := TfrmSettings.Create(nil);
-    end;
-
-    LoadForm(TButton(Sender), frmSettings);
-end;
-
-procedure TfrmMain.Circle1Click(Sender: TObject);
-begin
-    LoadForm(nil, frmSplash);
+    LoadSettingsPage(0);
 end;
 
 procedure TfrmMain.btnSourcesClick(Sender: TObject);
 begin
     LoadForm(nil, frmSources);
+end;
+
+procedure TfrmMain.btnUplinkClick(Sender: TObject);
+begin
+    if LoadForm(TButton(Sender), frmUplink) then begin
+        frmUplink.NewSelection(SelectedPayload);
+    end;
 end;
 
 procedure TfrmMain.LoadMapIfNotLoaded;
@@ -195,6 +259,10 @@ begin
         LoadForm(nil, frmSplash);
 
         tmrLoad.Enabled := True;
+
+        ScalingFactor := 0.9 * pnlCentre.Width / DesignWidth;
+
+        ResizeFonts(Self);
     end;
 end;
 
@@ -208,8 +276,7 @@ begin
 //    rectMain.Margins.Top := 18;
 //{$ENDIF}
 
-    Resized := False;
-    DesignHeight := pnlCentre.Height;
+    DesignWidth := pnlCentre.Width;
 
     Payloads[1].Colour := TAlphaColorRec.Blue;
     Payloads[2].Colour := TAlphaColorRec.Red;
@@ -231,11 +298,22 @@ begin
     Sources[BLUETOOTH_SOURCE].Button := btnLoRaBluetooth;
     Sources[BLUETOOTH_SOURCE].Circle := crcLoRaBluetooth;
 
-    Sources[HABITAT_SOURCE].Button := btnHabHub;
-    Sources[HABITAT_SOURCE].Circle := nil;
+    Sources[SONDEHUB_SOURCE].Button := btnSondehub;
+    Sources[SONDEHUB_SOURCE].Circle := nil;
+
+    Sources[HABHUB_SOURCE].Button := btnHABHUB;
+    Sources[HABHUB_SOURCE].Circle := nil;
 
     Sources[UDP_SOURCE].Button := btnUDP;
     Sources[UDP_SOURCE].Circle := nil;
+
+{$IFDEF MSWINDOWS}
+    FullScreen := False;
+{$ELSE}
+    FullScreen := True;
+{$ENDIF}
+
+    Predictor := TTawhiri.Create;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -246,6 +324,15 @@ end;
 
 function TfrmMain.LoadForm(Button: TButton; NewForm: TfrmBase): Boolean;
 begin
+    if (Button <> btnSettings) and (frmSettings <> nil) then begin
+        frmSettings.Free;
+        frmSettings := nil;
+    end;
+
+    pnlCentre.Visible := NewForm <> nil;
+    pnlMap.Visible := NewForm = nil;
+
+
     if NewForm <> nil then begin
         ShowSelectedButton(Button);
 
@@ -257,6 +344,8 @@ begin
 
         NewForm.pnlMain.Parent := pnlCentre;
         NewForm.LoadForm;
+
+        ResizeFonts(NewForm);
 
         Result := True;
     end else begin
@@ -270,6 +359,7 @@ begin
     btnMap.TextSettings.Font.Style := btnMap.TextSettings.Font.Style - [TFontStyle.fsUnderline];
     btnDirection.TextSettings.Font.Style := btnDirection.TextSettings.Font.Style - [TFontStyle.fsUnderline];
     btnSettings.TextSettings.Font.Style := btnSettings.TextSettings.Font.Style - [TFontStyle.fsUnderline];
+    btnUplink.TextSettings.Font.Style := btnUplink.TextSettings.Font.Style - [TFontStyle.fsUnderline];
 
     if Button <> nil then begin
         Button.TextSettings.Font.Style := Button.TextSettings.Font.Style + [TFontStyle.fsUnderline];
@@ -339,8 +429,13 @@ begin
     rectTopLeft.Margins.Top := crcTopRight.Height / 2;
     rctTopRight.Margins.Top := crcTopRight.Height / 2;
 
-    recButtons.Margins.Left := -crcTopRight.Height / 6;
+    recButtons.Margins.Left := -crcTopRight.Height / 2;
     recButtons.Margins.Right := recButtons.Margins.Left;
+end;
+
+procedure TfrmMain.rectTopLeftClick(Sender: TObject);
+begin
+    LoadForm(nil, frmSplash);
 end;
 
 procedure TfrmMain.UploadStatus(SourceID: Integer; Active, OK: Boolean);
@@ -366,23 +461,22 @@ end;
 
 procedure TfrmMain.WhereIsBalloon(PayloadIndex: Integer);
 begin
-    if (ChasePosition.Latitude <> 0) or (ChasePosition.Longitude <> 0) then begin
+    if ((ChasePosition.Latitude <> 0) or (ChasePosition.Longitude <> 0)) and Payloads[PayloadIndex].Position.InUse then begin
         Payloads[PayloadIndex].Position.DirectionValid := True;
         // Horizontal distance to payload
-        Payloads[PayloadIndex].Position.Distance := CalculateDistance(ChasePosition.Latitude, ChasePosition.Longitude,
-                                                                      Payloads[PayloadIndex].Position.Latitude,
-                                                                      Payloads[PayloadIndex].Position.Longitude);
+        Payloads[PayloadIndex].Position.Distance := CalculateDistance(Payloads[PayloadIndex].Position.Latitude,
+                                                                      Payloads[PayloadIndex].Position.Longitude,
+                                                                      ChasePosition.Latitude, ChasePosition.Longitude);
         // Direction to payload
         Payloads[PayloadIndex].Position.Direction := CalculateDirection(Payloads[PayloadIndex].Position.Latitude,
                                                                        Payloads[PayloadIndex].Position.Longitude,
-                                                                       ChasePosition.Latitude, ChasePosition.Longitude) -
-                                                                       ChasePosition.Direction;
+                                                                       ChasePosition.Latitude, ChasePosition.Longitude);
 
         Payloads[PayloadIndex].Position.Elevation := CalculateElevation(ChasePosition.Latitude, ChasePosition.Longitude, ChasePosition.Altitude,
                                                                         Payloads[PayloadIndex].Position.Latitude, Payloads[PayloadIndex].Position.Longitude, Payloads[PayloadIndex].Position.Altitude);
 
 
-        if Payloads[PayloadIndex].Position.ContainsPrediction then begin
+        if Payloads[PayloadIndex].Position.PredictionType <> ptNone then begin
             // Horizontal distance to payload
             Payloads[PayloadIndex].Position.PredictionDistance := CalculateDistance(ChasePosition.Latitude, ChasePosition.Longitude,
                                                                                       Payloads[PayloadIndex].Position.PredictedLatitude,
@@ -410,53 +504,93 @@ procedure TfrmMain.NewPosition(SourceID: Integer; Position: THABPosition);
 var
     Index: Integer;
 begin
-    ShowSourceStatus(SourceID, True, True);
+    if Position.InUse then begin
+        ShowSourceStatus(SourceID, True, True);
 
-    Index := PlacePayloadInList(Position);
+        Index := PlacePayloadInList(SourceID, Position);
 
-    if Position.IsChase or (Index > 0) then begin
-        if Position.IsChase then begin
-            // Chase car only
-            ChasePosition := Position;
-            WhereAreBalloons;
-            lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
-        end else begin
-            // Payloads only
-            Position := Payloads[Index].Position;       // Get updated position back
+        if Position.IsChase or (Index > 0) then begin
+            if Position.IsChase then begin
+                // Chase car only
+                ChasePosition := Position;
+                WhereAreBalloons;
+                lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
+            end else begin
+                // Payloads only
+                WhereIsBalloon(Index);
 
-            WhereIsBalloon(Index);
+                Position := Payloads[Index].Position;       // Get updated position back
 
+                if frmPayloads <> nil then begin
+                    try
+                        frmPayloads.NewPosition(Index, Position);
+                    except
+                        //
+                    end;
+                end;
+
+                // Landing prediction needed ?
+                if Position.PredictionType = ptNone then begin
+                    if Payloads[Index].PredictionIndex <= 0 then begin
+                        Payloads[Index].PredictionIndex := Predictor.AddPayload(Position.PayloadID);
+                    end;
+
+                    if Payloads[Index].PredictionIndex > 0 then begin
+                        Predictor.UpdatePayload(Payloads[Index].PredictionIndex,
+                                                Position.Latitude,
+                                                Position.Longitude,
+                                                Position.Altitude,
+                                                30000,      // Burst
+                                                Position.AscentRate,
+                                                5);
+                    end;
+                end;
+            end;
+
+            // Payloads and Chase Car
+            if frmDirection <> nil then begin
+                try
+                    frmDirection.NewPosition(Index, Position);
+                except
+                    //
+                end;
+            end;
+
+            if frmMap <> nil then begin
+                try
+                    if (Position.Latitude <> 0) or (Position.Longitude <> 0) then begin
+                        frmMap.NewPosition(Index, Position);
+                    end;
+                except
+                    //
+                end;
+            end;
+        end;
+    end else begin
+        Index := PayloadIndex[SourceID];
+
+        if (Index >= Low(Payloads)) and (Index <= High(Payloads)) then begin
+            if Position.IsSSDV then begin
+                Inc(Payloads[Index].SSDVCount);
+                Position.SSDVCount := Payloads[Index].SSDVCount;
+            end;
+
+            // Update RSSI etc
             if frmPayloads <> nil then begin
                 try
+                    Position.FlightMode := Payloads[Index].Position.FlightMode;
                     frmPayloads.NewPosition(Index, Position);
                 except
                     //
                 end;
             end;
         end;
-
-        // Payloads and Chase Car
-        if frmDirection <> nil then begin
-            try
-                frmDirection.NewPosition(Index, Position);
-            except
-                //
-            end;
-        end;
-
-        if frmMap <> nil then begin
-            try
-                frmMap.NewPosition(Index, Position);
-            except
-                //
-            end;
-        end;
     end;
 end;
 
-function TfrmMain.PlacePayloadInList(var Position: THABPosition): Integer;
+function TfrmMain.PlacePayloadInList(SourceID: Integer; var Position: THABPosition): Integer;
 var
-    Index: Integer;
+    NewMask, Index: Integer;
     PayloadChanged: Boolean;
 begin
     Result := 0;
@@ -464,7 +598,15 @@ begin
     if Position.InUse and not Position.IsChase then begin
         Index := FindOrAddPayload(Position);
 
+        PayloadIndex[SourceID] := Index;
+
         if Index > 0 then begin
+            NewMask := Payloads[Index].SourceMask or ((1 shl (SourceID * 2)) shl Position.Channel);
+            if NewMask <> Payloads[Index].SourceMask then begin
+                Payloads[Index].SourceMask := NewMask;
+                if frmUplink <> nil then frmUplink.NewSelection(SelectedPayload);
+            end;
+
             // Update forms with payload list, if it has changed
             if (not Payloads[Index].Position.InUse) or (Position.PayloadID <> Payloads[Index].Position.PayloadID) then begin
                 PayloadChanged := True;
@@ -474,6 +616,7 @@ begin
 
             // if (Position.TimeStamp - Payloads[Index].Previous.TimeStamp) >= 1/86400 then begin
             if (Position.TimeStamp > Payloads[Index].Position.TimeStamp) or (Position.PayloadID <> Payloads[Index].Position.PayloadID) then begin
+                // Retrieve previous flight mode
                 Position.FlightMode := Payloads[Index].Previous.FlightMode;
 
                 // Calculate ascent rate etc
@@ -485,10 +628,13 @@ begin
 
                 // Store new position
                 Payloads[Index].Previous := Payloads[Index].Position;
+
+                Position.TelemetryCount := Payloads[Index].Previous.TelemetryCount + 1;
+
                 Payloads[Index].Position := Position;
                 Payloads[Index].Previous.FlightMode := Position.FlightMode;
 
-                if PayloadChanged then begin
+                if PayloadChanged and (SourceID <> 4) then begin
                     UpdatePayloadList;
                 end;
 
@@ -517,6 +663,8 @@ begin
 
     frmDirection := TfrmDirection.Create(nil);
 
+    frmUplink := TfrmUplink.Create(nil);
+
     LoadMapIfNotLoaded;
 
     // Sources Form
@@ -526,6 +674,7 @@ begin
 {$IFDEF ANDROID}
     frmSources.lblGPS.Text := 'No GPS Permission';
 
+    (*
     PermissionsService.RequestPermissions([JStringToString(TJManifest_permission.JavaClass.ACCESS_FINE_LOCATION)],
         procedure(const APermissions: TArray<string>; const AGrantResults: TArray<TPermissionStatus>) begin
             if (Length(AGrantResults) = 1) and (AGrantResults[0] = TPermissionStatus.Granted) then begin
@@ -535,6 +684,17 @@ begin
                 frmSources.lblGPS.Text := 'No GPS Permission';
             end;
         end);
+    *)
+
+    PermissionsService.RequestPermissions([JStringToString(TJManifest_permission.JavaClass.ACCESS_FINE_LOCATION)],
+        procedure(const APermissions: TClassicStringDynArray; const AGrantResults: TClassicPermissionStatusDynArray) begin
+            if (Length(AGrantResults) = 1) and (AGrantResults[0] = TPermissionStatus.Granted) then begin
+                // activate or deactivate the location sensor }
+                    frmSources.EnableGPS;
+                end else begin
+                    frmSources.lblGPS.Text := 'No GPS Permission';
+                end;
+            end);
 {$ENDIF}
 
 {$IFDEF IOS}
@@ -546,7 +706,8 @@ begin
 
     frmSources.EnableCompass;
 
-    frmSplash.rectLoading.Visible := False;
+    frmSplash.UnveilSplash;
+
     lblGPS.Text := '';
 end;
 
@@ -556,16 +717,13 @@ procedure TfrmMain.tmrResizeTimer(Sender: TObject);
 begin
     tmrResize.Enabled := False;
 
-    // ResizeFonts;
-
-//    FontSize := lblGPS.Size.Height * 36/64;
+    // FontSize := lblGPS.Size.Height * 36/64;
 
     // Source Buttons
     (*
     btnTablet.Font.Size := FontSize;
     lblGPS.Font.Size := FontSize;
     btnLoRaSerial.Font.Size := FontSize;
-    btnHabHub.Font.Size := FontSize;
     btnGPS.Font.Size := FontSize;
     lblGPS.Font.Size := FontSize;
 
@@ -580,11 +738,28 @@ end;
 procedure TfrmMain.tmrUpdatesTimer(Sender: TObject);
 var
     SourceID, Index: Integer;
+    PredictedAltitude: Double;
 begin
     if frmPayloads <> nil then begin
         for Index := Low(Payloads) to High(Payloads) do begin
             if Payloads[Index].Position.InUse and (Payloads[Index].Position.ReceivedAt > 0) then begin
                 frmPayloads.ShowTimeSinceUpdate(Index, Now - Payloads[Index].Position.ReceivedAt, Payloads[Index].Position.Repeated);
+
+                // Prediction done ?
+                if Payloads[Index].Position.PredictionType = ptNone then begin
+                    if Payloads[Index].PredictionIndex > 0 then begin
+                        if Predictor.PredictionUpdated(Payloads[Index].PredictionIndex) then begin
+                            Predictor.GetPrediction(Index, Payloads[Index].Position.PredictedLatitude, Payloads[Index].Position.PredictedLongitude, PredictedAltitude);
+                            Payloads[Index].Position.PredictionType := ptTawhiri;
+
+                            // Move marker on map
+                            if frmMap <> nil then frmMap.NewPosition(Index, Payloads[Index].Position);
+
+                            // Updated in payload box
+                            if frmPayloads <> nil then frmPayloads.NewPosition(Index, Payloads[Index].Position);
+                        end;
+                    end;
+                end;
             end;
         end;
     end;
@@ -630,6 +805,41 @@ begin
     end;
 end;
 
+procedure TfrmMain.ShowSelectedMapButton(ElementID: String);
+begin
+    FNCMap.ExecuteJavaScript('document.getElementById("btnCar").disabled = false');
+    FNCMap.ExecuteJavaScript('document.getElementById("btnHAB").disabled = false');
+    FNCMap.ExecuteJavaScript('document.getElementById("btnFree").disabled = false');
+
+    FNCMap.ExecuteJavaScript('document.getElementById("' + ElementID + '").disabled = true');
+end;
+
+procedure TfrmMain.FNCMapElementContainers0Actions0Execute(Sender: TObject;
+  AEventData: TTMSFNCMapsEventData);
+begin
+    ShowSelectedMapButton('btnCar');
+    frmMap.btnCarClick(Sender);
+end;
+
+procedure TfrmMain.FNCMapElementContainers0Actions1Execute(Sender: TObject;
+  AEventData: TTMSFNCMapsEventData);
+begin
+    ShowSelectedMapButton('btnHAB');
+    frmMap.btnPayloadClick(Sender);
+end;
+
+procedure TfrmMain.FNCMapElementContainers0Actions2Execute(Sender: TObject;
+  AEventData: TTMSFNCMapsEventData);
+begin
+    ShowSelectedMapButton('btnFree');
+    frmMap.btnFreeClick(Sender);
+end;
+
+procedure TfrmMain.FNCMapMapInitialized(Sender: TObject);
+begin
+    frmMap.MapInitialized;
+end;
+
 procedure TfrmMain.DoPayloadCalcs(Previous: THabPosition; var Position: THABPosition);
 const
     FlightModes: Array[0..8] of String = ('Idle', 'Launched', 'Descending', 'Homing', 'Direct To Target', 'Downwind', 'Upwind', 'Landing', 'Landed');
@@ -666,6 +876,20 @@ begin
                 Position.FlightMode := fmLaunched;
             end;
         end;
+    end;
+
+    if Position.FlightMode = fmDescending then begin
+        Position.DescentTime := CalculateDescentTime(Position.Altitude, -Position.AscentRate, ChasePosition.Altitude) / 86400;
+    end;
+
+end;
+
+function TfrmMain.BalloonColour(PayloadIndex: Integer): TAlphaColor;
+begin
+    if (PayloadIndex >= Low(Payloads)) and (PayloadIndex <= High(Payloads)) then begin
+        Result := Payloads[PayloadIndex].Colour;
+    end else begin
+        Result := Payloads[Low(Payloads)].Colour;
     end;
 end;
 
@@ -767,13 +991,17 @@ begin
 
     for i := Low(Payloads) to High(Payloads) do begin
         if Payloads[i].Position.InUse then begin
-            PayloadList := PayloadList + ';' + Payloads[i].Position.PayloadID;
+            PayloadList := PayloadList + ',' + Payloads[i].Position.PayloadID;
         end;
     end;
 
     PayloadList := Copy(PayloadList, 2, 999);
 
     frmSources.UpdatePayloadList(PayloadList);
+
+    for i := Low(Payloads) to High(Payloads) do begin
+        if frmUplink <> nil then frmUplink.UpdatePayloadID(i, Payloads[i].Position.PayloadID);
+    end;
 end;
 
 procedure TfrmMain.ShowSourceStatus(SourceID: Integer; Active, Recent: Boolean);
@@ -800,27 +1028,40 @@ begin
         SelectedPayload := PayloadIndex;
 
         // if frmMap <> nil then frmMap.NewSelection(PayloadIndex);
-        frmPayloads.NewSelection(PayloadIndex);
-        frmDirection.NewSelection(PayloadIndex);
+        if frmPayloads <> nil then frmPayloads.NewSelection(PayloadIndex);
+        if frmUplink <> nil then frmUplink.NewSelection(PayloadIndex);
+        if frmDirection <> nil then frmDirection.NewSelection(PayloadIndex);
     end;
 end;
 
-procedure TfrmMain.ResizeFonts;
+procedure TfrmMain.ResizeFonts(AForm: TForm);
 var
     i: Integer;
     Component: TComponent;
-begin
-    if not Resized then begin
-        Resized := True;
-        for i := 0 to ComponentCount-1 do begin
-            Component := Components[i];
 
-            if Component is TLabel then begin
-                TLabel(Component).Font.Size := TLabel(Component).Font.Size * pnlCentre.Height / DesignHeight;
+begin
+    if AForm.Tag = 0 then begin
+        // Not resized yet
+        AForm.Tag := 1;
+
+        for i := 0 to AForm.ComponentCount-1 do begin
+            Component := AForm.Components[i];
+
+            if Component is TButton then begin
+                TButton(Component).Font.Size := TButton(Component).Font.Size * ScalingFactor;
+            end else if Component is TLabel then begin
+                TLabel(Component).Font.Size := TLabel(Component).Font.Size * ScalingFactor;
+            end else if Component is TTMSFMXEdit then begin
+                TTMSFMXEdit(Component).Font.Size := TTMSFMXEdit(Component).Font.Size * ScalingFactor;
+            end else if Component is TTMSFNCRadioButton then begin
+                TTMSFNCRadioButton(Component).Font.Size := TTMSFNCRadioButton(Component).Font.Size * ScalingFactor;
+            end else if Component is TTMSFNCPageControl then begin
+                TTMSFNCPageControl(Component).TabAppearance.Font.Size := TTMSFNCPageControl(Component).TabAppearance.Font.Size * ScalingFactor;
             end;
         end;
     end;
 end;
+
 
 function TfrmMain.GetChasePosition(var Latitude: Double; var Longitude: Double; var Altitude: Double): Boolean;
 begin
@@ -831,6 +1072,27 @@ begin
         Longitude := ChasePosition.Longitude;
         Altitude := ChasePosition.Altitude;
     end;
+end;
+
+function TfrmMain.GetSourceMask(PayloadIndex: Integer): Integer;
+begin
+    Result := Payloads[PayloadIndex].SourceMask;
+end;
+
+procedure TfrmMain.LoadSettingsPage(PageIndex: Integer);
+begin
+    if frmSettings = nil then begin
+        frmSettings := TfrmSettings.Create(nil);
+    end;
+
+    LoadForm(btnSettings, frmSettings);
+
+    frmSettings.LoadPage(PageIndex);
+end;
+
+procedure TfrmMain.UpdateCarUploadSettings;
+begin
+    frmSources.UpdateCarUploadSettings;
 end;
 
 end.

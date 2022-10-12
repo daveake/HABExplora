@@ -22,9 +22,9 @@ inherited frmOtherSettings: TfrmOtherSettings
               'ou aren'#39't receiving from directly.'
             ''
             
-              '"Download From Habitat" enables download of telemetry from Habit' +
-              'at.  Only already-received payloads, or those in the white list,' +
-              ' are downloaded.')
+              '"Download From Sondehub" enables download of telemetry from Sond' +
+              'ehub.  Only already-received payloads, or those in the white lis' +
+              't, are downloaded.')
           StyledSettings = [Family, FontColor]
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           Size.Height = 519.000000000000000000
@@ -37,29 +37,45 @@ inherited frmOtherSettings: TfrmOtherSettings
       Size.Height = 167.000000000000000000
       inherited Rectangle1: TRectangle
         Size.Height = 159.000000000000000000
+        object chkEnableHABHUB: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, Other]
+          HitTest = True
+          Position.X = 147.000000000000000000
+          Position.Y = 105.000000000000000000
+          Size.Width = 161.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'lCARSCheckButton'
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.FontColor = claWhite
+          Text = 'Download From HABHUB'
+          TabOrder = 6
+          OnClick = chkEnableSondehubClick
+        end
       end
-      object ChkEnable: TLabel
+      object chkEnableSondehub: TLabel
         Align = Scale
         StyledSettings = [Family, Style, Other]
         HitTest = True
-        Position.X = 148.000000000000000000
-        Position.Y = 108.000000000000000000
-        Size.Width = 265.000000000000000000
+        Position.X = 336.000000000000000000
+        Position.Y = 105.000000000000000000
+        Size.Width = 161.000000000000000000
         Size.Height = 41.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'lCARSCheckButton'
         TextSettings.Font.Size = 11.899999618530270000
         TextSettings.FontColor = claWhite
-        Text = 'Download From Habitat'
+        Text = 'Download From Sondehub'
         TabOrder = 6
-        OnClick = ChkEnableClick
+        OnClick = chkEnableSondehubClick
       end
       object Label2: TLabel
         Align = Scale
         StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 50.000000000000000000
+        Position.X = 8.000000000000000000
         Position.Y = 16.000000000000000000
-        Size.Width = 87.000000000000000000
+        Size.Width = 129.000000000000000000
         Size.Height = 27.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSLabelStyle'
@@ -83,7 +99,7 @@ inherited frmOtherSettings: TfrmOtherSettings
         Margins.Bottom = 8.000000000000000000
         StyledSettings = [Family, Style]
         OnChangeTracking = edtUDPTxPortChangeTracking
-        Size.Width = 79.000000000000000000
+        Size.Width = 111.000000000000000000
         Size.Height = 37.000000000000000000
         Size.PlatformDefault = False
         Version = '1.4.4.5'
@@ -113,9 +129,9 @@ inherited frmOtherSettings: TfrmOtherSettings
       object Label1: TLabel
         Align = Scale
         StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 46.000000000000000000
+        Position.X = 8.000000000000000000
         Position.Y = 60.000000000000000000
-        Size.Width = 91.000000000000000000
+        Size.Width = 129.000000000000000000
         Size.Height = 27.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSLabelStyle'
@@ -126,7 +142,7 @@ inherited frmOtherSettings: TfrmOtherSettings
       object Label3: TLabel
         Align = Scale
         StyledSettings = [Family, Style, FontColor, Other]
-        Position.X = 322.000000000000000000
+        Position.X = 298.000000000000000000
         Position.Y = 16.000000000000000000
         Size.Width = 87.000000000000000000
         Size.Height = 27.000000000000000000
@@ -145,14 +161,14 @@ inherited frmOtherSettings: TfrmOtherSettings
         Text = '0'
         TextSettings.Font.Size = 11.899999618530270000
         TextSettings.FontColor = claWhite
-        Position.X = 418.000000000000000000
+        Position.X = 392.000000000000000000
         Position.Y = 12.000000000000000000
         Margins.Left = 8.000000000000000000
         Margins.Right = 8.000000000000000000
         Margins.Bottom = 8.000000000000000000
         StyledSettings = [Family, Style]
         OnChangeTracking = edtUDPTxPortChangeTracking
-        Size.Width = 79.000000000000000000
+        Size.Width = 105.000000000000000000
         Size.Height = 37.000000000000000000
         Size.PlatformDefault = False
         Version = '1.4.4.5'

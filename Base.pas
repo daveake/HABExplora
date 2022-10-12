@@ -64,15 +64,21 @@ end;
 procedure TfrmBase.CheckLCARSLabel(Sender: TObject; Checked: Boolean);
 var
     Rectangle: TRoundRect;
+    Text: TText;
 begin
     Rectangle := TRoundRect(TLabel(Sender).FindStyleResource('rectangle'));
+    Text := TText(TLabel(Sender).FindStyleResource('text'));
 
-    if Rectangle <> nil then begin
+    if (Rectangle <> nil) and (Text <> nil) then begin
         if Checked then begin
             Rectangle.Stroke.Color := TAlphaColorRec.Yellow;
+            Rectangle.Fill.Color := TAlphaColorRec.Yellow;
+            Text.TextSettings.Font.Style := Text.TextSettings.Font.Style + [TFontStyle.fsBold];
             TLabel(Sender).Tag := 1;
         end else begin
             Rectangle.Stroke.Color := TAlphaColorRec.Gray;
+            Rectangle.Fill.Color := TAlphaColorRec.Black;
+            Text.TextSettings.Font.Style := Text.TextSettings.Font.Style - [TFontStyle.fsBold];
             TLabel(Sender).Tag := 0;
         end;
     end;
@@ -105,3 +111,4 @@ begin
 end;
 
 end.
+

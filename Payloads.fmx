@@ -3,91 +3,49 @@ inherited frmPayloads: TfrmPayloads
   StyleBook = frmMain.StyleBook1
   DesignerMasterStyle = 0
   inherited pnlMain: TPanel
-    object Rectangle2: TRectangle
-      Align = Scale
+    OnResized = pnlMainResized
+    object Rectangle1: TRectangle
+      Align = Top
       CornerType = Bevel
       Fill.Kind = None
-      Position.Y = 282.000000000000000000
-      Size.Width = 540.000000000000000000
+      Margins.Left = 2.000000000000000000
+      Margins.Top = 2.000000000000000000
+      Margins.Right = 2.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Position.X = 2.000000000000000000
+      Position.Y = 2.000000000000000000
+      Size.Width = 536.000000000000000000
       Size.Height = 278.000000000000000000
       Size.PlatformDefault = False
-      Stroke.Thickness = 2.000000000000000000
-      object ListBox2: TListBox
-        Tag = 2
-        Align = Client
-        Size.Width = 540.000000000000000000
-        Size.Height = 278.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSListBoxStyle'
-        TabOrder = 0
-        OnClick = ListBox1Click
-        AlternatingRowBackground = True
-        DisableFocusEffect = True
-        ItemHeight = 46.000000000000000000
-        DefaultItemStyles.ItemStyle = 'LCARSListBoxItemStyleCentred'
-        DefaultItemStyles.GroupHeaderStyle = ''
-        DefaultItemStyles.GroupFooterStyle = ''
-        OnEnter = ListBox1Enter
-        Viewport.Width = 540.000000000000000000
-        Viewport.Height = 278.000000000000000000
-      end
+      Stroke.Color = xFFF1DF6F
+    end
+    object Rectangle2: TRectangle
+      Align = Top
+      CornerType = Bevel
+      Fill.Kind = None
+      Margins.Left = 2.000000000000000000
+      Margins.Top = 2.000000000000000000
+      Margins.Right = 2.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Position.X = 2.000000000000000000
+      Position.Y = 284.000000000000000000
+      Size.Width = 536.000000000000000000
+      Size.Height = 278.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFFF1DF6F
     end
     object Rectangle3: TRectangle
-      Align = Scale
+      Align = Client
       CornerType = Bevel
       Fill.Kind = None
-      Position.Y = 564.000000000000000000
-      Size.Width = 540.000000000000000000
-      Size.Height = 278.000000000000000000
+      Margins.Left = 2.000000000000000000
+      Margins.Top = 2.000000000000000000
+      Margins.Right = 2.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Size.Width = 536.000000000000000000
+      Size.Height = 280.000000000000000000
       Size.PlatformDefault = False
-      Stroke.Thickness = 2.000000000000000000
-      object ListBox3: TListBox
-        Tag = 3
-        Align = Client
-        Size.Width = 540.000000000000000000
-        Size.Height = 278.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSListBoxStyle'
-        TabOrder = 0
-        OnClick = ListBox1Click
-        AlternatingRowBackground = True
-        DisableFocusEffect = True
-        ItemHeight = 46.000000000000000000
-        DefaultItemStyles.ItemStyle = 'LCARSListBoxItemStyleCentred'
-        DefaultItemStyles.GroupHeaderStyle = ''
-        DefaultItemStyles.GroupFooterStyle = ''
-        OnEnter = ListBox1Enter
-        Viewport.Width = 540.000000000000000000
-        Viewport.Height = 278.000000000000000000
-      end
-    end
-    object Rectangle1: TRectangle
-      Align = Scale
-      CornerType = Bevel
-      Fill.Kind = None
-      Size.Width = 540.000000000000000000
-      Size.Height = 278.000000000000000000
-      Size.PlatformDefault = False
-      Stroke.Thickness = 2.000000000000000000
-      object ListBox1: TListBox
-        Tag = 1
-        Align = Client
-        Size.Width = 540.000000000000000000
-        Size.Height = 278.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSListBoxStyle'
-        TabOrder = 0
-        OnClick = ListBox1Click
-        AlternatingRowBackground = True
-        DisableFocusEffect = True
-        ItemHeight = 42.000000000000000000
-        DefaultItemStyles.ItemStyle = 'LCARSListBoxItemStyleCentred'
-        DefaultItemStyles.GroupHeaderStyle = ''
-        DefaultItemStyles.GroupFooterStyle = ''
-        OnEnter = ListBox1Enter
-        Viewport.Width = 540.000000000000000000
-        Viewport.Height = 278.000000000000000000
-      end
+      Stroke.Color = xFFF1DF6F
     end
   end
 end

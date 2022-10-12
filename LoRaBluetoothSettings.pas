@@ -7,11 +7,10 @@ uses
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   SettingsBase, FMX.ScrollBox, FMX.Memo, FMX.Objects, FMX.Controls.Presentation,
   FMX.TMSCustomEdit, FMX.TMSEdit, Miscellaneous, Math, System.Bluetooth,
-  FMX.ListBox, System.Bluetooth.Components;
+  FMX.ListBox, System.Bluetooth.Components, FMX.Memo.Types;
 
 type
   TfrmBluetoothSettings = class(TfrmSettingsBase)
-    chkHabitat: TLabel;
     chkSSDV: TLabel;
     Label2: TLabel;
     edtFrequency: TTMSFMXEdit;
@@ -25,8 +24,17 @@ type
     Label4: TLabel;
     cmbDevices: TComboBox;
     BluetoothLE1: TBluetoothLE;
+    chkAFC: TLabel;
+    rectProgressHolder: TRectangle;
+    rectProgressBar: TRectangle;
+    btnSearch: TButton;
+    tmrReceive: TTimer;
+    tmrSearch: TTimer;
+    rectRx: TRectangle;
+    lblRx: TLabel;
+    chkSondehub: TLabel;
+    chkHabitat: TLabel;
     procedure FormCreate(Sender: TObject);
-    procedure chkHabitatClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnModeDownClick(Sender: TObject);
@@ -37,10 +45,21 @@ type
       const ADevice: TBluetoothLEDevice; Rssi: Integer;
       const ScanResponse: TScanResponse);
     procedure edtFrequencyExit(Sender: TObject);
+    procedure tmrReceiveTimer(Sender: TObject);
+    procedure tmrSearchTimer(Sender: TObject);
+    procedure btnSearchClick(Sender: TObject);
+    procedure edtCallsignChangeTracking(Sender: TObject);
+    procedure edtDeviceChangeTracking(Sender: TObject);
+    procedure chkSondehubClick(Sender: TObject);
   private
     { Private declarations }
+    Searching: Boolean;
+    SearchCentreFrequency: Double;
+    SearchPacketCount, SearchStep: Integer;
     procedure SendSettingsToDevice;
     procedure UpdateBluetoothList;
+    procedure NextSearch;
+    procedure StopSearch;
   protected
     procedure ApplyChanges; override;
     procedure CancelChanges; override;
@@ -65,8 +84,11 @@ begin
     SetSettingString(Group, 'Frequency', edtFrequency.Text);
     SetSettingString(Group, 'Mode', edtMode.Text);
     SetSettingString(Group, 'Callsign', edtCallsign.Text);
+    SetSettingBoolean(Group, 'AFC', LCARSLabelIsChecked(chkAFC));
 
     SetSettingBoolean(Group, 'Habitat', LCARSLabelIsChecked(chkHabitat));
+    SetSettingBoolean(Group, 'Sondehub', LCARSLabelIsChecked(chkSondehub));
+
     SetSettingBoolean(Group, 'SSDV', LCARSLabelIsChecked(chkSSDV));
 
     inherited;
@@ -133,6 +155,33 @@ begin
     frmSources.SendParameterToSource(BLUETOOTH_SOURCE, 'M', edtMode.Text);
 end;
 
+procedure TfrmBluetoothSettings.tmrReceiveTimer(Sender: TObject);
+var
+    PacketCount: Integer;
+begin
+    PacketCount := frmSources.GetPacketCount(BLUETOOTH_SOURCE);
+
+    Inc(SearchPacketCount, PacketCount);
+
+    if PacketCount > 0 then begin
+        rectRx.Visible := True;
+        frmSources.ResetPacketCount(BLUETOOTH_SOURCE);
+    end else begin
+        rectRx.Visible := False;
+    end;
+end;
+
+procedure TfrmBluetoothSettings.tmrSearchTimer(Sender: TObject);
+begin
+    tmrSearch.Enabled := False;
+
+    if SearchPacketCount > 1 then begin
+        StopSearch;
+    end else begin
+        NextSearch;
+    end;
+end;
+
 procedure TfrmBluetoothSettings.btnCancelClick(Sender: TObject);
 begin
     inherited;
@@ -142,29 +191,46 @@ end;
 procedure TfrmBluetoothSettings.btnModeDownClick(Sender: TObject);
 begin
     edtMode.Text := IntToStr(Max(0,Min(7,StrToIntDef(edtMode.Text, 0)-1)));
+    SetingsHaveChanged;
 end;
 
 procedure TfrmBluetoothSettings.btnModeUpClick(Sender: TObject);
 begin
     edtMode.Text := IntToStr(Max(0,Min(7,StrToIntDef(edtMode.Text, 0)+1)));
+    SetingsHaveChanged;
+end;
+
+procedure TfrmBluetoothSettings.btnSearchClick(Sender: TObject);
+begin
+    btnSearch.Enabled := False;
+    rectProgressBar.Width := 0;
+    // rectProgressHolder.Visible := True;
+    SearchCentreFrequency := StrToFloat(edtFrequency.Text);
+    SearchStep := -6;
+    Searching := True;
+    NextSearch;
 end;
 
 procedure TfrmBluetoothSettings.CancelChanges;
 begin
-    inherited;
-
     edtDevice.Text := GetSettingString(Group, 'Device', '');
 
     edtFrequency.Text := GetSettingString(Group, 'Frequency', '');
     edtMode.Text := GetSettingString(Group, 'Mode', '');
     edtCallsign.Text := GetSettingString(Group, 'Callsign', '');
+
     CheckLCARSLabel(chkHabitat, GetSettingBoolean(Group, 'Habitat', False));
+    CheckLCARSLabel(chkSondehub, GetSettingBoolean(Group, 'Sondehub', False));
+
     CheckLCARSLabel(chkSSDV, GetSettingBoolean(Group, 'SSDV', False));
+    CheckLCARSLabel(chkAFC, GetSettingBoolean(Group, 'AFC', False));
 
     SendSettingsToDevice;
+
+    inherited;
 end;
 
-procedure TfrmBluetoothSettings.chkHabitatClick(Sender: TObject);
+procedure TfrmBluetoothSettings.chkSondehubClick(Sender: TObject);
 begin
     SetingsHaveChanged;
     LCARSLabelClick(Sender);
@@ -178,6 +244,16 @@ begin
             SetingsHaveChanged;
         end;
     end;
+end;
+
+procedure TfrmBluetoothSettings.edtCallsignChangeTracking(Sender: TObject);
+begin
+    SetingsHaveChanged;
+end;
+
+procedure TfrmBluetoothSettings.edtDeviceChangeTracking(Sender: TObject);
+begin
+    SetingsHaveChanged;
 end;
 
 procedure TfrmBluetoothSettings.edtDeviceClick(Sender: TObject);
@@ -231,6 +307,43 @@ begin
 {$ENDIF}
 
     cmbDevices.ItemIndex := cmbDevices.Items.IndexOf(edtDevice.Text);
+end;
+
+procedure TfrmBluetoothSettings.NextSearch;
+begin
+    Inc(SearchStep);
+
+    if SearchStep > 5 then begin
+        // pnlSearchFrequency.Caption := '';
+        rectProgressBar.Width := 0;
+        // rectProgressHolder.Visible := False;
+        Searching := False;
+        frmSources.SendParameterToSource(BLUETOOTH_SOURCE, 'F', edtFrequency.Text);
+        btnSearch.Enabled := True;
+    end else begin
+        // pnlSearchFrequency.Caption := FormatFloat('.0000', SearchFrequency);
+        rectProgressBar.Width := (SearchStep + 6) * rectProgressHolder.Width / 12;
+
+        edtFrequency.Text := FormatFloat('0.000#', SearchCentreFrequency + SearchStep * 0.002);
+        frmSources.SendParameterToSource(BLUETOOTH_SOURCE, 'F', edtFrequency.Text);
+
+        SearchPacketCount := 0;
+        tmrSearch.Enabled := True;
+    end;
+end;
+
+procedure TfrmBluetoothSettings.StopSearch;
+begin
+    edtFrequency.Text := FormatFloat('0.000#', StrToFloat(edtFrequency.Text) + frmSources.FrequencyError(BLUETOOTH_SOURCE) / 1000);
+
+    frmSources.SendParameterToSource(BLUETOOTH_SOURCE, 'F', FormatFloat('0.000#', SearchCentreFrequency + SearchStep * 0.002));
+
+    rectProgressBar.Width := 0;
+    // rectProgressHolder.Visible := False;
+
+    btnSearch.Enabled := True;
+
+    Searching := False;
 end;
 
 end.

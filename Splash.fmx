@@ -1298,39 +1298,37 @@ inherited frmSplash: TfrmSplash
       Size.Height = 848.000000000000000000
       Size.PlatformDefault = False
       OnMouseUp = Image1MouseUp
-      object lblVersion: TLabel
-        Align = Scale
-        StyledSettings = [Family, Style]
-        Position.X = 104.000000000000000000
-        Position.Y = 150.000000000000000000
-        Size.Width = 305.000000000000000000
-        Size.Height = 34.000015258789060000
-        Size.PlatformDefault = False
-        TextSettings.Font.Size = 18.000000000000000000
-        TextSettings.FontColor = claSilver
-        TextSettings.HorzAlign = Center
-        TabOrder = 0
-      end
+      OnResized = Image1Resized
       object rectLoading: TRectangle
         Align = Bottom
         Fill.Color = claBlack
-        Position.Y = 688.000000000000000000
+        Position.Y = 672.000000000000000000
         Size.Width = 540.000000000000000000
-        Size.Height = 160.000000000000000000
+        Size.Height = 176.000000000000000000
         Size.PlatformDefault = False
         object Label1: TLabel
           Align = Client
           StyledSettings = [Style]
           Size.Width = 540.000000000000000000
-          Size.Height = 160.000000000000000000
+          Size.Height = 176.000000000000000000
           Size.PlatformDefault = False
-          TextSettings.Font.Family = 'Swiss911 XCm BT'
-          TextSettings.Font.Size = 36.000000000000000000
+          TextSettings.Font.Family = 'Swiss911 UCm BT'
+          TextSettings.Font.Size = 42.000000000000000000
           TextSettings.FontColor = xFFF7A025
           TextSettings.HorzAlign = Center
-          Text = 'Loading ...'
-          TabOrder = 0
+          Text = 'LOADING ...'
         end
+      end
+      object lblVersion: TLabel
+        Align = Top
+        StyledSettings = [Family, Size, Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 177.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.VertAlign = Trailing
+        TabOrder = 0
       end
     end
   end

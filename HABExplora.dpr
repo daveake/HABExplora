@@ -15,16 +15,12 @@ uses
   GPSSettings in 'GPSSettings.pas' {frmGPSSettings},
   LoRaBluetoothSettings in 'LoRaBluetoothSettings.pas' {frmBluetoothSettings},
   OtherSettings in 'OtherSettings.pas' {frmOtherSettings},
-  Uplink in 'Uplink.pas' {frmUplink},
   SourcesForm in 'SourcesForm.pas' {frmSources},
   Debug in 'Debug.pas' {frmDebug},
   BluetoothSource in '..\HABRx\BluetoothSource.pas',
   Androidapi.JNI.WiFiManager in '..\HABRx\Androidapi.JNI.WiFiManager.pas',
-  CarUpload in '..\HABRx\CarUpload.pas',
   GatewaySource in '..\HABRx\GatewaySource.pas',
   GPSSource in '..\HABRx\GPSSource.pas',
-  Habitat in '..\HABRx\Habitat.pas',
-  HabitatSource in '..\HABRx\HabitatSource.pas',
   Miscellaneous in '..\HABRx\Miscellaneous.pas',
   SerialSource in '..\HABRx\SerialSource.pas',
   Source in '..\HABRx\Source.pas',
@@ -32,7 +28,17 @@ uses
   LoRaSerialSettings in 'LoRaSerialSettings.pas' {frmLoRaSerialSettings},
   Androidapi.JNI.Interfaces.JGeomagneticField in '..\HABRx\Androidapi.JNI.Interfaces.JGeomagneticField.pas',
   BLESource in '..\HABRx\BLESource.pas',
-  SocketSource in '..\HABRx\SocketSource.pas';
+  SocketSource in '..\HABRx\SocketSource.pas',
+  SSDV in '..\HABRx\SSDV.pas',
+  Uplink in 'Uplink.pas' {frmUplink},
+  Tawhiri in '..\HABRx\Tawhiri.pas',
+  Sondehub in '..\HABRx\Sondehub.pas',
+  Misc in 'Misc.pas',
+  MQTTSource in '..\HABRx\MQTTSource.pas',
+  CarUpload in '..\HABRx\CarUpload.pas',
+  Habitat in '..\HABRx\Habitat.pas',
+  HabitatSource in '..\HABRx\HabitatSource.pas',
+  WSMQTTSource in '..\HABRx\WSMQTTSource.pas';
 
 {$R *.res}
 

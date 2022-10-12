@@ -1,18 +1,807 @@
 inherited frmUplink: TfrmUplink
-  Caption = 'frmBase1'
+  Caption = ''
   DesignerMasterStyle = 0
   inherited pnlMain: TPanel
-    object Label1: TLabel
-      Align = Client
-      StyledSettings = [Family, Style]
-      Size.Width = 700.000000000000000000
-      Size.Height = 424.000000000000000000
+    object chkPayload1: TLabel
+      Tag = 1
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.Y = 24.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.Height = 64.000000000000000000
       Size.PlatformDefault = False
-      TextSettings.Font.Size = 24.000000000000000000
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 11
+      OnClick = chkPayload1Click
+    end
+    object chkPayload2: TLabel
+      Tag = 2
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 188.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 9
+    end
+    object chkPayload3: TLabel
+      Tag = 3
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 376.000000000000000000
+      Position.Y = 24.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TabOrder = 6
+    end
+    object tmrInit: TTimer
+      Enabled = False
+      Interval = 1
+      OnTimer = tmrInitTimer
+      Left = 24
+      Top = 640
+    end
+    object chkSource1: TLabel
+      Tag = 5
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 104.000000000000000000
+      Position.Y = 110.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      Text = 'USB'
+      TabOrder = 3
+      OnClick = chkSource1Click
+    end
+    object chkSource2: TLabel
+      Tag = 6
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      HitTest = True
+      Position.X = 288.000000000000000000
+      Position.Y = 110.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'lCARSCheckButton'
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      Text = 'BT'
+      TabOrder = 2
+      OnClick = chkSource1Click
+    end
+    object btnSearch: TButton
+      StaysPressed = True
+      Align = Scale
+      Enabled = False
+      StyledSettings = [Family, Style, Other]
+      IsPressed = True
+      Margins.Right = 4.000000000000000000
+      Margins.Bottom = 4.000000000000000000
+      Position.X = 144.000000000000000000
+      Position.Y = 760.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSTabButtonStyle'
+      TabOrder = 0
+      Text = 'BEAM THIS UP!'
+      TextSettings.Font.Size = 28.000000000000000000
+      OnClick = btnSearchClick
+    end
+    object TMSFNCPageControl1: TTMSFNCPageControl
+      Color = claBlack
+      Align = Scale
+      Position.X = 4.000000000000000000
+      Position.Y = 216.000000000000000000
+      Size.Width = 532.000000000000000000
+      Size.Height = 233.000000000000000000
+      Size.PlatformDefault = False
+      Fill.Kind = gfkNone
+      Fill.Color = claBlack
+      Stroke.Kind = gskNone
+      TabAppearance.Font.Size = 16.000000000000000000
+      TabAppearance.Font.Name = 'Segoe UI'
+      TabAppearance.ProgressFill.Color = xFF1BADF8
+      TabAppearance.ProgressStroke.Color = xFF1BADF8
+      TabAppearance.Fill.Color = xFFEDF7F8
+      TabAppearance.Stroke.Color = claDarkgray
+      TabAppearance.ActiveStroke.Color = claDarkgray
+      TabAppearance.DisabledFill.Color = claLightgray
+      TabAppearance.DisabledStroke.Color = claDarkgray
+      TabAppearance.DownFill.Color = xFFD9E3EE
+      TabAppearance.DownStroke.Color = claDarkgray
+      TabAppearance.HoverFill.Color = xFFE3EDF8
+      TabAppearance.HoverStroke.Color = claDarkgray
+      TabAppearance.TextSpacing = 0.000000000000000000
+      TabAppearance.CloseFill.Kind = gfkNone
+      TabAppearance.CloseFill.Color = xFFEDF7F8
+      TabAppearance.CloseStroke.Color = claDarkgray
+      TabAppearance.CloseStroke.Width = 2.000000000000000000
+      TabAppearance.CloseDownFill.Color = claCrimson
+      TabAppearance.CloseDownStroke.Color = claWhite
+      TabAppearance.CloseDownStroke.Width = 2.000000000000000000
+      TabAppearance.CloseHoverFill.Color = claRed
+      TabAppearance.CloseHoverStroke.Color = claWhite
+      TabAppearance.CloseHoverStroke.Width = 2.000000000000000000
+      TabAppearance.BadgeFill.Color = claOrange
+      TabAppearance.BadgeStroke.Color = claDarkred
+      TabAppearance.BadgeFont.Color = claDarkred
+      TabAppearance.BadgeFont.Name = 'Segoe UI'
+      TabAppearance.BadgeFont.StyleExt = {00070000000000000004000000}
+      ButtonAppearance.Fill.Color = xFFEDF7F8
+      ButtonAppearance.Stroke.Color = claDarkgray
+      ButtonAppearance.DownFill.Color = xFFD9E3EE
+      ButtonAppearance.DownStroke.Color = claDarkgray
+      ButtonAppearance.DisabledFill.Color = claLightgray
+      ButtonAppearance.DisabledStroke.Color = claDarkgray
+      ButtonAppearance.HoverFill.Color = xFFE3EDF8
+      ButtonAppearance.HoverStroke.Color = claDarkgray
+      ButtonAppearance.CloseIcon.PNG = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        61000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        006949444154384FDD925D0A80300C83AB4750BCFF51D5D015624C417CDC0763
+        85FC6C83C57C1CF73A73B440DB734C96B1171CFEA4A90938635BEC0A00079897
+        BF2B005A62BDEBD87FD315E074BD817D96BB5685A195CEE147460B5CB8684B18
+        7C12362AD0B61C2721E2024E4713515D0CD8E20000000049454E44AE426082}
+      ButtonAppearance.InsertIcon.PNG = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        61000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        002D49444154384F6318FEE03F14E3044C509A6C30F00630426918C0EB5F2400
+        D747B10B088191100B431E30300000F2A6050C520DEEFE0000000049454E44AE
+        426082}
+      ButtonAppearance.TabListIcon.PNG = {
+        89504E470D0A1A0A0000000D4948445200000007000000090806000000FE5836
+        A3000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        003249444154285363C00718C3C2C2FE43D9A401BC3A99A03456C00822B0E95E
+        B56A152358120490158024A04C0420C1E50C0C0024C60E0AC706C1D800000000
+        49454E44AE426082}
+      ButtonAppearance.ScrollNextIcon.PNG = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        61000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        005649444154384F63180538011F10EF046273300F0F6082D2E8E00710FF0262
+        A20CC105D8807833107F00628A0CD902C4380DC1E505186084D264017620C66B
+        3B3E40B4665C5E00F99D0588DD81F824486014E0020C0C0037990C872198B2EE
+        0000000049454E44AE426082}
+      ButtonAppearance.ScrollPreviousIcon.PNG = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        61000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        005349444154384F631839801D4A9305A281F80E100B8279240290E63F40DC01
+        E69108609A3BC13C1241301083344F02F3C8000A40FC00882F00B13048801C40
+        7543F84102E4009021DD40CC04E68D0234C0C000006E2E0D42C90388B4000000
+        0049454E44AE426082}
+      TabSize.Mode = tsmFixedSize
+      TabSize.Width = 94.000000000000000000
+      TabSize.Height = 32.000000000000000000
+      TabSize.Margins.Left = 8.000000000000000000
+      TabSize.Margins.Top = 8.000000000000000000
+      TabSize.Margins.Right = 8.000000000000000000
+      TabSize.Margins.Bottom = 8.000000000000000000
+      Pages = <
+        item
+          Text = 'Cutdown'
+          Bitmaps = <>
+          DisabledBitmaps = <>
+          TextColor = claSilver
+          ActiveTextColor = claWhite
+          DownTextColor = claWhite
+          Color = claBlack
+          ActiveColor = claBlack
+        end
+        item
+          Text = 'Output'
+          Bitmaps = <>
+          DisabledBitmaps = <>
+          TextColor = claSilver
+          ActiveTextColor = claWhite
+          DownTextColor = claWhite
+          Color = claBlack
+          ActiveColor = claBlack
+        end
+        item
+          Text = 'Servo'
+          Bitmaps = <>
+          DisabledBitmaps = <>
+          TextColor = claSilver
+          ActiveTextColor = claWhite
+          DownTextColor = claWhite
+          Color = claBlack
+          ActiveColor = claBlack
+        end
+        item
+          Text = 'Script'
+          Bitmaps = <>
+          DisabledBitmaps = <>
+          TextColor = claSilver
+          ActiveTextColor = claWhite
+          DownTextColor = claWhite
+          Color = claBlack
+          ActiveColor = claBlack
+        end>
+      object TMSFNCPageControl1Page1: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 532.000000000000000000
+        Size.Height = 194.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        PageIndex = 1
+        IsActive = False
+      end
+      object TMSFNCPageControl1Page3: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 532.000000000000000000
+        Size.Height = 194.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        PageIndex = 3
+        IsActive = False
+      end
+      object TMSFNCPageControlContainer1: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 532.000000000000000000
+        Size.Height = 194.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        PageIndex = 1
+        IsActive = False
+      end
+      object TMSFNCPageControlContainer3: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 532.000000000000000000
+        Size.Height = 194.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        PageIndex = 3
+        IsActive = False
+      end
+      object TMSFNCPageControlContainer6: TTMSFNCPageControlContainer
+        Color = claBlack
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 170.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Visible = False
+        Fill.Color = claBlack
+        PageIndex = 1
+        IsActive = False
+        object Label3: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 10.770083427429200000
+          Position.Y = 58.846153259277340000
+          Size.Width = 80.775627136230470000
+          Size.Height = 26.153846740722660000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Pin:'
+          TabOrder = 9
+        end
+        object edtPin: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 3
+          Text = '1'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 104.930747985839800000
+          Position.Y = 53.615383148193360000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 74.199440002441410000
+          Size.Height = 44.307697296142580000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object Label4: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 227.220779418945300000
+          Position.Y = 58.672565460205080000
+          Size.Width = 100.987014770507800000
+          Size.Height = 27.079639434814450000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Period(s):'
+          TabOrder = 8
+        end
+        object edtPinPeriod: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 2
+          Text = '5'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 341.872589111328100000
+          Position.Y = 53.615383148193360000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 95.739624023437500000
+          Size.Height = 44.307697296142580000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+      end
+      object TMSFNCPageControl1Page0: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 170.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Visible = False
+        PageIndex = 0
+        IsActive = False
+      end
+      object TMSFNCPageControlContainer8: TTMSFNCPageControlContainer
+        Color = claBlack
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 170.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Visible = False
+        Fill.Color = claBlack
+        PageIndex = 3
+        IsActive = False
+        object Label8: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 16.000000000000000000
+          Position.Y = 62.000000000000000000
+          Size.Width = 52.000000000000000000
+          Size.Height = 42.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Script:'
+          TabOrder = 7
+        end
+        object edtScriptName: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 2
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 88.000000000000000000
+          Position.Y = 64.000000000000000000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 374.000000000000000000
+          Size.Height = 43.000000000000000000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+      end
+      object TMSFNCPageControl1Page2: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        TabStop = False
+        Visible = False
+        PageIndex = 2
+        IsActive = True
+      end
+      object TMSFNCPageControlContainer2: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 361.000000000000000000
+        Size.Height = 130.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Visible = False
+        PageIndex = 2
+        IsActive = True
+      end
+      object TMSFNCPageControlContainer7: TTMSFNCPageControlContainer
+        Color = claBlack
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 486.000000000000000000
+        Size.Height = 170.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Visible = False
+        Fill.Color = claBlack
+        PageIndex = 2
+        IsActive = False
+        object Label5: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 10.770083427429200000
+          Position.Y = 30.076919555664060000
+          Size.Width = 80.775627136230470000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Pin:'
+          TabOrder = 11
+        end
+        object edtServoPin: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 4
+          Text = '1'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 104.930747985839800000
+          Position.Y = 30.076919555664060000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 74.199440002441410000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object Label6: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 227.518005371093800000
+          Position.Y = 30.076919555664060000
+          Size.Width = 100.969543457031300000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Period(s):'
+          TabOrder = 10
+        end
+        object edtServoPeriod: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 3
+          Text = '5'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 341.872589111328100000
+          Position.Y = 30.076919555664060000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 95.739624023437500000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object Label7: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 227.518005371093800000
+          Position.Y = 92.846153259277340000
+          Size.Width = 100.969543457031300000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Position:'
+          TabOrder = 9
+        end
+        object edtServoPosition: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 2
+          Text = '100'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 341.872589111328100000
+          Position.Y = 92.846153259277340000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 95.739624023437500000
+          Size.Height = 33.846149444580080000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+      end
+      object TMSFNCPageControlContainer4: TTMSFNCPageControlContainer
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        TabStop = False
+        Visible = False
+        PageIndex = 0
+        IsActive = True
+      end
+      object TMSFNCPageControlContainer5: TTMSFNCPageControlContainer
+        Color = claBlack
+        Align = Client
+        Margins.Top = 39.000000000000000000
+        Size.Width = 532.000000000000000000
+        Size.Height = 194.000000000000000000
+        Size.PlatformDefault = False
+        TabStop = False
+        Fill.Color = claBlack
+        PageIndex = 0
+        IsActive = True
+        object lblCutown: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 237.815124511718800000
+          Position.Y = 20.892307281494140000
+          Size.Width = 110.611663818359400000
+          Size.Height = 53.723072052001950000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Time (s):'
+          TabOrder = 9
+        end
+        object edtCutdownPeriod: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 3
+          Text = '5'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 363.340026855468800000
+          Position.Y = 25.369230270385740000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 82.167846679687500000
+          Size.Height = 51.692306518554690000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+        object chkImmediate: TTMSFNCRadioButton
+          Color = claNull
+          Align = Scale
+          Position.X = 22.122335433959960000
+          Position.Y = 25.369230270385740000
+          Size.Width = 233.667144775390600000
+          Size.Height = 61.184616088867190000
+          Size.PlatformDefault = False
+          Checked = True
+          GroupName = '1'
+          Text = 'Immediate'
+          Font.Size = 18.000000000000000000
+          Font.Color = claSilver
+          Font.Name = 'Segoe UI'
+        end
+        object chkCutdownAltitude: TTMSFNCRadioButton
+          Color = claNull
+          Align = Scale
+          Position.X = 22.122335433959960000
+          Position.Y = 97.000000000000000000
+          Size.Width = 233.667144775390600000
+          Size.Height = 61.184616088867190000
+          Size.PlatformDefault = False
+          GroupName = '1'
+          Text = 'At Altitude'
+          Font.Size = 18.000000000000000000
+          Font.Color = claSilver
+          Font.Name = 'Segoe UI'
+        end
+        object Label2: TLabel
+          Align = Scale
+          StyledSettings = [Family, Style, FontColor, Other]
+          Position.X = 237.815124511718800000
+          Position.Y = 104.461532592773400000
+          Size.Width = 110.611663818359400000
+          Size.Height = 53.723083496093750000
+          Size.PlatformDefault = False
+          StyleLookup = 'LCARSLabelStyle'
+          TextSettings.Font.Size = 16.000000000000000000
+          Text = 'Alt (m):'
+          TabOrder = 8
+        end
+        object edtAltitude: TTMSFMXEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Scale
+          StyleLookup = 'LCARSTMSFMXEdit1Style'
+          TabOrder = 2
+          Text = '30000'
+          TextSettings.Font.Size = 18.000000000000000000
+          TextSettings.FontColor = claWhite
+          TextSettings.HorzAlign = Center
+          Position.X = 363.340026855468800000
+          Position.Y = 114.907691955566400000
+          Margins.Left = 8.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 8.000000000000000000
+          StyledSettings = [Family, Style]
+          Size.Width = 105.672882080078100000
+          Size.Height = 47.215385437011720000
+          Size.PlatformDefault = False
+          Version = '1.4.4.5'
+          Lookup.Separator = ';'
+        end
+      end
+    end
+    object rectWhen: TRectangle
+      Align = Scale
+      Fill.Kind = None
+      Position.X = 4.000000000000000000
+      Position.Y = 464.000000000000000000
+      Size.Width = 532.000000000000000000
+      Size.Height = 193.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claWhite
+      object chkNow: TTMSFNCRadioButton
+        Color = claNull
+        Align = Scale
+        Position.X = 21.540166854858400000
+        Position.Y = 14.087592124938960000
+        Size.Width = 227.518005371093800000
+        Size.Height = 57.759124755859380000
+        Size.PlatformDefault = False
+        Checked = True
+        GroupName = '2'
+        Text = 'Send Now'
+        Font.Size = 18.000000000000000000
+        Font.Color = claSilver
+        Font.Name = 'Segoe UI'
+      end
+      object chkRx: TTMSFNCRadioButton
+        Color = claNull
+        Align = Scale
+        Position.X = 21.540166854858400000
+        Position.Y = 115.518249511718800000
+        Size.Width = 227.518005371093800000
+        Size.Height = 57.759124755859380000
+        Size.PlatformDefault = False
+        GroupName = '2'
+        Text = 'Send After Rx'
+        Font.Size = 18.000000000000000000
+        Font.Color = claSilver
+        Font.Name = 'Segoe UI'
+      end
+      object chkSeconds: TTMSFNCRadioButton
+        Color = claNull
+        Align = Scale
+        Position.X = 21.540166854858400000
+        Position.Y = 64.802925109863280000
+        Size.Width = 292.138519287109400000
+        Size.Height = 57.759124755859380000
+        Size.PlatformDefault = False
+        GroupName = '2'
+        Text = 'Send On n'#39'th Second:'
+        Font.Size = 18.000000000000000000
+        Font.Color = claSilver
+        Font.Name = 'Segoe UI'
+      end
+      object edtSeconds: TTMSFMXEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Scale
+        StyleLookup = 'LCARSTMSFMXEdit1Style'
+        Text = '2'
+        TextSettings.Font.Size = 18.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        Position.X = 361.000000000000000000
+        Position.Y = 70.804733276367190000
+        Margins.Left = 8.000000000000000000
+        Margins.Right = 8.000000000000000000
+        Margins.Bottom = 8.000000000000000000
+        StyledSettings = [Family, Style]
+        Size.Width = 77.000000000000000000
+        Size.Height = 50.242599487304690000
+        Size.PlatformDefault = False
+        Version = '1.4.4.5'
+        Lookup.Separator = ';'
+      end
+    end
+    object Label1: TLabel
+      Align = Scale
+      StyledSettings = [Family, Style, FontColor, Other]
+      Position.X = 24.000000000000000000
+      Position.Y = 672.000000000000000000
+      Size.Width = 265.000000000000000000
+      Size.Height = 57.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSLabelStyle'
+      TextSettings.Font.Size = 16.000000000000000000
+      Text = 'Password:'
+      TabOrder = 7
+    end
+    object edtPassword: TTMSFMXEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Scale
+      StyleLookup = 'LCARSTMSFMXEdit1Style'
+      TabOrder = 1
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Position.X = 304.000000000000000000
+      Position.Y = 680.000000000000000000
+      Margins.Left = 8.000000000000000000
+      Margins.Right = 8.000000000000000000
+      Margins.Bottom = 8.000000000000000000
+      StyledSettings = [Family, Style]
+      Size.Width = 201.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      Version = '1.4.4.5'
+      Lookup.Separator = ';'
+    end
+    object tmrSending: TTimer
+      Enabled = False
+      OnTimer = tmrSendingTimer
+      Left = 480
+      Top = 616
+    end
+    object lblSending: TLabel
+      Align = Scale
+      StyledSettings = [Family, Style]
+      Position.X = 136.000000000000000000
+      Position.Y = 640.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'LCARSLabelStyle'
+      TextSettings.Font.Size = 16.000000000000000000
       TextSettings.FontColor = claYellow
       TextSettings.HorzAlign = Center
-      Text = 'Uplink - Not Yet Implemented'
-      TabOrder = 0
+      Text = 'Waiting To Send ...'
+      Visible = False
+      TabOrder = 5
     end
+  end
+  inherited tmrUpdates: TTimer
+    Left = 24
+    Top = 592
   end
 end

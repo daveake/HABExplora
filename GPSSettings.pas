@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   SettingsBase, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.Objects, Miscellaneous,
   FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, Soap.InvokeRegistry,
-  Soap.Rio, Soap.SOAPHTTPClient, System.Net.URLClient;
+  Soap.Rio, Soap.SOAPHTTPClient, System.Net.URLClient, FMX.Memo.Types;
 
 type
   TfrmGPSSettings = class(TfrmSettingsBase)
@@ -15,10 +15,11 @@ type
     edtPeriod: TTMSFMXEdit;
     Label3: TLabel;
     edtCallsign: TTMSFMXEdit;
-    chkUpload: TLabel;
     Label1: TLabel;
     edtOffset: TTMSFMXEdit;
     HTTPRIO1: THTTPRIO;
+    chkSondehubUpload: TLabel;
+    chkHABHUBUpload: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure chkSettingsClick(Sender: TObject);
     procedure edtPortChangeTracking(Sender: TObject);
@@ -52,10 +53,14 @@ begin
     inherited;
 
     SetSettingString('CHASE', 'Callsign', edtCallsign.Text);
-    SetSettingBoolean('CHASE', 'Upload', LCARSLabelIsChecked(chkUpload));
+
+    SetSettingBoolean('CHASE', 'Upload', LCARSLabelIsChecked(chkHABHUBUpload));
+    SetSettingBoolean('CHASE', 'UploadSondehub', LCARSLabelIsChecked(chkSondehubUpload));
+
     SetSettingInteger('CHASE', 'Period', edtPeriod.Text.ToInteger);
     SetSettingInteger('CHASE', 'Offset', edtOffset.Text.ToInteger);
 
+    frmMain.UpdateCarUploadSettings;
 end;
 
 procedure TfrmGPSSettings.CancelChanges;
@@ -63,7 +68,10 @@ begin
     inherited;
 
     edtCallsign.Text := GetSettingString('CHASE', 'Callsign', '');
-    CheckLCARSLabel(chkUpload, GetSettingBoolean('CHASE', 'Upload', False));
+
+    CheckLCARSLabel(chkHABHUBUpload, GetSettingBoolean('CHASE', 'Upload', False));
+    CheckLCARSLabel(chkSondehubUpload, GetSettingBoolean('CHASE', 'UploadSondehub', False));
+
     edtPeriod.Text := GetSettingInteger('CHASE', 'Period', 0).ToString;
     edtOffset.Text := GetSettingInteger('CHASE', 'Offset', 0).ToString;
 
