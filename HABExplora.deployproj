@@ -657,6 +657,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="Android\Release\libHABExplora.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>HABExplora\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libHABExplora.so</RemoteName>
+            <DeployClass>ProjectOutput_Android32</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="OpenSSL\Android64\libssl.so" Condition="'$(Config)'=='Release'">
             <RemoteDir>HABExplora\assets\internal\</RemoteDir>
             <RemoteName>libssl.so</RemoteName>

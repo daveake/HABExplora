@@ -364,8 +364,8 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Debugger_RunParams>d:\dropbox\dev\hab\apps\HABExplora</Debugger_RunParams>
         <AppDPIAwarenessMode>PerMonitor</AppDPIAwarenessMode>
-        <VerInfo_MinorVer>7</VerInfo_MinorVer>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.7.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_MinorVer>8</VerInfo_MinorVer>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.8.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_RangeChecking>true</DCC_RangeChecking>
     </PropertyGroup>
@@ -390,7 +390,7 @@
         <PF_AliasKey>habexplora</PF_AliasKey>
         <BT_BuildType>AppStore</BT_BuildType>
         <PF_AliasKeyPass>850A47C55F9E0799CF74E50BA4007BF0E4130519A05A97D897C80FA28E363C94DB04A390E34B1C31C1B15774FAD1C339BABA3609043F22FC1657458CE5A722CFC949F31FD555FAFEBFE4AF0D07551D589201</PF_AliasKeyPass>
-        <VerInfo_Keys>package=com.daveakerman.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=V1.7.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=com.daveakerman.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=V1.8.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <AUP_CHANGE_WIFI_MULTICAST_STATE>true</AUP_CHANGE_WIFI_MULTICAST_STATE>
         <AUP_WRITE_CALENDAR>false</AUP_WRITE_CALENDAR>
         <AUP_WRITE_EXTERNAL_STORAGE>false</AUP_WRITE_EXTERNAL_STORAGE>
@@ -408,7 +408,7 @@
         <Android_SplashTileMode>disabled</Android_SplashTileMode>
         <PF_AliasKey>habexplora</PF_AliasKey>
         <PF_AliasKeyPass>850A47C55F9E0799CF74E50BA4007BF0E4130519A05A97D897C80FA28E363C94DB04A390E34B1C31C1B15774FAD1C339BABA3609043F22FC1657458CE5A722CFC949F31FD555FAFEBFE4AF0D07551D589201</PF_AliasKeyPass>
-        <VerInfo_Keys>package=com.daveakerman.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=2;versionName=V1.7.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=com.daveakerman.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=2;versionName=V1.8.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=No TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
         <DCC_GenerateAndroidAppBundleFile>true</DCC_GenerateAndroidAppBundleFile>
         <Android_LauncherIcon192>Images\Icon_192.png</Android_LauncherIcon192>
     </PropertyGroup>
@@ -513,9 +513,6 @@
         <DCCReference Include="..\HABRx\Sondehub.pas"/>
         <DCCReference Include="Misc.pas"/>
         <DCCReference Include="..\HABRx\MQTTSource.pas"/>
-        <DCCReference Include="..\HABRx\CarUpload.pas"/>
-        <DCCReference Include="..\HABRx\Habitat.pas"/>
-        <DCCReference Include="..\HABRx\HabitatSource.pas"/>
         <DCCReference Include="..\HABRx\WSMQTTSource.pas"/>
         <None Include="AndroidManifest.template.xml"/>
         <JavaReference Include="C:\Program Files (x86)\Winsoft\ComPort for Android USB Serial\Library\classes.jar">

@@ -35,9 +35,6 @@ uses
   Sondehub in '..\HABRx\Sondehub.pas',
   Misc in 'Misc.pas',
   MQTTSource in '..\HABRx\MQTTSource.pas',
-  CarUpload in '..\HABRx\CarUpload.pas',
-  Habitat in '..\HABRx\Habitat.pas',
-  HabitatSource in '..\HABRx\HabitatSource.pas',
   WSMQTTSource in '..\HABRx\WSMQTTSource.pas';
 
 {$R *.res}

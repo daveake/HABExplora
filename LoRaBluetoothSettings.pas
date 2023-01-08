@@ -33,7 +33,6 @@ type
     rectRx: TRectangle;
     lblRx: TLabel;
     chkSondehub: TLabel;
-    chkHabitat: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -86,7 +85,6 @@ begin
     SetSettingString(Group, 'Callsign', edtCallsign.Text);
     SetSettingBoolean(Group, 'AFC', LCARSLabelIsChecked(chkAFC));
 
-    SetSettingBoolean(Group, 'Habitat', LCARSLabelIsChecked(chkHabitat));
     SetSettingBoolean(Group, 'Sondehub', LCARSLabelIsChecked(chkSondehub));
 
     SetSettingBoolean(Group, 'SSDV', LCARSLabelIsChecked(chkSSDV));
@@ -219,7 +217,6 @@ begin
     edtMode.Text := GetSettingString(Group, 'Mode', '');
     edtCallsign.Text := GetSettingString(Group, 'Callsign', '');
 
-    CheckLCARSLabel(chkHabitat, GetSettingBoolean(Group, 'Habitat', False));
     CheckLCARSLabel(chkSondehub, GetSettingBoolean(Group, 'Sondehub', False));
 
     CheckLCARSLabel(chkSSDV, GetSettingBoolean(Group, 'SSDV', False));

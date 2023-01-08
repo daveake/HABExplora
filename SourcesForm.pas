@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, Math, Sondehub,
-  GPSSource, Source, Base, Miscellaneous, SSDV, CarUpload, Habitat, HabitatSource,
+  GPSSource, Source, Base, Miscellaneous, SSDV,
   SerialSource, BluetoothSource, BLESource, UDPSource, WSMQTTSource,
   System.DateUtils, System.TimeSpan, System.Sensors, System.Sensors.Components,
   IdUDPServer, IdGlobal, IdSocketHandle, IdBaseComponent, IdComponent, IdUDPBase,
@@ -33,17 +33,17 @@ type
   TfrmSources = class(TfrmBase)
     LocationSensor: TLocationSensor;
     tmrGPS: TTimer;
-    Rectangle2: TRectangle;
+    rectGPS: TRectangle;
     lblGPS: TLabel;
-    Rectangle3: TRectangle;
+    rectSH: TRectangle;
     lblSondehub: TLabel;
-    Rectangle6: TRectangle;
+    rectUSB: TRectangle;
     lblSerial: TLabel;
     lblSerialRSSI: TLabel;
     lblPacketInfo: TLabel;
     lblFrequencyError: TLabel;
     lblDirection: TLabel;
-    Rectangle1: TRectangle;
+    rectBT: TRectangle;
     lblBluetooth: TLabel;
     lblBluetoothRSSI: TLabel;
     lblBTPacketInfo: TLabel;
@@ -51,7 +51,7 @@ type
     UDPClient: TIdUDPClient;
     MotionSensor1: TMotionSensor;
     OrientationSensor1: TOrientationSensor;
-    Rectangle4: TRectangle;
+    rectUDP: TRectangle;
     lblUDP: TLabel;
     Rectangle5: TRectangle;
     Label11: TLabel;
@@ -63,10 +63,6 @@ type
     Label6: TLabel;
     Rectangle10: TRectangle;
     Label7: TLabel;
-    Rectangle11: TRectangle;
-    lblHABHUB: TLabel;
-    Rectangle12: TRectangle;
-    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure tmrGPSTimer(Sender: TObject);
     procedure UDPServerUDPRead(AThread: TIdUDPListenerThread;
@@ -78,8 +74,6 @@ type
     procedure Label3Click(Sender: TObject);
   private
     { Private declarations }
-    CarUploader: TCarUpload;
-    HabitatUploader: THabitatThread;
     CompassPresent: Boolean;
     MagneticHeading, Declination: Double;
     SondehubUploader: TSondehubThread;
@@ -96,7 +90,6 @@ type
     procedure NewGPSPosition(Timestamp: TDateTime; Latitude, Longitude, Altitude, Direction: Double; UsingCompass: Boolean);
     procedure HABCallback(ID: Integer; Connected: Boolean; Line: String; Position: THABPosition);
     procedure CarStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
-    procedure HabitatStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
     procedure SondehubStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
   public
     { Public declarations }
@@ -132,12 +125,6 @@ end;
 procedure TfrmSources.FormCreate(Sender: TObject);
 begin
     inherited;
-
-    // Car uploader
-    CarUploader := TCarUpload.Create(CarStatusCallback);
-
-    // Habitat uploader
-    HabitatUploader := THabitatThread.Create(HabitatStatusCallback);
 
     // Sondehub uploader
     SondehubUploader := TSondehubThread.Create(SondehubStatusCallback);
@@ -177,13 +164,6 @@ begin
     Sources[UDP_SOURCE].ValueLabel := lblUDP;
     Sources[UDP_SOURCE].Source := TUDPSource.Create(UDP_SOURCE, 'UDP', HABCallback);
     Sources[UDP_SOURCE].RSSILabel := nil;
-
-    // HABHUB Source
-    Sources[HABHUB_SOURCE].ValueLabel := lblHABHUB;
-    Sources[HABHUB_SOURCE].RSSILabel := nil;
-    Sources[HABHUB_SOURCE].PacketRSSILabel := nil;
-    Sources[HABHUB_SOURCE].FreqLabel := nil;
-    Sources[HABHUB_SOURCE].Source := THabitatSource.Create(HABHUB_SOURCE, 'Habitat', HABCallback);
 
     // Sondehub Source
     Sources[SONDEHUB_SOURCE].ValueLabel := lblSondehub;
@@ -267,7 +247,6 @@ var
     Position: THABPosition;
     Temp: String;
     GPSPosition: TGPSPosition;
-    CarPosition: TCarPosition;
 begin
     if IsNan(Latitude) then begin
         Temp := 'GPS ...';
@@ -325,16 +304,6 @@ begin
 
         if SondehubUploader <> nil then begin
             SondehubUploader.SetListenerPosition(Position.Latitude, Position.Longitude, Position.Altitude);
-        end;
-
-        if CarUploader <> nil then begin
-            CarPosition.InUse := True;
-            CarPosition.TimeStamp := TTimeZone.Local.ToUniversalTime(Now);
-            CarPosition.Latitude := Position.Latitude;
-            CarPosition.Longitude := Position.Longitude;
-            CarPosition.Altitude := Position.Altitude;
-
-            CarUploader.SetPosition(CarPosition);
         end;
     end;
 end;
@@ -426,11 +395,6 @@ begin
     frmMain.UploadStatus(SourceID, Active, OK);
 end;
 
-procedure TfrmSources.HabitatStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
-begin
-    frmMain.UploadStatus(SourceID, Active, OK);
-end;
-
 procedure TfrmSources.SondehubStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
 begin
     frmMain.UploadStatus(GPS_SOURCE, Active, OK);
@@ -463,23 +427,11 @@ begin
                 if ID = SERIAL_SOURCE then begin
                     Callsign := GetSettingString('LoRaSerial', 'Callsign', '');
 
-                    if Callsign <> '' then begin
-                        if GetSettingBoolean('LoRaSerial', 'Habitat', False) then begin
-                            HabitatUploader.SaveTelemetryToHabitat(ID, Position.Line, Callsign);
-                        end;
-                    end;
-
                     if GetSettingBoolean('LoRaSerial', 'Sondehub', False) then begin
                         SondehubUploader.SaveTelemetryToSondehub(ID, Position);
                     end;
                 end else if ID = BLUETOOTH_SOURCE then begin
                     Callsign := GetSettingString('LoRaBluetooth', 'Callsign', '');
-
-                    if Callsign <> '' then begin
-                        if GetSettingBoolean('LoRaBluetooth', 'Habitat', False) then begin
-                            HabitatUploader.SaveTelemetryToHabitat(ID, Position.Line, Callsign);
-                        end;
-                    end;
 
                     if GetSettingBoolean('LoRaBluetooth', 'Sondehub', False) then begin
                         SondehubUploader.SaveTelemetryToSondehub(ID, Position);

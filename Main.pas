@@ -76,7 +76,6 @@ type
     btnUplink: TButton;
     pnlMap: TRectangle;
     FNCMap: TTMSFNCGoogleMaps;
-    btnHABHUB: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure btnMapClick(Sender: TObject);
@@ -300,9 +299,6 @@ begin
 
     Sources[SONDEHUB_SOURCE].Button := btnSondehub;
     Sources[SONDEHUB_SOURCE].Circle := nil;
-
-    Sources[HABHUB_SOURCE].Button := btnHABHUB;
-    Sources[HABHUB_SOURCE].Circle := nil;
 
     Sources[UDP_SOURCE].Button := btnUDP;
     Sources[UDP_SOURCE].Circle := nil;

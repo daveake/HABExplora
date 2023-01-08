@@ -17,7 +17,6 @@ type
     Label1: TLabel;
     Label3: TLabel;
     edtUDPRxPort: TTMSFMXEdit;
-    chkEnableHABHUB: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure chkEnableSondehubClick(Sender: TObject);
     procedure edtUDPTxPortChangeTracking(Sender: TObject);
@@ -41,7 +40,6 @@ procedure TfrmOtherSettings.ApplyChanges;
 begin
     SetSettingInteger(Group, 'UDPTxPort', StrToIntDef(edtUDPTxPort.Text, 0));
 
-    SetSettingBoolean('Habitat', 'Enabled', LCARSLabelIsChecked(chkEnableHABHUB));
     SetSettingBoolean('Sondehub', 'Enabled', LCARSLabelIsChecked(chkEnableSondehub));
 
     SetSettingString('Habitat', 'WhiteList', edtWhiteList.Text);
@@ -58,7 +56,6 @@ begin
 
     edtUDPTxPort.Text := IntToStr(GetSettingInteger(Group, 'UDPTxPort', 0));
 
-    CheckLCARSLabel(chkEnableHABHUB, GetSettingBoolean('Habitat', 'Enabled', False));
     CheckLCARSLabel(chkEnableSondehub, GetSettingBoolean('Sondehub', 'Enabled', False));
 
     edtWhiteList.Text := GetSettingString('Habitat', 'WhiteList', '');

@@ -19,7 +19,6 @@ type
     edtOffset: TTMSFMXEdit;
     HTTPRIO1: THTTPRIO;
     chkSondehubUpload: TLabel;
-    chkHABHUBUpload: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure chkSettingsClick(Sender: TObject);
     procedure edtPortChangeTracking(Sender: TObject);
@@ -54,7 +53,6 @@ begin
 
     SetSettingString('CHASE', 'Callsign', edtCallsign.Text);
 
-    SetSettingBoolean('CHASE', 'Upload', LCARSLabelIsChecked(chkHABHUBUpload));
     SetSettingBoolean('CHASE', 'UploadSondehub', LCARSLabelIsChecked(chkSondehubUpload));
 
     SetSettingInteger('CHASE', 'Period', edtPeriod.Text.ToInteger);
@@ -69,7 +67,6 @@ begin
 
     edtCallsign.Text := GetSettingString('CHASE', 'Callsign', '');
 
-    CheckLCARSLabel(chkHABHUBUpload, GetSettingBoolean('CHASE', 'Upload', False));
     CheckLCARSLabel(chkSondehubUpload, GetSettingBoolean('CHASE', 'UploadSondehub', False));
 
     edtPeriod.Text := GetSettingInteger('CHASE', 'Period', 0).ToString;

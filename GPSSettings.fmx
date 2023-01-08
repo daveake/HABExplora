@@ -13,6 +13,8 @@ inherited frmGPSSettings: TfrmGPSSettings
               'omatically appended so you don'#39't need to include that yourself.'#11
             ''
             ''
+            ''
+            ''
             
               '"Period" is the time, in seconds, between position updates to Ha' +
               'bitat.'
@@ -23,8 +25,8 @@ inherited frmGPSSettings: TfrmGPSSettings
               'ers.'
             ''
             
-              '"Enable Upload" enables uploading of your position to Habitat, w' +
-              'here it will appear as a chase car icon.')
+              '"Enable Sondehub Upload" enables uploading of your position to S' +
+              'ondehub, where it will appear as a chase car icon.')
           StyledSettings = [Family, FontColor]
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           Size.Height = 509.000000000000000000
@@ -123,22 +125,6 @@ inherited frmGPSSettings: TfrmGPSSettings
           TabOrder = 4
           OnClick = chkSettingsClick
         end
-        object chkHABHUBUpload: TLabel
-          Align = Scale
-          StyledSettings = [Family, Style, Other]
-          HitTest = True
-          Position.X = 303.000000000000000000
-          Position.Y = 64.000000000000000000
-          Size.Width = 213.000000000000000000
-          Size.Height = 36.000000000000000000
-          Size.PlatformDefault = False
-          StyleLookup = 'lCARSCheckButton'
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.FontColor = claWhite
-          Text = 'Enable HABHUB Upload'
-          TabOrder = 5
-          OnClick = chkSettingsClick
-        end
       end
       object Label1: TLabel
         Align = Scale
@@ -189,7 +175,7 @@ inherited frmGPSSettings: TfrmGPSSettings
   end
   object HTTPRIO1: THTTPRIO
     Converter.Options = [soSendMultiRefObj, soTryAllSchema, soRootRefNodesToBody, soCacheMimeResponse, soUTF8EncodeXML]
-    Left = 440
-    Top = 140
+    Left = 404
+    Top = 488
   end
 end

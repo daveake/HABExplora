@@ -1238,8 +1238,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 297.000000000000000000
-        Size.Width = 57.000000000000000000
+        Position.X = 285.204528808593800000
+        Size.Width = 67.761352539062500000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1249,9 +1249,9 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcGPS: TCircle
           Align = Scale
-          Position.X = 44.459999084472660000
+          Position.X = 44.965221405029300000
           Position.Y = 0.898707389831543000
-          Size.Width = 11.399997711181640000
+          Size.Width = 11.529541015625000000
           Size.Height = 13.480610847473140000
           Size.PlatformDefault = False
         end
@@ -1261,8 +1261,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 120.000000000000000000
-        Size.Width = 57.000000000000000000
+        Position.X = 143.613632202148400000
+        Size.Width = 67.761367797851560000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1276,8 +1276,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 61.000000000000000000
-        Size.Width = 57.000000000000000000
+        Position.X = 72.818183898925780000
+        Size.Width = 67.761360168457030000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1287,9 +1287,9 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcLoRaBluetooth: TCircle
           Align = Scale
-          Position.X = 44.459968566894530000
+          Position.X = 44.965194702148440000
           Position.Y = 0.898707389831543000
-          Size.Width = 11.399997711181640000
+          Size.Width = 11.529541015625000000
           Size.Height = 13.480610847473140000
           Size.PlatformDefault = False
         end
@@ -1299,8 +1299,8 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 2.000000000000000000
-        Size.Width = 57.000000000000000000
+        Position.X = 2.022727251052856000
+        Size.Width = 67.761360168457030000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
@@ -1310,9 +1310,9 @@ object frmMain: TfrmMain
         OnClick = btnSourcesClick
         object crcLoRaSerial: TCircle
           Align = Scale
-          Position.X = 44.459983825683590000
+          Position.X = 44.965209960937500000
           Position.Y = 0.898707389831543000
-          Size.Width = 11.399997711181640000
+          Size.Width = 11.529541015625000000
           Size.Height = 13.480610847473140000
           Size.PlatformDefault = False
         end
@@ -1322,28 +1322,13 @@ object frmMain: TfrmMain
         Align = Scale
         StyledSettings = [Family]
         Opacity = 0.699999988079071000
-        Position.X = 238.000000000000000000
-        Size.Width = 57.000000000000000000
-        Size.Height = 60.000000000000000000
-        Size.PlatformDefault = False
-        StyleLookup = 'LCARSSmallButtonStyle'
-        TabOrder = 5
-        Text = 'UDP'
-        TextSettings.Font.Size = 24.000000000000000000
-        OnClick = btnSourcesClick
-      end
-      object btnHABHUB: TButton
-        Tag = 2
-        Align = Scale
-        StyledSettings = [Family]
-        Opacity = 0.699999988079071000
-        Position.X = 179.000000000000000000
-        Size.Width = 57.000000000000000000
+        Position.X = 214.409088134765600000
+        Size.Width = 67.761352539062500000
         Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'LCARSSmallButtonStyle'
         TabOrder = 4
-        Text = 'HH'
+        Text = 'UDP'
         TextSettings.Font.Size = 24.000000000000000000
         OnClick = btnSourcesClick
       end

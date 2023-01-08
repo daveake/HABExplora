@@ -16,8 +16,12 @@ inherited frmBluetoothSettings: TfrmBluetoothSettings
               'adio callsign, your name or school/project name.'#11
             ''
             
-              'The "Upload" buttons enable uploading of telemetry/SSDV from the' +
-              ' attached USB LoRa receiver to Habitat.')
+              'The "Upload To Sondehub" button enables uploading of telemetry f' +
+              'rom the attached Bluetooth receiver to Sondehub.'
+            ''
+            
+              'The "Upload SSDV" button enables uploading of images from the Bl' +
+              'uetooth receiver to the SSDV server.')
           ShowScrollBars = False
           StyledSettings = [Family, FontColor]
           TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -266,22 +270,6 @@ inherited frmBluetoothSettings: TfrmBluetoothSettings
           TextSettings.FontColor = claWhite
           Text = 'Upload To Sondehub'
           TabOrder = 0
-          OnClick = chkSondehubClick
-        end
-        object chkHabitat: TLabel
-          Align = Scale
-          StyledSettings = [Family, Style, Other]
-          HitTest = True
-          Position.X = 306.000000000000000000
-          Position.Y = 97.000000000000000000
-          Size.Width = 210.000000000000000000
-          Size.Height = 36.000000000000000000
-          Size.PlatformDefault = False
-          StyleLookup = 'lCARSCheckButton'
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.FontColor = claWhite
-          Text = 'Upload To HABHUB'
-          TabOrder = 1
           OnClick = chkSondehubClick
         end
       end
