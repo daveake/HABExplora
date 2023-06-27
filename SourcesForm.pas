@@ -21,7 +21,12 @@ type
       FreqLabel:        TLabel;
       PacketCount:      Integer;
       FrequencyError:   Double;
-      Version:          Double;
+      Version:          String;
+      ConnectInfo:      String;
+      Device:           String;
+      PacketRSSI:       String;
+      PacketStatus:     String;
+      HadAPosition:     Boolean;
   end;
 
 type
@@ -449,12 +454,20 @@ begin
             if Length(Position.Line) > 40 then begin
                 Sources[ID].ValueLabel.Text := Copy(Position.Line, 1, Length(Position.Line) div 2) + #13 +
                                                Copy(Position.Line, Length(Position.Line) div 2 + 1, Length(Position.Line));
+                Sources[ID].HadAPosition := True;
+                Sources[ID].PacketStatus := 'Telemetry Packet';
             end else begin
                 Sources[ID].ValueLabel.Text := Position.Line;
             end;
+        end else if Position.IsSSDV then begin
+            Sources[ID].PacketStatus := 'SSDV Packet';
+        end else if Position.FailedCRC then begin
+            Sources[ID].PacketStatus := 'CRC Error';
         end else if Line <> '' then begin
             Sources[ID].ValueLabel.Text := Line;
+            Sources[ID].ConnectInfo := Line;
         end;
+
 
         // SSDV Packet
         if (SSDVUploader <> nil) and Position.IsSSDV then begin
@@ -479,8 +492,14 @@ begin
             Sources[ID].RSSILabel.Text := 'Current RSSI = ' + IntToStr(Position.CurrentRSSI);
         end;
 
-        if Position.HasPacketRSSI and (Sources[ID].PacketRSSILabel <> nil) then begin
-            Sources[ID].PacketRSSILabel.Text := 'Packet RSSI = ' + IntToStr(Position.PacketRSSI);
+        if Position.HasPacketRSSI then begin
+            Sources[ID].PacketRSSI := 'Packet RSSI = ' + IntToStr(Position.PacketRSSI);
+        end;
+
+        if Sources[ID].PacketRSSILabel <> nil then begin
+            if  (Sources[ID].PacketRSSI <> '') and (Sources[ID].PacketStatus <>'') then begin
+                Sources[ID].PacketRSSILabel.Text := Sources[ID].PacketRSSI + ', ' + Sources[ID].PacketStatus;
+            end;
         end;
 
         if Position.HasFrequency and (Sources[ID].FreqLabel <> nil) then begin
@@ -506,8 +525,16 @@ begin
             end;
         end;
 
+        if Position.Device <> '' then begin
+            Sources[ID].Device := Position.Device;
+        end;
+
         if Position.Version <> '' then begin
-            Sources[ID].Version := MyStrToFloat(Position.Version);
+            Sources[ID].Version := 'V' + Position.Version;
+        end;
+
+        if (Sources[ID].ConnectInfo <> '') and (not Sources[ID].HadAPosition) then begin
+            Sources[ID].ValueLabel.Text := Sources[ID].ConnectInfo + ': ' + Sources[ID].Device + ' ' + Sources[ID].Version;
         end;
     except
         Sources[ID].ValueLabel.Text := '** ERROR - **';
