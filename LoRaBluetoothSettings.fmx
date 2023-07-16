@@ -86,7 +86,7 @@ inherited frmBluetoothSettings: TfrmBluetoothSettings
           HitTest = True
           Position.X = 173.000000000000000000
           Position.Y = 145.000000000000000000
-          Size.Width = 67.000000000000000000
+          Size.Width = 88.000000000000000000
           Size.Height = 33.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'lCARSCheckButton'
@@ -262,7 +262,7 @@ inherited frmBluetoothSettings: TfrmBluetoothSettings
           HitTest = True
           Position.X = 19.000000000000000000
           Position.Y = 101.000000000000000000
-          Size.Width = 220.000000000000000000
+          Size.Width = 242.000000000000000000
           Size.Height = 36.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'lCARSCheckButton'

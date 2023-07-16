@@ -1,0 +1,85 @@
+inherited frmLog: TfrmLog
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    object rectMain: TRectangle
+      Align = Client
+      Fill.Color = claBlack
+      Size.Width = 540.000000000000000000
+      Size.Height = 848.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object Rectangle5: TRectangle
+        Align = Top
+        Corners = []
+        Fill.Color = xFFF1DF6F
+        Sides = []
+        Size.Width = 540.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        object lblCaption: TLabel
+          Align = Client
+          StyledSettings = []
+          HitTest = True
+          Margins.Left = 12.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 6.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Size.Width = 292.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TabOrder = 2
+        end
+        object lblClipboard: TLabel
+          Align = Right
+          StyledSettings = []
+          HitTest = True
+          Margins.Left = 12.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 6.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Position.X = 322.000000000000000000
+          Position.Y = 3.000000000000000000
+          Size.Width = 212.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Trailing
+          Text = 'Touch to copy log to clipboard'
+          TabOrder = 1
+          OnClick = lblClipboardClick
+        end
+      end
+      object lstLog: TListBox
+        Align = Client
+        Size.Width = 540.000000000000000000
+        Size.Height = 824.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        OnMouseDown = lstLogMouseDown
+        DisableFocusEffect = True
+        DefaultItemStyles.ItemStyle = ''
+        DefaultItemStyles.GroupHeaderStyle = ''
+        DefaultItemStyles.GroupFooterStyle = ''
+        Viewport.Width = 536.000000000000000000
+        Viewport.Height = 820.000000000000000000
+        object Timer1: TTimer
+          Enabled = False
+          Interval = 5000
+          OnTimer = Timer1Timer
+          Left = 447
+          Top = 383
+        end
+        object Timer2: TTimer
+          Enabled = False
+          Interval = 5000
+          OnTimer = Timer2Timer
+          Left = 447
+          Top = 475
+        end
+      end
+    end
+  end
+end

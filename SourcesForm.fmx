@@ -16,58 +16,6 @@ inherited frmSources: TfrmSources
       Size.Height = 128.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claYellow
-      object lblGPS: TLabel
-        Align = Client
-        StyledSettings = [Style]
-        Size.Width = 536.000000000000000000
-        Size.Height = 85.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 0
-      end
-      object lblDirection: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Margins.Bottom = 3.000000000000000000
-        Position.Y = 109.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 1
-      end
-      object Rectangle10: TRectangle
-        Align = Top
-        Corners = []
-        Fill.Color = xFFF1DF6F
-        Sides = []
-        Size.Width = 536.000000000000000000
-        Size.Height = 24.000000000000000000
-        Size.PlatformDefault = False
-        object Label7: TLabel
-          Align = Client
-          StyledSettings = []
-          Margins.Left = 12.000000000000000000
-          Margins.Top = 3.000000000000000000
-          Margins.Right = 6.000000000000000000
-          Margins.Bottom = 3.000000000000000000
-          Size.Width = 518.000000000000000000
-          Size.Height = 18.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Phone GPS'
-          TabOrder = 1
-        end
-      end
     end
     object rectSH: TRectangle
       Align = Scale
@@ -82,43 +30,6 @@ inherited frmSources: TfrmSources
       Size.Height = 160.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claYellow
-      object lblSondehub: TLabel
-        Align = Client
-        StyledSettings = [Style]
-        Size.Width = 536.000000000000000000
-        Size.Height = 136.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 0
-      end
-      object Rectangle8: TRectangle
-        Align = Top
-        Corners = []
-        Fill.Color = xFFF1DF6F
-        Sides = []
-        Size.Width = 536.000000000000000000
-        Size.Height = 24.000000000000000000
-        Size.PlatformDefault = False
-        object Label4: TLabel
-          Align = Client
-          StyledSettings = []
-          Margins.Left = 12.000000000000000000
-          Margins.Top = 3.000000000000000000
-          Margins.Right = 6.000000000000000000
-          Margins.Bottom = 3.000000000000000000
-          Size.Width = 518.000000000000000000
-          Size.Height = 18.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Sondehub Telemetry'
-          TabOrder = 1
-        end
-      end
     end
     object rectUSB: TRectangle
       Align = Scale
@@ -133,88 +44,6 @@ inherited frmSources: TfrmSources
       Size.Height = 181.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claYellow
-      object lblSerial: TLabel
-        Align = Client
-        StyledSettings = [Style]
-        Size.Width = 536.000000000000000000
-        Size.Height = 106.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 0
-      end
-      object lblSerialRSSI: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Margins.Bottom = 3.000000000000000000
-        Position.Y = 162.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 1
-      end
-      object lblPacketInfo: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Position.Y = 130.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 2
-      end
-      object lblFrequencyError: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Position.Y = 146.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 3
-      end
-      object Rectangle5: TRectangle
-        Align = Top
-        Corners = []
-        Fill.Color = xFFF1DF6F
-        Sides = []
-        Size.Width = 536.000000000000000000
-        Size.Height = 24.000000000000000000
-        Size.PlatformDefault = False
-        object Label11: TLabel
-          Align = Client
-          StyledSettings = []
-          HitTest = True
-          Margins.Left = 12.000000000000000000
-          Margins.Top = 3.000000000000000000
-          Margins.Right = 6.000000000000000000
-          Margins.Bottom = 3.000000000000000000
-          Size.Width = 518.000000000000000000
-          Size.Height = 18.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'USB LoRa Telemetry'
-          TabOrder = 1
-          OnClick = Label11Click
-        end
-      end
     end
     object rectBT: TRectangle
       Align = Scale
@@ -229,87 +58,6 @@ inherited frmSources: TfrmSources
       Size.Height = 181.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claYellow
-      object lblBluetooth: TLabel
-        Align = Client
-        StyledSettings = [Style]
-        Size.Width = 536.000000000000000000
-        Size.Height = 106.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 0
-      end
-      object lblBluetoothRSSI: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Margins.Bottom = 3.000000000000000000
-        Position.Y = 162.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 1
-      end
-      object lblBTPacketInfo: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Position.Y = 130.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 2
-      end
-      object lblBTFrequencyError: TLabel
-        Align = Bottom
-        StyledSettings = [Style]
-        Position.Y = 146.000000000000000000
-        Size.Width = 536.000000000000000000
-        Size.Height = 16.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 3
-      end
-      object Rectangle7: TRectangle
-        Align = Top
-        Fill.Color = xFFF1DF6F
-        Sides = []
-        Size.Width = 536.000000000000000000
-        Size.Height = 24.000000000000000000
-        Size.PlatformDefault = False
-        object Label3: TLabel
-          Align = Client
-          StyledSettings = []
-          HitTest = True
-          Margins.Left = 12.000000000000000000
-          Margins.Top = 3.000000000000000000
-          Margins.Right = 6.000000000000000000
-          Margins.Bottom = 3.000000000000000000
-          Size.Width = 518.000000000000000000
-          Size.Height = 18.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'BT LoRa Telemetry'
-          TabOrder = 1
-          OnClick = Label3Click
-        end
-      end
     end
     object rectUDP: TRectangle
       Align = Scale
@@ -324,43 +72,6 @@ inherited frmSources: TfrmSources
       Size.Height = 160.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claYellow
-      object lblUDP: TLabel
-        Align = Client
-        StyledSettings = [Style]
-        Size.Width = 536.000000000000000000
-        Size.Height = 136.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Family = 'Courier New'
-        TextSettings.Font.Size = 11.899999618530270000
-        TextSettings.FontColor = claWhite
-        TextSettings.HorzAlign = Center
-        TextSettings.Trimming = None
-        TabOrder = 0
-      end
-      object Rectangle9: TRectangle
-        Align = Top
-        Corners = []
-        Fill.Color = xFFF1DF6F
-        Sides = []
-        Size.Width = 536.000000000000000000
-        Size.Height = 24.000000000000000000
-        Size.PlatformDefault = False
-        object Label6: TLabel
-          Align = Client
-          StyledSettings = []
-          Margins.Left = 12.000000000000000000
-          Margins.Top = 3.000000000000000000
-          Margins.Right = 6.000000000000000000
-          Margins.Bottom = 3.000000000000000000
-          Size.Width = 518.000000000000000000
-          Size.Height = 18.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 11.899999618530270000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'UDP Telemetry'
-          TabOrder = 1
-        end
-      end
     end
   end
   object tmrGPS: TTimer

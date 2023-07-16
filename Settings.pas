@@ -89,28 +89,28 @@ end;
 
 procedure TfrmSettings.btnGPSClick(Sender: TObject);
 begin
-    frmGPSSettings := TfrmGPSSettings.Create(nil);
+    frmGPSSettings := TfrmGPSSettings.Create(Self);
 
     LoadSettingsForm(btnGPS, frmGPSSettings);
 end;
 
 procedure TfrmSettings.btnOtherClick(Sender: TObject);
 begin
-    frmOtherSettings := TfrmOtherSettings.Create(nil);
+    frmOtherSettings := TfrmOtherSettings.Create(Self);
 
     LoadSettingsForm(btnOther, frmOtherSettings);
 end;
 
 procedure TfrmSettings.btnLoRaBluetoothClick(Sender: TObject);
 begin
-    frmBluetoothSettings := TfrmBluetoothSettings.Create(nil);
+    frmBluetoothSettings := TfrmBluetoothSettings.Create(Self);
 
     LoadSettingsForm(btnLoRaBluetooth, frmBluetoothSettings);
 end;
 
 procedure TfrmSettings.btnLoRaSerialClick(Sender: TObject);
 begin
-    frmLoRaSerialSettings := TfrmLoRaSerialSettings.Create(nil);
+    frmLoRaSerialSettings := TfrmLoRaSerialSettings.Create(Self);
 
     LoadSettingsForm(btnLoRaSerial, frmLoRaSerialSettings);
 end;
@@ -130,7 +130,7 @@ procedure TfrmSettings.LoadForm;
 begin
     inherited;
 
-    frmGPSSettings := TfrmGPSSettings.Create(nil);
+    frmGPSSettings := TfrmGPSSettings.Create(Self);
 
     LoadSettingsForm(btnGPS, frmGPSSettings);
 

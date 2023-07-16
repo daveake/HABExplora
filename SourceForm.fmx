@@ -1,0 +1,120 @@
+inherited frmSource: TfrmSource
+  Caption = 'frmBase1'
+  ClientHeight = 219
+  DesignerMasterStyle = 0
+  inherited pnlMain: TPanel
+    Size.Height = 219.000000000000000000
+    object rectMain: TRectangle
+      Align = Client
+      Fill.Color = claBlack
+      Size.Width = 540.000000000000000000
+      Size.Height = 219.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claYellow
+      object lblFrequencyError: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 168.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        Visible = False
+        TabOrder = 4
+      end
+      object lblPacketInfo: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Position.Y = 184.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        Visible = False
+        TabOrder = 3
+      end
+      object lblRSSI: TLabel
+        Align = Bottom
+        StyledSettings = [Style]
+        Margins.Bottom = 3.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 540.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        Visible = False
+        TabOrder = 1
+      end
+      object lblValue: TLabel
+        Align = Client
+        StyledSettings = [Style]
+        Size.Width = 540.000000000000000000
+        Size.Height = 195.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Courier New'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        TextSettings.Trimming = None
+        TabOrder = 0
+      end
+      object Rectangle5: TRectangle
+        Align = Top
+        Corners = []
+        Fill.Color = xFFF1DF6F
+        Sides = []
+        Size.Width = 540.000000000000000000
+        Size.Height = 24.000000000000000000
+        Size.PlatformDefault = False
+        object lblCaption: TLabel
+          Align = Client
+          StyledSettings = []
+          HitTest = True
+          Margins.Left = 12.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 6.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Size.Width = 400.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TabOrder = 2
+          OnClick = lblLogClick
+        end
+        object lblLog: TLabel
+          Align = Right
+          StyledSettings = []
+          HitTest = True
+          Margins.Left = 12.000000000000000000
+          Margins.Top = 3.000000000000000000
+          Margins.Right = 6.000000000000000000
+          Margins.Bottom = 3.000000000000000000
+          Position.X = 430.000000000000000000
+          Position.Y = 3.000000000000000000
+          Size.Width = 104.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 11.899999618530270000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Trailing
+          Text = 'Touch for log'
+          TabOrder = 1
+          OnClick = lblLogClick
+        end
+      end
+    end
+  end
+end

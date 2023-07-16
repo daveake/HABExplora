@@ -1,4 +1,4 @@
-unit Main;
+﻿unit Main;
 
 interface
 
@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.ScrollBox, FMX.Memo, System.IOUtils,
-  Math, Source, Miscellaneous, SourcesForm, Debug,
+  Math, Source, Miscellaneous, SourcesForm, Uploaders, Debug,
   Base, Splash, Map, Direction, Payloads, Uplink,
 {$IFDEF ANDROID}
   Androidapi.JNIBridge, AndroidApi.JNI.Media,
@@ -36,24 +36,18 @@ type
   TSource = record
     Button:         TButton;
     LastPositionAt: TDateTime;
-    Circle:         TCircle;
 end;
 
 type
   TfrmMain = class(TForm)
     pnlCentre: TRectangle;
     StyleBook1: TStyleBook;
-    rectStatus: TRectangle;
-    lblGPS: TLabel;
     btnLoRaSerial: TButton;
     btnSondehub: TButton;
     btnGPS: TButton;
     tmrUpdates: TTimer;
     tmrResize: TTimer;
-    crcLoRaSerial: TCircle;
-    crcGPS: TCircle;
     btnLoRaBluetooth: TButton;
-    crcLoRaBluetooth: TCircle;
     tmrLoad: TTimer;
     rectMain: TRectangle;
     btnSettings: TButton;
@@ -76,6 +70,8 @@ type
     btnUplink: TButton;
     pnlMap: TRectangle;
     FNCMap: TTMSFNCGoogleMaps;
+    btnSondehubUpload: TButton;
+    btnSSDV: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure btnMapClick(Sender: TObject);
@@ -83,7 +79,7 @@ type
     procedure btnDirectionClick(Sender: TObject);
     procedure btnSettingsClick(Sender: TObject);
     procedure tmrUpdatesTimer(Sender: TObject);
-    procedure btnSourcesClick(Sender: TObject);
+    procedure btnSources(Sender: TObject);
     procedure tmrResizeTimer(Sender: TObject);
     procedure tmrLoadTimer(Sender: TObject);
     procedure pnlCentreResize(Sender: TObject);
@@ -99,6 +95,8 @@ type
       AEventData: TTMSFNCMapsEventData);
     procedure FNCMapElementContainers0Actions1Execute(Sender: TObject;
       AEventData: TTMSFNCMapsEventData);
+    procedure btnUploaders(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     DesignWidth: Double;
@@ -127,7 +125,8 @@ type
   public
     { Public declarations }
     function LoadForm(Button: TButton; NewForm: TfrmBase): Boolean;
-    procedure UploadStatus(SourceID: Integer; Active, OK: Boolean);
+    procedure SondehubUploadStatus(Active, OK: Boolean);
+    procedure SSDVUploadStatus(Active, OK: Boolean);
     procedure NewPosition(SourceID: Integer; Position: THABPosition);
     function BalloonColour(PayloadIndex: Integer): TAlphaColor;
     function BalloonIconName(PayloadIndex: Integer; Target: Boolean=False): String;
@@ -214,7 +213,7 @@ begin
     LoadSettingsPage(0);
 end;
 
-procedure TfrmMain.btnSourcesClick(Sender: TObject);
+procedure TfrmMain.btnSources(Sender: TObject);
 begin
     LoadForm(nil, frmSources);
 end;
@@ -226,11 +225,16 @@ begin
     end;
 end;
 
+procedure TfrmMain.btnUploaders(Sender: TObject);
+begin
+    LoadForm(nil, frmUploaders);
+end;
+
 procedure TfrmMain.LoadMapIfNotLoaded;
 begin
     if frmMap = nil then begin
         try
-            frmMap := TfrmMap.Create(nil);
+            frmMap := TfrmMap.Create(Self);
         except
             on E : Exception do begin
                 if frmDebug <> nil then begin
@@ -250,11 +254,11 @@ begin
 
         // Debug form, but only if we're a debug build
 {$IFDEF DEBUG}
-        frmDebug := TfrmDebug.Create(nil);
+        frmDebug := TfrmDebug.Create(Self);
 {$ENDIF}
 
         // Splash form
-        frmSplash := TfrmSplash.Create(nil);
+        frmSplash := TfrmSplash.Create(Self);
         LoadForm(nil, frmSplash);
 
         tmrLoad.Enabled := True;
@@ -289,19 +293,10 @@ begin
 
     // Source info
     Sources[GPS_SOURCE].Button := btnGPS;
-    Sources[GPS_SOURCE].Circle := crcGPS;
-
     Sources[SERIAL_SOURCE].Button := btnLoRaSerial;
-    Sources[SERIAL_SOURCE].Circle := crcLoRaSerial;
-
     Sources[BLUETOOTH_SOURCE].Button := btnLoRaBluetooth;
-    Sources[BLUETOOTH_SOURCE].Circle := crcLoRaBluetooth;
-
     Sources[SONDEHUB_SOURCE].Button := btnSondehub;
-    Sources[SONDEHUB_SOURCE].Circle := nil;
-
     Sources[UDP_SOURCE].Button := btnUDP;
-    Sources[UDP_SOURCE].Circle := nil;
 
 {$IFDEF MSWINDOWS}
     FullScreen := False;
@@ -310,6 +305,15 @@ begin
 {$ENDIF}
 
     Predictor := TTawhiri.Create;
+end;
+
+procedure TfrmMain.FormDestroy(Sender: TObject);
+begin
+    inherited;
+
+    CloseSettings;
+
+    Predictor.Free;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -400,8 +404,8 @@ begin
 
     rectSources.Margins.Left := - rectBottomBar.Height / 2;
 
-    rectStatus.Width := rectBottomBar.Width / 5;
-    rectStatus.Margins.Right := -rectStatus.Height * 0.67;
+//    rectStatus.Width := rectBottomBar.Width / 5;
+//    rectStatus.Margins.Right := -rectStatus.Height * 0.67;
 
     crcBottomLeft.Width := crcBottomLeft.Height;
     crcBottomLeft.Margins.Left := -crcBottomLeft.Height/2;
@@ -434,24 +438,33 @@ begin
     LoadForm(nil, frmSplash);
 end;
 
-procedure TfrmMain.UploadStatus(SourceID: Integer; Active, OK: Boolean);
+procedure TfrmMain.SondehubUploadStatus(Active, OK: Boolean);
 begin
-    // Show status on screen
-    if Sources[SourceID].Circle <> nil then begin
-        if Active then begin
-            if OK then begin
-                Sources[SourceID].Circle.Fill.Color := TAlphaColorRec.Lime;
-            end else begin
-                Sources[SourceID].Circle.Fill.Color := TAlphaColorRec.Red;
-            end;
+    if Active then begin
+        btnSondehubUpload.Opacity := 1.0;
+        if OK then begin
+            btnSondehubUpload.TextSettings.FontColor := TAlphaColorRec.Green;
         end else begin
-            Sources[SourceID].Circle.Fill.Color := TAlphaColorRec.Silver;
+            btnSondehubUpload.TextSettings.FontColor := TAlphaColorRec.Red;
         end;
+    end else begin
+        btnSondehubUpload.Opacity := 0.7;
+        btnSondehubUpload.TextSettings.FontColor := TAlphaColorRec.Black;
     end;
+end;
 
-    // Log errors in debug screen
-    if Active and (not OK) and (frmDebug <> nil) then begin
-        frmDebug.Debug(SourceName(SourceID) + ' failed to upload position');
+procedure TfrmMain.SSDVUploadStatus(Active, OK: Boolean);
+begin
+    if Active then begin
+        btnSSDV.Opacity := 1.0;
+        if OK then begin
+            btnSSDV.TextSettings.FontColor := TAlphaColorRec.Green;
+        end else begin
+            btnSSDV.TextSettings.FontColor := TAlphaColorRec.Red;
+        end;
+    end else begin
+        btnSSDV.Opacity := 0.7;
+        btnSSDV.TextSettings.FontColor := TAlphaColorRec.Black;
     end;
 end;
 
@@ -510,7 +523,7 @@ begin
                 // Chase car only
                 ChasePosition := Position;
                 WhereAreBalloons;
-                lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
+//                lblGPS.Text := FormatDateTime('hh:nn:ss', Position.TimeStamp);
             end else begin
                 // Payloads only
                 WhereIsBalloon(Index);
@@ -655,20 +668,19 @@ begin
     tmrLoad.Enabled := False;
 
     // Main forms
-    frmPayloads := TfrmPayloads.Create(nil);
-
-    frmDirection := TfrmDirection.Create(nil);
-
-    frmUplink := TfrmUplink.Create(nil);
+    frmPayloads := TfrmPayloads.Create(Self);
+    frmDirection := TfrmDirection.Create(Self);
+    frmUplink := TfrmUplink.Create(Self);
+    frmUploaders := TfrmUploaders.Create(Self);
 
     LoadMapIfNotLoaded;
 
     // Sources Form
-    frmSources := TfrmSources.Create(nil);
+    frmSources := TfrmSources.Create(Self);
 
     // Ask for GPS permission
 {$IFDEF ANDROID}
-    frmSources.lblGPS.Text := 'No GPS Permission';
+    frmSources.SetGPSStatus('Requesting GPS Permission');
 
     (*
     PermissionsService.RequestPermissions([JStringToString(TJManifest_permission.JavaClass.ACCESS_FINE_LOCATION)],
@@ -688,7 +700,7 @@ begin
                 // activate or deactivate the location sensor }
                     frmSources.EnableGPS;
                 end else begin
-                    frmSources.lblGPS.Text := 'No GPS Permission';
+                    frmSources.SetGPSStatus('No GPS Permission');
                 end;
             end);
 {$ENDIF}
@@ -704,7 +716,7 @@ begin
 
     frmSplash.UnveilSplash;
 
-    lblGPS.Text := '';
+//    lblGPS.Text := '';
 end;
 
 procedure TfrmMain.tmrResizeTimer(Sender: TObject);
@@ -1078,7 +1090,7 @@ end;
 procedure TfrmMain.LoadSettingsPage(PageIndex: Integer);
 begin
     if frmSettings = nil then begin
-        frmSettings := TfrmSettings.Create(nil);
+        frmSettings := TfrmSettings.Create(Self);
     end;
 
     LoadForm(btnSettings, frmSettings);
@@ -1090,5 +1102,7 @@ procedure TfrmMain.UpdateCarUploadSettings;
 begin
     frmSources.UpdateCarUploadSettings;
 end;
+
+// ✔️
 
 end.

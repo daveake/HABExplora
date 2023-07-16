@@ -35,7 +35,10 @@ uses
   Sondehub in '..\HABRx\Sondehub.pas',
   Misc in 'Misc.pas',
   MQTTSource in '..\HABRx\MQTTSource.pas',
-  WSMQTTSource in '..\HABRx\WSMQTTSource.pas';
+  WSMQTTSource in '..\HABRx\WSMQTTSource.pas',
+  Uploaders in 'Uploaders.pas' {frmUploaders},
+  SourceForm in 'SourceForm.pas' {frmSource},
+  Log in 'Log.pas' {frmLog};
 
 {$R *.res}
 

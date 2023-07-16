@@ -53,7 +53,7 @@ begin
 
     SetSettingString('CHASE', 'Callsign', edtCallsign.Text);
 
-    SetSettingBoolean('CHASE', 'UploadSondehub', LCARSLabelIsChecked(chkSondehubUpload));
+    SetSettingBoolean('CHASE', 'Upload', LCARSLabelIsChecked(chkSondehubUpload));
 
     SetSettingInteger('CHASE', 'Period', edtPeriod.Text.ToInteger);
     SetSettingInteger('CHASE', 'Offset', edtOffset.Text.ToInteger);
@@ -67,7 +67,7 @@ begin
 
     edtCallsign.Text := GetSettingString('CHASE', 'Callsign', '');
 
-    CheckLCARSLabel(chkSondehubUpload, GetSettingBoolean('CHASE', 'UploadSondehub', False));
+    CheckLCARSLabel(chkSondehubUpload, GetSettingBoolean('CHASE', 'Upload', False));
 
     edtPeriod.Text := GetSettingInteger('CHASE', 'Period', 0).ToString;
     edtOffset.Text := GetSettingInteger('CHASE', 'Offset', 0).ToString;

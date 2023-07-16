@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, Math, Sondehub,
-  GPSSource, Source, Base, Miscellaneous, SSDV,
+  GPSSource, Source, Base, Miscellaneous, SSDV, SourceForm, Uploaders,
   SerialSource, BluetoothSource, BLESource, UDPSource, WSMQTTSource,
   System.DateUtils, System.TimeSpan, System.Sensors, System.Sensors.Components,
   IdUDPServer, IdGlobal, IdSocketHandle, IdBaseComponent, IdComponent, IdUDPBase,
@@ -15,10 +15,11 @@ uses
 type
   TSourcePanel = record
       Source: TSource;
-      ValueLabel:       TLabel;
-      RSSILabel:        TLabel;
-      PacketRSSILabel:  TLabel;
-      FreqLabel:        TLabel;
+      Form:             TfrmSource;
+//      ValueLabel:       TLabel;
+//      RSSILabel:        TLabel;
+//      PacketRSSILabel:  TLabel;
+//      FreqLabel:        TLabel;
       PacketCount:      Integer;
       FrequencyError:   Double;
       Version:          String;
@@ -39,35 +40,13 @@ type
     LocationSensor: TLocationSensor;
     tmrGPS: TTimer;
     rectGPS: TRectangle;
-    lblGPS: TLabel;
     rectSH: TRectangle;
-    lblSondehub: TLabel;
     rectUSB: TRectangle;
-    lblSerial: TLabel;
-    lblSerialRSSI: TLabel;
-    lblPacketInfo: TLabel;
-    lblFrequencyError: TLabel;
-    lblDirection: TLabel;
     rectBT: TRectangle;
-    lblBluetooth: TLabel;
-    lblBluetoothRSSI: TLabel;
-    lblBTPacketInfo: TLabel;
-    lblBTFrequencyError: TLabel;
     UDPClient: TIdUDPClient;
     MotionSensor1: TMotionSensor;
     OrientationSensor1: TOrientationSensor;
     rectUDP: TRectangle;
-    lblUDP: TLabel;
-    Rectangle5: TRectangle;
-    Label11: TLabel;
-    Rectangle7: TRectangle;
-    Label3: TLabel;
-    Rectangle8: TRectangle;
-    Label4: TLabel;
-    Rectangle9: TRectangle;
-    Label6: TLabel;
-    Rectangle10: TRectangle;
-    Label7: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure tmrGPSTimer(Sender: TObject);
     procedure UDPServerUDPRead(AThread: TIdUDPListenerThread;
@@ -75,18 +54,18 @@ type
     procedure OrientationSensor1SensorChoosing(Sender: TObject;
       const Sensors: TSensorArray; var ChoseSensorIndex: Integer);
     procedure FormDestroy(Sender: TObject);
-    procedure Label11Click(Sender: TObject);
-    procedure Label3Click(Sender: TObject);
+    procedure pnlMainResize(Sender: TObject);
+    // procedure Label11Click(Sender: TObject);
+    // procedure Label3Click(Sender: TObject);
   private
     { Private declarations }
     CompassPresent: Boolean;
     MagneticHeading, Declination: Double;
     SondehubUploader: TSondehubThread;
     SSDVUploader: TSSDVThread;
-    Sources: Array[1..8] of TSourcePanel;
+    Sources: Array[0..8] of TSourcePanel;
     GPSCount: Integer;
 {$IFDEF MSWINDOWS}
-    GPSSource: TGPSSource;
     procedure GPSCallback(ID: Integer; Connected: Boolean; Line: String; Position: THABPosition);
 {$ENDIF}
     procedure CloseThread(Thread: TThread);
@@ -94,7 +73,7 @@ type
     function GetMagneticHeading: Double;
     procedure NewGPSPosition(Timestamp: TDateTime; Latitude, Longitude, Altitude, Direction: Double; UsingCompass: Boolean);
     procedure HABCallback(ID: Integer; Connected: Boolean; Line: String; Position: THABPosition);
-    procedure CarStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
+    // procedure CarStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
     procedure SondehubStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
   public
     { Public declarations }
@@ -108,6 +87,7 @@ type
     procedure SendUplink(SourceIndex: Integer; When: TUplinkWhen; WhenValue, Channel: Integer; Prefix, Msg, Password: String);
     function WaitingToSend(SourceIndex: Integer): Boolean;
     procedure UpdateCarUploadSettings;
+    procedure SetGPSStatus(Status: String);
 end;
 
 var
@@ -139,26 +119,37 @@ begin
     SSDVUploader := TSSDVThread.Create(nil);
 
     // GPS Source
+    Sources[GPS_SOURCE].Form := TfrmSource.Create(Self);
+    Sources[GPS_SOURCE].Form.pnlMain.Parent := rectGPS;
+    Sources[GPS_SOURCE].Form.lblPacketInfo.Visible := True;
+    Sources[GPS_SOURCE].Form.lblCaption.Text := 'GPS Source';
+    Sources[GPS_SOURCE].Form.frmLog.lblCaption.Text := 'GPS Log';
 {$IFDEF MSWINDOWS}
-    GPSSource := TGPSSource.Create(GPS_SOURCE, 'GPS', GPSCallback);
+    Sources[GPS_SOURCE].Source := TGPSSource.Create(GPS_SOURCE, 'GPS', GPSCallback);
 {$ENDIF}
 
     // USB LoRa device
     {$IF Defined(MSWINDOWS) or Defined(ANDROID)}
-        Sources[SERIAL_SOURCE].ValueLabel := lblSerial;
-        Sources[SERIAL_SOURCE].RSSILabel := lblSerialRSSI;
-        Sources[SERIAL_SOURCE].PacketRSSILabel := lblPacketInfo;
-        Sources[SERIAL_SOURCE].FreqLabel := lblFrequencyError;
+        Sources[SERIAL_SOURCE].Form := TfrmSource.Create(Self);
+        Sources[SERIAL_SOURCE].Form.pnlMain.Parent := rectUSB;
+        Sources[SERIAL_SOURCE].Form.lblFrequencyError.Visible := True;
+        Sources[SERIAL_SOURCE].Form.lblPacketInfo.Visible := True;
+        Sources[SERIAL_SOURCE].Form.lblRSSI.Visible := True;
+        Sources[SERIAL_SOURCE].Form.lblCaption.Text := 'USB LoRa Telemetry';
+        Sources[SERIAL_SOURCE].Form.frmLog.lblCaption.Text := 'USB LoRa Telemetry Log';
         Sources[SERIAL_SOURCE].Source := TSerialSource.Create(SERIAL_SOURCE, 'LoRaSerial', HABCallback);
     {$ELSE}
-        Label11.Text := '';
+        // Label11.Text := '';
     {$ENDIF}
 
     // BT/BLE LoRa device
-    Sources[BLUETOOTH_SOURCE].ValueLabel := lblBluetooth;
-    Sources[BLUETOOTH_SOURCE].RSSILabel := lblBlueToothRSSI;
-    Sources[BLUETOOTH_SOURCE].PacketRSSILabel := lblBTPacketInfo;
-    Sources[BLUETOOTH_SOURCE].FreqLabel := lblBTFrequencyError;
+    Sources[BLUETOOTH_SOURCE].Form := TfrmSource.Create(Self);
+    Sources[BLUETOOTH_SOURCE].Form.pnlMain.Parent := rectBT;
+    Sources[BLUETOOTH_SOURCE].Form.lblFrequencyError.Visible := True;
+    Sources[BLUETOOTH_SOURCE].Form.lblPacketInfo.Visible := True;
+    Sources[BLUETOOTH_SOURCE].Form.lblRSSI.Visible := True;
+    Sources[BLUETOOTH_SOURCE].Form.lblCaption.Text := 'BT LoRa Telemetry';
+    Sources[BLUETOOTH_SOURCE].Form.frmLog.lblCaption.Text := 'BT LoRa Telemetry Log';
     {$IF Defined(MSWINDOWS) or Defined(ANDROID)}
         Sources[BLUETOOTH_SOURCE].Source := TBluetoothSource.Create(BLUETOOTH_SOURCE, 'LoRaBluetooth', HABCallback);
     {$ELSE}
@@ -166,21 +157,23 @@ begin
         Label4.Text := 'BLE LoRa Telemetry:';
     {$ENDIF}
 
-    Sources[UDP_SOURCE].ValueLabel := lblUDP;
-    Sources[UDP_SOURCE].Source := TUDPSource.Create(UDP_SOURCE, 'UDP', HABCallback);
-    Sources[UDP_SOURCE].RSSILabel := nil;
-
     // Sondehub Source
-    Sources[SONDEHUB_SOURCE].ValueLabel := lblSondehub;
-    Sources[SONDEHUB_SOURCE].RSSILabel := nil;
-    Sources[SONDEHUB_SOURCE].PacketRSSILabel := nil;
-    Sources[SONDEHUB_SOURCE].FreqLabel := nil;
+    Sources[SONDEHUB_SOURCE].Form := TfrmSource.Create(Self);
+    Sources[SONDEHUB_SOURCE].Form.pnlMain.Parent := rectSH;
+    Sources[SONDEHUB_SOURCE].Form.lblCaption.Text := 'Sondehub Telemetry';
+    Sources[SONDEHUB_SOURCE].Form.frmLog.lblCaption.Text := 'Sondehub Telemetry Log';
     SetSettingString('Sondehub', 'Host', 'ws-reader.v2.sondehub.org');
     SetSettingString('Sondehub', 'Port', '443');
     SetSettingString('Sondehub', 'Topic', 'amateur/');
     SetSettingString('Sondehub', 'ExtraPayloads', '');
     SetSettingBoolean('Sondehub', 'Filtered', True);
     Sources[SONDEHUB_SOURCE].Source := TWSMQTTSource.Create(SONDEHUB_SOURCE, 'Sondehub', HABCallback);
+
+    Sources[UDP_SOURCE].Form := TfrmSource.Create(Self);
+    Sources[UDP_SOURCE].Form.pnlMain.Parent := rectUDP;
+    Sources[UDP_SOURCE].Form.lblCaption.Text := 'UDP Telemetry';
+    Sources[UDP_SOURCE].Form.frmLog.lblCaption.Text := 'UDP Telemetry Log';
+    Sources[UDP_SOURCE].Source := TUDPSource.Create(UDP_SOURCE, 'UDP', HABCallback);
 
 {$IFDEF ANDROID}
     Declination := MagneticDeclination;
@@ -221,16 +214,18 @@ begin
     CloseThread(SSDVUploader);
     CloseThread(SondehubUploader);
 
-{$IFDEF MSWINDOWS}
-    CloseThread(GPSSource);
-    WaitForThread(GPSSource);
-{$ENDIF}
-
     WaitForThread(SSDVUploader);
     WaitForThread(SondehubUploader);
 
     for Index := Low(Sources) to High(Sources) do begin
         WaitForThread(Sources[Index].Source);
+    end;
+
+    SSDVUploader.Free;
+    SondehubUploader.Free;
+
+    for Index := Low(Sources) to High(Sources) do begin
+        if Sources[Index].Source <> nil then Sources[Index].Source.Free;
     end;
 end;
 
@@ -242,7 +237,7 @@ begin
     if Position.InUse then begin
         NewGPSPosition(Position.TimeStamp, Position.Latitude + Offset, Position.Longitude, Position.Altitude, Position.Direction, False);
     end else begin
-        lblGPS.Text := Line;
+        Sources[GPS_SOURCE].Form.lblValue.Text := Line;
     end;
 end;
 {$ENDIF}
@@ -254,9 +249,9 @@ var
     GPSPosition: TGPSPosition;
 begin
     if IsNan(Latitude) then begin
-        Temp := 'GPS ...';
-        frmMain.lblGPS.Text := Temp;
-        lblGPS.Text := Temp;
+//        Temp := 'GPS ...';
+//        frmMain.lblGPS.Text := Temp;
+//        lblGPS.Text := Temp;
     end else begin
         GPSPosition.Latitude := Latitude;
         GPSPosition.Longitude := Longitude;
@@ -268,6 +263,7 @@ begin
             Temp := FormatDateTime('hh:nn:ss', Timestamp) + '  ' +
                                    Format('%2.6f', [Latitude]) + ',' +
                                    Format('%2.6f', [Longitude]);
+            Altitude := 0;
         end else begin
             Altitude := Altitude - GetSettingInteger('CHASE', 'Offset', 0);
             Temp := FormatDateTime('hh:nn:ss', Timestamp) + '  ' +
@@ -276,7 +272,7 @@ begin
                                    Format('%.0f', [Altitude]) + 'm ';
         end;
 
-        lblGPS.Text := Temp;
+        Sources[GPS_SOURCE].Form.lblValue.Text := Temp;
 
         Position.TimeStamp := Timestamp;
         Position.Latitude := GPSPosition.Latitude;
@@ -291,9 +287,9 @@ begin
             if Direction > 180 then Direction := Direction - 360;
 
             if UsingCompass then begin
-                lblDirection.Text := 'Compass Direction = ' + MyFormatFloat('0.0', Direction);
+                Sources[GPS_SOURCE].Form.lblPacketInfo.Text := 'Compass Direction = ' + MyFormatFloat('0.0', Direction);
             end else begin
-                lblDirection.Text := 'GPS Direction = ' + MyFormatFloat('0.0', Direction);
+                Sources[GPS_SOURCE].Form.lblPacketInfo.Text := 'GPS Direction = ' + MyFormatFloat('0.0', Direction);
             end;
             Position.Direction := Direction;
             Position.UsingCompass := UsingCompass;
@@ -331,6 +327,10 @@ begin
         ChoseSensorIndex := Found;
         CompassPresent := True;
     end;
+end;
+
+procedure TfrmSources.pnlMainResize(Sender: TObject);
+begin
 end;
 
 // this function x,y,z axis for the phone in vertical orientation (portrait)
@@ -395,16 +395,20 @@ begin
     // end;
 end;
 
+(*
 procedure TfrmSources.CarStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
 begin
-    frmMain.UploadStatus(SourceID, Active, OK);
+    frmMain.SondehubUploadStatus(Active, OK);
 end;
+*)
 
 procedure TfrmSources.SondehubStatusCallback(SourceID: Integer; Active, OK: Boolean; Status: String);
 begin
-    frmMain.UploadStatus(GPS_SOURCE, Active, OK);
+    frmMain.SondehubUploadStatus(Active, OK);
+    frmUploaders.WriteSondehubStatus(Status);
 end;
 
+(*
 procedure TfrmSources.Label11Click(Sender: TObject);
 begin
     frmMain.LoadSettingsPage(1);
@@ -414,6 +418,7 @@ procedure TfrmSources.Label3Click(Sender: TObject);
 begin
     frmMain.LoadSettingsPage(1);
 end;
+*)
 
 procedure TfrmSources.HABCallback(ID: Integer; Connected: Boolean; Line: String; Position: THABPosition);
 var
@@ -452,20 +457,25 @@ begin
             end;
 
             if Length(Position.Line) > 40 then begin
-                Sources[ID].ValueLabel.Text := Copy(Position.Line, 1, Length(Position.Line) div 2) + #13 +
-                                               Copy(Position.Line, Length(Position.Line) div 2 + 1, Length(Position.Line));
+                Sources[ID].Form.lblValue.Text := Copy(Position.Line, 1, Length(Position.Line) div 2) + #13 +
+                                                 Copy(Position.Line, Length(Position.Line) div 2 + 1, Length(Position.Line));
                 Sources[ID].HadAPosition := True;
                 Sources[ID].PacketStatus := 'Telemetry Packet';
+                Sources[ID].Form.WriteToLog('Telemetry: ' + Position.Line);
             end else begin
-                Sources[ID].ValueLabel.Text := Position.Line;
+                Sources[ID].Form.lblValue.Text := Position.Line;
+                Sources[ID].Form.WriteToLog(Position.Line);
             end;
         end else if Position.IsSSDV then begin
             Sources[ID].PacketStatus := 'SSDV Packet';
+            Sources[ID].Form.WriteToLog('Received SSDV Packet');
         end else if Position.FailedCRC then begin
             Sources[ID].PacketStatus := 'CRC Error';
+            Sources[ID].Form.WriteToLog('CRC Error');
         end else if Line <> '' then begin
-            Sources[ID].ValueLabel.Text := Line;
+            Sources[ID].Form.lblValue.Text := Line;
             Sources[ID].ConnectInfo := Line;
+            Sources[ID].Form.WriteToLog(Line);
         end;
 
 
@@ -488,27 +498,26 @@ begin
             end;
         end;
 
-        if Position.HasCurrentRSSI and (Sources[ID].RSSILabel <> nil) then begin
-            Sources[ID].RSSILabel.Text := 'Current RSSI = ' + IntToStr(Position.CurrentRSSI);
+        if Position.HasCurrentRSSI then begin
+            Sources[ID].Form.lblRSSI.Text := 'Current RSSI = ' + IntToStr(Position.CurrentRSSI);
         end;
 
         if Position.HasPacketRSSI then begin
             Sources[ID].PacketRSSI := 'Packet RSSI = ' + IntToStr(Position.PacketRSSI);
+            Sources[ID].Form.WriteToLog('Packet RSSI = ' + IntToStr(Position.PacketRSSI));
         end;
 
-        if Sources[ID].PacketRSSILabel <> nil then begin
-            if  (Sources[ID].PacketRSSI <> '') and (Sources[ID].PacketStatus <>'') then begin
-                Sources[ID].PacketRSSILabel.Text := Sources[ID].PacketRSSI + ', ' + Sources[ID].PacketStatus;
-            end;
+        if  (Sources[ID].PacketRSSI <> '') and (Sources[ID].PacketStatus <>'') then begin
+            Sources[ID].Form.lblPacketInfo.Text := Sources[ID].PacketRSSI + ', ' + Sources[ID].PacketStatus;
         end;
 
-        if Position.HasFrequency and (Sources[ID].FreqLabel <> nil) then begin
+        if Position.HasFrequency then begin
             Sources[ID].FrequencyError := Position.FrequencyError;
 
             if Position.CurrentFrequency > 0 then begin
-                Sources[ID].FreqLabel.Text := 'Freq. = ' + FormatFloat('0.000#', Position.CurrentFrequency) + ' MHz, Offset = ' + MyFormatFloat('0', Position.FrequencyError*1000) + ' Hz';
+                Sources[ID].Form.lblFrequencyError.Text := 'Freq. = ' + FormatFloat('0.000#', Position.CurrentFrequency) + ' MHz, Offset = ' + MyFormatFloat('0', Position.FrequencyError*1000) + ' Hz';
             end else begin
-                Sources[ID].FreqLabel.Text := 'Freq. Offset = ' + MyFormatFloat('0', Position.FrequencyError*1000) + ' Hz';
+                Sources[ID].Form.lblFrequencyError.Text := 'Freq. Offset = ' + MyFormatFloat('0', Position.FrequencyError*1000) + ' Hz';
             end;
 
             // AFC
@@ -527,17 +536,19 @@ begin
 
         if Position.Device <> '' then begin
             Sources[ID].Device := Position.Device;
+            Sources[ID].Form.WriteToLog('Device: ' + Position.Device);
         end;
 
         if Position.Version <> '' then begin
             Sources[ID].Version := 'V' + Position.Version;
+            Sources[ID].Form.WriteToLog('Version: ' + Position.Version);
         end;
 
         if (Sources[ID].ConnectInfo <> '') and (not Sources[ID].HadAPosition) then begin
-            Sources[ID].ValueLabel.Text := Sources[ID].ConnectInfo + ': ' + Sources[ID].Device + ' ' + Sources[ID].Version;
+            Sources[ID].Form.lblValue.Text := Sources[ID].ConnectInfo + ': ' + Sources[ID].Device + ' ' + Sources[ID].Version;
         end;
     except
-        Sources[ID].ValueLabel.Text := '** ERROR - **';
+        Sources[ID].Form.lblValue.Text := '** ERROR - **';
     end;
 end;
 
@@ -632,5 +643,9 @@ begin
                                  GetSettingBoolean('CHASE', 'Upload', False));
 end;
 
+procedure TfrmSources.SetGPSStatus(Status: String);
+begin
+    Sources[GPS_SOURCE].Form.lblValue.Text := Status;
+end;
 
 end.
